@@ -1,0 +1,10 @@
+{
+    "name": "franchuk/simple-telegram-client",
+    "authors": [
+        {
+            "name": "franchuk",
+            "email": "franchuk@vl.ru"
+        }
+    ],
+    "require": {}
+}
