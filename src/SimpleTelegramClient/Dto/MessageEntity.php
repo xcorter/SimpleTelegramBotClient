@@ -4,7 +4,12 @@ namespace SimpleTelegramClient\Dto;
 
 use JMS\Serializer\Annotation\Type;
 
-class Entity
+/**
+ * Class MessageEntity
+ * @package SimpleTelegramClient\Dto
+ * @link https://core.telegram.org/bots/api#messageentity
+ */
+class MessageEntity
 {
     /**
      * @var int
@@ -21,6 +26,16 @@ class Entity
      * @Type("string")
      */
     private $type;
+    /**
+     * @var string|null
+     * @Type("string")
+     */
+    private $url;
+    /**
+     * @var User|null
+     * @Type("SimpleTelegramClient\Dto\User")
+     */
+    private $user;
 
     /**
      * @return int
@@ -44,5 +59,21 @@ class Entity
     public function getType(): string
     {
         return $this->type;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    /**
+     * @return User|null
+     */
+    public function getUser(): ?User
+    {
+        return $this->user;
     }
 }

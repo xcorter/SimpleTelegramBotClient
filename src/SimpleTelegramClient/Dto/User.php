@@ -4,7 +4,12 @@ namespace SimpleTelegramClient\Dto;
 
 use JMS\Serializer\Annotation\Type;
 
-class From
+/**
+ * Class User
+ * @package SimpleTelegramClient\Dto
+ * @link https://core.telegram.org/bots/api#user
+ */
+class User
 {
     /**
      * @var int
@@ -22,17 +27,17 @@ class From
      */
     private $firstName;
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     private $lastName;
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     private $username;
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     private $languageCode;
@@ -62,25 +67,25 @@ class From
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLastName(): string
+    public function getLastName(): ?string
     {
         return $this->lastName;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getUsername(): string
+    public function getUsername(): ?string
     {
         return $this->username;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLanguageCode(): string
+    public function getLanguageCode(): ?string
     {
         return $this->languageCode;
     }

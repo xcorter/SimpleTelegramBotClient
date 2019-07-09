@@ -4,6 +4,7 @@ namespace SimpleTelegramClient;
 
 use GuzzleHttp\Client;
 use JMS\Serializer\SerializerInterface;
+use SimpleTelegramClient\Dto\GetMeResponse;
 use SimpleTelegramClient\Dto\Response;
 
 class TelegramService
@@ -39,6 +40,14 @@ class TelegramService
         $url = $this->config->getUrl() . 'getUpdates';
         $result = $this->client->get($url)->getBody()->getContents();
         $obj = $this->serializer->deserialize($result, Response::class, 'json');
+        return $obj;
+    }
+
+    public function getMe()
+    {
+        $url = $this->config->getUrl() . 'getMe';
+        $result = $this->client->get($url)->getBody()->getContents();
+        $obj = $this->serializer->deserialize($result, GetMeResponse::class, 'json');
         return $obj;
     }
 }
