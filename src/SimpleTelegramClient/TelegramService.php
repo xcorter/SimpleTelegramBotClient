@@ -1,0 +1,44 @@
+<?php
+
+namespace SimpleTelegramClient;
+
+use GuzzleHttp\Client;
+use JMS\Serializer\SerializerInterface;
+use SimpleTelegramClient\Dto\Response;
+
+class TelegramService
+{
+    /**
+     * @var Config
+     */
+    private $config;
+    /**
+     * @var Client
+     */
+    private $client;
+    /**
+     * @var SerializerInterface
+     */
+    private $serializer;
+
+    /**
+     * TelegramService constructor.
+     * @param Config $config
+     * @param Client $client
+     * @param SerializerInterface $serializer
+     */
+    public function __construct(Config $config, Client $client, SerializerInterface $serializer)
+    {
+        $this->config = $config;
+        $this->client = $client;
+        $this->serializer = $serializer;
+    }
+
+    public function getUpdates()
+    {
+        $url = $this->config->getUrl() . 'getUpdates';
+        $result = $this->client->get($url)->getBody()->getContents();
+        $obj = $this->serializer->deserialize($result, Response::class, 'json');
+        return $obj;
+    }
+}
