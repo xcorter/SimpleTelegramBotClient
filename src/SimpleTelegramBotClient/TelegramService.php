@@ -8,6 +8,7 @@ use function GuzzleHttp\Psr7\stream_for;
 use JMS\Serializer\ArrayTransformerInterface;
 use JMS\Serializer\SerializerInterface;
 use SimpleTelegramBotClient\Dto\Action\ForwardMessage;
+use SimpleTelegramBotClient\Dto\Action\SendAudio;
 use SimpleTelegramBotClient\Dto\Action\SendMessage;
 use SimpleTelegramBotClient\Dto\Action\SendPhoto;
 use SimpleTelegramBotClient\Dto\GetMeResponse;
@@ -86,6 +87,24 @@ class TelegramService
             $params['reply_markup'] = $json;
         }
         $params['photo'] = stream_for($message->getPhoto());
+        $requestParams = $this->getParams();
+        $requestParams['multipart'] = $this->convertToNameContent($params);
+        $response = $this->client->post($url, $requestParams)->getBody()->getContents();
+        return $this->serializer->deserialize($response, SendMessageResponse::class, 'json');
+    }
+
+    public function sendAudio(SendAudio $sendAudio): SendMessageResponse
+    {
+        $url = $this->config->getUrl() . 'sendAudio';
+        $params = $this->arrayTransformer->toArray($sendAudio);
+        if ($sendAudio->getReplyMarkup()) {
+            $json = $this->serializer->serialize($sendAudio->getReplyMarkup(), 'json');
+            $params['reply_markup'] = $json;
+        }
+        if ($thumb = $sendAudio->getThumb()) {
+            $params['thumb'] = stream_for($thumb);
+        }
+        $params['audio'] = stream_for($sendAudio->getAudio());
         $requestParams = $this->getParams();
         $requestParams['multipart'] = $this->convertToNameContent($params);
         $response = $this->client->post($url, $requestParams)->getBody()->getContents();
