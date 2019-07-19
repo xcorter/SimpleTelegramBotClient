@@ -6,8 +6,8 @@
 
 ```php
 <?php
-use SimpleTelegramClient\Config;
-use SimpleTelegramClient\TelegramService;
+use SimpleTelegramBotClient\Config;
+use SimpleTelegramBotClient\TelegramService;
 use GuzzleHttp\Client;
 use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\ArrayTransformerInterface;
@@ -37,7 +37,7 @@ $telegramService->getUpdates();
 
 ```php
 <?php
-use SimpleTelegramClient\Builder\Action\SendMessageBuilder;
+use SimpleTelegramBotClient\Builder\Action\SendMessageBuilder;
 
 $chatId = '1234';
 $sendMessageBuilder = new SendMessageBuilder($chatId, 'Hello World!');
@@ -51,7 +51,7 @@ More examples you can find in `./examples` folder.
 If you have problems with telegram connection you can use proxy.
 ```php
 <?php
-use SimpleTelegramClient\Config;
+use SimpleTelegramBotClient\Config;
 
 $config = new Config('some key');
 $config->setProxy('socks4://ip:port');

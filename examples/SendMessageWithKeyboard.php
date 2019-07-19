@@ -1,9 +1,9 @@
 <?php
 
-use SimpleTelegramClient\Builder\Keyboard\ArrayKeyboardButtonBuilder;
-use SimpleTelegramClient\Builder\Keyboard\InlineKeyboardButtonBuilder;
-use SimpleTelegramClient\Builder\Keyboard\ReplyKeyboardMarkupBuilder;
-use SimpleTelegramClient\Builder\Action\SendMessageBuilder;
+use SimpleTelegramBotClient\Builder\Keyboard\ArrayKeyboardButtonBuilder;
+use SimpleTelegramBotClient\Builder\Keyboard\InlineKeyboardButtonBuilder;
+use SimpleTelegramBotClient\Builder\Keyboard\ReplyKeyboardMarkupBuilder;
+use SimpleTelegramBotClient\Builder\Action\SendMessageBuilder;
 
 include './init.php';
 

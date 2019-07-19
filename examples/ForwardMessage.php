@@ -1,6 +1,6 @@
 <?php
 
-use SimpleTelegramClient\Builder\Action\ForwardMessageBuilder;
+use SimpleTelegramBotClient\Builder\Action\ForwardMessageBuilder;
 
 include './init.php';
 

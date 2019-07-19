@@ -1,7 +1,7 @@
 <?php
 
-use SimpleTelegramClient\Builder\Keyboard\ReplyKeyboardRemoveBuilder;
-use SimpleTelegramClient\Builder\Action\SendMessageBuilder;
+use SimpleTelegramBotClient\Builder\Keyboard\ReplyKeyboardRemoveBuilder;
+use SimpleTelegramBotClient\Builder\Action\SendMessageBuilder;
 
 include './init.php';
 

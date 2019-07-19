@@ -2,8 +2,8 @@
 
 use GuzzleHttp\Client;
 use JMS\Serializer\ArrayTransformerInterface;
-use SimpleTelegramClient\Config;
-use SimpleTelegramClient\TelegramService;
+use SimpleTelegramBotClient\Config;
+use SimpleTelegramBotClient\TelegramService;
 
 require '../vendor/autoload.php';
 

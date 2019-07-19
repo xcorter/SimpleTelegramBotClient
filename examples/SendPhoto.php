@@ -1,6 +1,6 @@
 <?php
 
-use SimpleTelegramClient\Builder\Action\SendPhotoBuilder;
+use SimpleTelegramBotClient\Builder\Action\SendPhotoBuilder;
 
 include './init.php';
 
