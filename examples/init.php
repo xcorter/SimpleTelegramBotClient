@@ -7,7 +7,10 @@ use SimpleTelegramBotClient\TelegramService;
 
 require '../vendor/autoload.php';
 
-$config = new Config('');
+$telegramKey = file_get_contents(__DIR__ . '/.telegramkey');
+$telegramKey = trim($telegramKey);
+
+$config = new Config($telegramKey);
 $config->setProxy('http://68.183.255.186:3128');
 
 Doctrine\Common\Annotations\AnnotationRegistry::registerLoader('class_exists');
