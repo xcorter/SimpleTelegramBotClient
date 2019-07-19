@@ -239,9 +239,8 @@ class Message
      */
     private $passportData;
     /**
-     * TODO need to implement
-     * @var ReplyMarkup|null
-     * @Type("SimpleTelegramClient\Dto\ReplyMarkup")
+     * @var InlineKeyboardMarkup|null
+     * @Type("SimpleTelegramClient\Dto\InlineKeyboardMarkup")
      */
     private $replyMarkup;
 
@@ -606,9 +605,9 @@ class Message
     }
 
     /**
-     * @return ReplyMarkup|null
+     * @return InlineKeyboardMarkup|null
      */
-    public function getReplyMarkup(): ?ReplyMarkup
+    public function getReplyMarkup(): ?InlineKeyboardMarkup
     {
         return $this->replyMarkup;
     }

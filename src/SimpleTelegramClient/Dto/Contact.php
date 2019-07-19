@@ -2,6 +2,8 @@
 
 namespace SimpleTelegramClient\Dto;
 
+use JMS\Serializer\Annotation\Type;
+
 /**
  * Class Contact
  * @package SimpleTelegramClient\Dto

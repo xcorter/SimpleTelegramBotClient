@@ -13,6 +13,10 @@ class Config
      * @var string
      */
     private $key;
+    /**
+     * @var string|null
+     */
+    private $proxy;
 
     /**
      * Config constructor.
@@ -29,5 +33,23 @@ class Config
     public function getUrl(): string
     {
         return $this->host . 'bot' . $this->key . '/';
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getProxy(): ?string
+    {
+        return $this->proxy;
+    }
+
+    /**
+     * @param string|null $proxy
+     * @return Config
+     */
+    public function setProxy(?string $proxy): Config
+    {
+        $this->proxy = $proxy;
+        return $this;
     }
 }
