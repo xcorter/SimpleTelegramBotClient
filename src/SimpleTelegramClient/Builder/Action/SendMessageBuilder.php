@@ -1,7 +1,8 @@
 <?php
 
-namespace SimpleTelegramClient\Builder;
+namespace SimpleTelegramClient\Builder\Action;
 
+use SimpleTelegramClient\Constant\ParseMode;
 use SimpleTelegramClient\Dto\Action\SendMessage;
 use SimpleTelegramClient\Dto\ForceReply;
 use SimpleTelegramClient\Dto\Keyboard\InlineKeyboardMarkup;
@@ -46,11 +47,16 @@ class SendMessageBuilder
     }
 
     /**
+     * Values from constants of ParseMode
+     *
      * @param string $parseMode
      * @return SendMessageBuilder
      */
     public function setParseMode(string $parseMode): SendMessageBuilder
     {
+        if (!in_array($parseMode, ParseMode::AVAILABLE_VALUES, true)) {
+            throw new \UnexpectedValueException('Wrong parse mode');
+        }
         $this->parseMode = $parseMode;
         return $this;
     }

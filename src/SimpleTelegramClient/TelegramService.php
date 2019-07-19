@@ -4,9 +4,11 @@ namespace SimpleTelegramClient;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+use function GuzzleHttp\Psr7\stream_for;
 use JMS\Serializer\ArrayTransformerInterface;
 use JMS\Serializer\SerializerInterface;
 use SimpleTelegramClient\Dto\Action\SendMessage;
+use SimpleTelegramClient\Dto\Action\SendPhoto;
 use SimpleTelegramClient\Dto\GetMeResponse;
 use SimpleTelegramClient\Dto\Response;
 use SimpleTelegramClient\Dto\SendMessageResponse;
@@ -47,29 +49,66 @@ class TelegramService
     public function getUpdates(): Response
     {
         $url = $this->config->getUrl() . 'getUpdates';
-        $params = $this->getParams();
-        $result = $this->client->get($url, $params)->getBody()->getContents();
-        return $this->serializer->deserialize($result, Response::class, 'json');
+        return $this->sendRequest($url, Response::class);
     }
 
     public function getMe(): GetMeResponse
     {
         $url = $this->config->getUrl() . 'getMe';
-        $params = $this->getParams();
-        $result = $this->client->get($url, $params)->getBody()->getContents();
-        return $this->serializer->deserialize($result, GetMeResponse::class, 'json');
+        return $this->sendRequest($url, GetMeResponse::class);
     }
 
     public function sendMessage(SendMessage $message): SendMessageResponse
     {
         $url = $this->config->getUrl() . 'sendMessage';
-        $array = $this->arrayTransformer->toArray($message);
-        $json = $this->serializer->serialize($message->getReplyMarkup(), 'json');
-        $array['reply_markup'] = $json;
-        $params = $this->getParams();
-        $params['form_params'] = $array;
-        $result = $this->client->post($url, $params)->getBody()->getContents();
-        return $this->serializer->deserialize($result, SendMessageResponse::class, 'json');
+        $params = $this->arrayTransformer->toArray($message);
+        if ($message->getReplyMarkup()) {
+            $json = $this->serializer->serialize($message->getReplyMarkup(), 'json');
+            $params['reply_markup'] = $json;
+        }
+        return $this->sendRequest($url, SendMessageResponse::class, $params, 'POST');
+    }
+
+    public function sendPhoto(SendPhoto $message): SendMessageResponse
+    {
+        $url = $this->config->getUrl() . 'sendPhoto';
+        $params = $this->arrayTransformer->toArray($message);
+        if ($message->getReplyMarkup()) {
+            $json = $this->serializer->serialize($message->getReplyMarkup(), 'json');
+            $params['reply_markup'] = $json;
+        }
+        $params['photo'] = stream_for($message->getPhoto());
+        $requestParams = $this->getParams();
+        $requestParams['multipart'] = $this->convertToNameContent($params);
+        $response = $this->client->post($url, $requestParams)->getBody()->getContents();
+        return $this->serializer->deserialize($response, SendMessageResponse::class, 'json');
+    }
+
+    private function sendRequest(string $url, string $type, array $params = [], string $method = 'GET')
+    {
+        $requestParams = $this->getParams();
+        if ($params) {
+            $requestParams['form_params'] = $params;
+        }
+        if ($method === 'POST') {
+            $response = $this->client->post($url, $requestParams);
+        } else {
+            $response = $this->client->get($url, $requestParams);
+        }
+        $result = $response->getBody()->getContents();
+        return $this->serializer->deserialize($result, $type, 'json');
+    }
+
+    private function convertToNameContent(array $associativeArray): array
+    {
+        $result = [];
+        foreach ($associativeArray as $key => $value) {
+            $result[] = [
+                'name' => $key,
+                'contents' => $value,
+            ];
+        }
+        return $result;
     }
 
     private function getParams(): array

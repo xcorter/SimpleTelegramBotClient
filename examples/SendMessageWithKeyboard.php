@@ -3,7 +3,7 @@
 use SimpleTelegramClient\Builder\Keyboard\ArrayKeyboardButtonBuilder;
 use SimpleTelegramClient\Builder\Keyboard\InlineKeyboardButtonBuilder;
 use SimpleTelegramClient\Builder\Keyboard\ReplyKeyboardMarkupBuilder;
-use SimpleTelegramClient\Builder\SendMessageBuilder;
+use SimpleTelegramClient\Builder\Action\SendMessageBuilder;
 
 include './init.php';
 

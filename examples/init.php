@@ -8,7 +8,7 @@ use SimpleTelegramClient\TelegramService;
 require '../vendor/autoload.php';
 
 $config = new Config('');
-//$config->setProxy('socks4://190.109.170.105:43375');
+$config->setProxy('http://68.183.255.186:3128');
 
 Doctrine\Common\Annotations\AnnotationRegistry::registerLoader('class_exists');
 

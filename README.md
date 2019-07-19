@@ -37,7 +37,7 @@ $telegramService->getUpdates();
 
 ```php
 <?php
-use SimpleTelegramClient\Builder\SendMessageBuilder;
+use SimpleTelegramClient\Builder\Action\SendMessageBuilder;
 
 $chatId = '1234';
 $sendMessageBuilder = new SendMessageBuilder($chatId, 'Hello World!');
