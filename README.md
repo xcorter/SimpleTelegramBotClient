@@ -1,4 +1,4 @@
-# SimpleTelegramClient
+# SimpleTelegramBotClient
 
 ## Usages:
 
@@ -12,7 +12,7 @@ use GuzzleHttp\Client;
 use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\ArrayTransformerInterface;
 
-require 'SimpleTelegramClient/vendor/autoload.php';
+require 'SimpleTelegramBotClient/vendor/autoload.php';
 
 $config = new Config('some-code');
 
