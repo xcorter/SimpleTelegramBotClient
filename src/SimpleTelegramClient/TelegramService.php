@@ -7,6 +7,7 @@ use GuzzleHttp\ClientInterface;
 use function GuzzleHttp\Psr7\stream_for;
 use JMS\Serializer\ArrayTransformerInterface;
 use JMS\Serializer\SerializerInterface;
+use SimpleTelegramClient\Dto\Action\ForwardMessage;
 use SimpleTelegramClient\Dto\Action\SendMessage;
 use SimpleTelegramClient\Dto\Action\SendPhoto;
 use SimpleTelegramClient\Dto\GetMeResponse;
@@ -66,6 +67,13 @@ class TelegramService
             $json = $this->serializer->serialize($message->getReplyMarkup(), 'json');
             $params['reply_markup'] = $json;
         }
+        return $this->sendRequest($url, SendMessageResponse::class, $params, 'POST');
+    }
+
+    public function forwardMessage(ForwardMessage $message): SendMessageResponse
+    {
+        $url = $this->config->getUrl() . 'forwardMessage';
+        $params = $this->arrayTransformer->toArray($message);
         return $this->sendRequest($url, SendMessageResponse::class, $params, 'POST');
     }
 

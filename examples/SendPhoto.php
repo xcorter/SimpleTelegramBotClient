@@ -5,7 +5,7 @@ use SimpleTelegramClient\Builder\Action\SendPhotoBuilder;
 include './init.php';
 
 // SET YOUR OWN
-$chatId = '12345678';
+$chatId = '165068132';
 
 // SET YOUR OWN
 $file = fopen('./chereshnya.jpeg', 'rb');
