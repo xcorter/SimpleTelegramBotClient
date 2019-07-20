@@ -39,9 +39,14 @@ class TelegramService
      * @param Config $config
      * @param ClientInterface $client
      * @param SerializerInterface $serializer
+     * @param ArrayTransformerInterface $arrayTransformer
      */
-    public function __construct(Config $config, ClientInterface $client, SerializerInterface $serializer, ArrayTransformerInterface $arrayTransformer)
-    {
+    public function __construct(
+        Config $config,
+        ClientInterface $client,
+        SerializerInterface $serializer,
+        ArrayTransformerInterface $arrayTransformer
+    ) {
         $this->config = $config;
         $this->client = $client;
         $this->serializer = $serializer;
