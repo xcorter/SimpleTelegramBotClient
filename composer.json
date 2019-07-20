@@ -15,5 +15,6 @@
         "psr-4": {
             "SimpleTelegramBotClient\\": "src/SimpleTelegramBotClient"
         }
-    }
+    },
+    "minimum-stability": "dev"
 }
