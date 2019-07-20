@@ -46,6 +46,7 @@ $telegramService->sendMessage($message);
 ```
 
 More examples you can find in `./examples` folder.
+Add file `.telegramkey` in `./examples` and put telegram key into it. 
 
 ### PROXY
 If you have problems with telegram connection you can use proxy.
