@@ -1,6 +1,5 @@
 <?php
 
-
 namespace SimpleTelegramBotClient\Dto\Action;
 
 use JMS\Serializer\Annotation\Exclude;
