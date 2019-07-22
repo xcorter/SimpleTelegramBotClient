@@ -3,6 +3,7 @@
 namespace SimpleTelegramBotClient\Dto;
 
 use JMS\Serializer\Annotation\Type;
+use SimpleTelegramBotClient\Dto\Keyboard\InlineKeyboardMarkup;
 
 /**
  * Class Message
@@ -240,7 +241,7 @@ class Message
     private $passportData;
     /**
      * @var InlineKeyboardMarkup|null
-     * @Type("SimpleTelegramBotClient\Dto\InlineKeyboardMarkup")
+     * @Type("SimpleTelegramBotClient\Dto\Keyboard\InlineKeyboardMarkup")
      */
     private $replyMarkup;
 
