@@ -4,5 +4,4 @@ namespace SimpleTelegramBotClient\Dto;
 
 class CallbackGame
 {
-
 }

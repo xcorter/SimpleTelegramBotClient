@@ -47,8 +47,7 @@ class TelegramService
         ClientInterface $client,
         SerializerInterface $serializer,
         ArrayTransformerInterface $arrayTransformer
-    )
-    {
+    ) {
         $this->config = $config;
         $this->client = $client;
         $this->serializer = $serializer;

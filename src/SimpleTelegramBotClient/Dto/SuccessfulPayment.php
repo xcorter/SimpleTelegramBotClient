@@ -9,5 +9,4 @@ namespace SimpleTelegramBotClient\Dto;
  */
 class SuccessfulPayment
 {
-
 }

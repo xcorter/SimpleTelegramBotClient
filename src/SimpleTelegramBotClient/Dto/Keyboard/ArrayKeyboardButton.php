@@ -4,7 +4,6 @@ namespace SimpleTelegramBotClient\Dto\Keyboard;
 
 class ArrayKeyboardButton
 {
-
     private $inlineKeyboardButtons;
 
     public function __construct(array $inlineKeyboardButtons)
