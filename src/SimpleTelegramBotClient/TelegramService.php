@@ -9,6 +9,7 @@ use JMS\Serializer\ArrayTransformerInterface;
 use JMS\Serializer\SerializerInterface;
 use SimpleTelegramBotClient\Dto\Action\ForwardMessage;
 use SimpleTelegramBotClient\Dto\Action\SendAudio;
+use SimpleTelegramBotClient\Dto\Action\SendDocument;
 use SimpleTelegramBotClient\Dto\Action\SendMessage;
 use SimpleTelegramBotClient\Dto\Action\SendPhoto;
 use SimpleTelegramBotClient\Dto\GetMeResponse;
@@ -46,7 +47,8 @@ class TelegramService
         ClientInterface $client,
         SerializerInterface $serializer,
         ArrayTransformerInterface $arrayTransformer
-    ) {
+    )
+    {
         $this->config = $config;
         $this->client = $client;
         $this->serializer = $serializer;
@@ -151,5 +153,23 @@ class TelegramService
             ];
         }
         return [];
+    }
+
+    public function sendDocument(SendDocument $sendDocument): SendMessageResponse
+    {
+        $url = $this->config->getUrl() . 'sendDocument';
+        $params = $this->arrayTransformer->toArray($sendDocument);
+        if ($sendDocument->getReplyMarkup()) {
+            $json = $this->serializer->serialize($sendDocument->getReplyMarkup(), 'json');
+            $params['reply_markup'] = $json;
+        }
+        if ($thumb = $sendDocument->getThumb()) {
+            $params['thumb'] = stream_for($thumb);
+        }
+        $params['document'] = stream_for($sendDocument->getDocument());
+        $requestParams = $this->getParams();
+        $requestParams['multipart'] = $this->convertToNameContent($params);
+        $response = $this->client->post($url, $requestParams)->getBody()->getContents();
+        return $this->serializer->deserialize($response, SendMessageResponse::class, 'json');
     }
 }
