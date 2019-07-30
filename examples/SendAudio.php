@@ -8,8 +8,8 @@ include './init.php';
 $chatId = '165068132';
 
 // SET YOUR OWN
-$audio = fopen('./cat_need_chereshnya.mp3', 'rb');
-$thumb = fopen('./chereshnya.jpeg', 'rb');
+$audio = fopen('./resources/cat_need_chereshnya.mp3', 'rb');
+$thumb = fopen('./resources/chereshnya.jpeg', 'rb');
 $sendPhotoBuilder = new SendAudioBuilder($chatId, $audio);
 $sendPhotoBuilder->setThumb($thumb);
 

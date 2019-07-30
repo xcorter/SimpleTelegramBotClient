@@ -12,6 +12,7 @@ use SimpleTelegramBotClient\Dto\Action\SendAudio;
 use SimpleTelegramBotClient\Dto\Action\SendDocument;
 use SimpleTelegramBotClient\Dto\Action\SendMessage;
 use SimpleTelegramBotClient\Dto\Action\SendPhoto;
+use SimpleTelegramBotClient\Dto\Action\SendVideo;
 use SimpleTelegramBotClient\Dto\GetMeResponse;
 use SimpleTelegramBotClient\Dto\Response;
 use SimpleTelegramBotClient\Dto\SendMessageResponse;
@@ -166,6 +167,24 @@ class TelegramService
             $params['thumb'] = stream_for($thumb);
         }
         $params['document'] = stream_for($sendDocument->getDocument());
+        $requestParams = $this->getParams();
+        $requestParams['multipart'] = $this->convertToNameContent($params);
+        $response = $this->client->post($url, $requestParams)->getBody()->getContents();
+        return $this->serializer->deserialize($response, SendMessageResponse::class, 'json');
+    }
+
+    public function sendVideo(SendVideo $sendVideo): SendMessageResponse
+    {
+        $url = $this->config->getUrl() . 'sendVideo';
+        $params = $this->arrayTransformer->toArray($sendVideo);
+        if ($sendVideo->getReplyMarkup()) {
+            $json = $this->serializer->serialize($sendVideo->getReplyMarkup(), 'json');
+            $params['reply_markup'] = $json;
+        }
+        if ($thumb = $sendVideo->getThumb()) {
+            $params['thumb'] = stream_for($thumb);
+        }
+        $params['video'] = stream_for($sendVideo->getVideo());
         $requestParams = $this->getParams();
         $requestParams['multipart'] = $this->convertToNameContent($params);
         $response = $this->client->post($url, $requestParams)->getBody()->getContents();
