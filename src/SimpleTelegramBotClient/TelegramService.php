@@ -8,6 +8,7 @@ use function GuzzleHttp\Psr7\stream_for;
 use JMS\Serializer\ArrayTransformerInterface;
 use JMS\Serializer\SerializerInterface;
 use SimpleTelegramBotClient\Dto\Action\ForwardMessage;
+use SimpleTelegramBotClient\Dto\Action\SendAnimation;
 use SimpleTelegramBotClient\Dto\Action\SendAudio;
 use SimpleTelegramBotClient\Dto\Action\SendDocument;
 use SimpleTelegramBotClient\Dto\Action\SendMessage;
@@ -185,6 +186,24 @@ class TelegramService
             $params['thumb'] = stream_for($thumb);
         }
         $params['video'] = stream_for($sendVideo->getVideo());
+        $requestParams = $this->getParams();
+        $requestParams['multipart'] = $this->convertToNameContent($params);
+        $response = $this->client->post($url, $requestParams)->getBody()->getContents();
+        return $this->serializer->deserialize($response, SendMessageResponse::class, 'json');
+    }
+
+    public function sendAnimation(SendAnimation $sendAnimation): SendMessageResponse
+    {
+        $url = $this->config->getUrl() . 'sendAnimation';
+        $params = $this->arrayTransformer->toArray($sendAnimation);
+        if ($sendAnimation->getReplyMarkup()) {
+            $json = $this->serializer->serialize($sendAnimation->getReplyMarkup(), 'json');
+            $params['reply_markup'] = $json;
+        }
+        if ($thumb = $sendAnimation->getThumb()) {
+            $params['thumb'] = stream_for($thumb);
+        }
+        $params['animation'] = stream_for($sendAnimation->getAnimation());
         $requestParams = $this->getParams();
         $requestParams['multipart'] = $this->convertToNameContent($params);
         $response = $this->client->post($url, $requestParams)->getBody()->getContents();
