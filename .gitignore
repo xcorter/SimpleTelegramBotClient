@@ -2,3 +2,4 @@
 .idea
 examples/.telegramkey
 .php_cs.cache
+phpunit.xml

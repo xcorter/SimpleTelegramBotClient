@@ -1,0 +1,28 @@
+{
+  "ok":true,
+  "result":[
+    {
+      "update_id":789380994,
+      "message":{
+        "message_id":234,
+        "from":{
+          "id":165068132,
+          "is_bot":false,
+          "first_name":"testname",
+          "last_name":"testname2",
+          "username":"username",
+          "language_code":"ru"
+        },
+        "chat":{
+          "id":165068132,
+          "first_name":"test",
+          "last_name":"test",
+          "username":"test",
+          "type":"private"
+        },
+        "date":1564811052,
+        "text":"test"
+      }
+    }
+  ]
+}
