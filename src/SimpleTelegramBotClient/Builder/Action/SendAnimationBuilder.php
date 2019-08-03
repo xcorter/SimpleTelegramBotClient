@@ -1,21 +1,23 @@
 <?php
 
-
 namespace SimpleTelegramBotClient\Builder\Action;
 
 use SimpleTelegramBotClient\Dto\Action\SendAnimation;
-
+use SimpleTelegramBotClient\Dto\ForceReply;
+use SimpleTelegramBotClient\Dto\Keyboard\InlineKeyboardMarkup;
+use SimpleTelegramBotClient\Dto\Keyboard\ReplyKeyboardMarkup;
+use SimpleTelegramBotClient\Dto\Keyboard\ReplyKeyboardRemove;
 
 class SendAnimationBuilder
 {
 
     /**
-     * @var string     *
+     * @var string
      */
     private $chatId;
 
     /**
-     * @var string|resource     *
+     * @var string|resource
      */
     private $animation;
 
@@ -54,7 +56,6 @@ class SendAnimationBuilder
     private $disableNotification;
     /**
      * @var int|null
-     * @Type("integer")
      */
     private $replyToMessageId;
 
@@ -90,7 +91,7 @@ class SendAnimationBuilder
      * @param resource|string $animation
      * @return SendAnimationBuilder
      */
-    public function setAnimation($animation)
+    public function setAnimation($animation): SendAnimationBuilder
     {
         $this->animation = $animation;
         return $this;
@@ -180,12 +181,9 @@ class SendAnimationBuilder
      * @param ForceReply|InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|null $replyMarkup
      * @return SendAnimationBuilder
      */
-    public function setReplyMarkup($replyMarkup)
+    public function setReplyMarkup($replyMarkup): SendAnimationBuilder
     {
         $this->replyMarkup = $replyMarkup;
         return $this;
     }
-
-
-
 }

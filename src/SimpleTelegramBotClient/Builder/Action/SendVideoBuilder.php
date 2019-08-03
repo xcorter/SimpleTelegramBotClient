@@ -1,20 +1,23 @@
 <?php
 
-
 namespace SimpleTelegramBotClient\Builder\Action;
 
 use SimpleTelegramBotClient\Dto\Action\SendVideo;
+use SimpleTelegramBotClient\Dto\ForceReply;
+use SimpleTelegramBotClient\Dto\Keyboard\InlineKeyboardMarkup;
+use SimpleTelegramBotClient\Dto\Keyboard\ReplyKeyboardMarkup;
+use SimpleTelegramBotClient\Dto\Keyboard\ReplyKeyboardRemove;
 
 class SendVideoBuilder
 {
 
     /**
-     * @var string     *
+     * @var string
      */
     private $chatId;
 
     /**
-     * @var string|resource     *
+     * @var string|resource
      */
     private $video;
 
@@ -58,7 +61,6 @@ class SendVideoBuilder
     private $disableNotification;
     /**
      * @var int|null
-     * @Type("integer")
      */
     private $replyToMessageId;
 
@@ -68,10 +70,10 @@ class SendVideoBuilder
     private $replyMarkup;
 
     public function __construct(string $chatId, $video)
-{
-    $this->chatId = $chatId;
-    $this->video = $video;
-}
+    {
+        $this->chatId = $chatId;
+        $this->video = $video;
+    }
 
     public function build(): SendVideo
     {
@@ -95,7 +97,7 @@ class SendVideoBuilder
      * @param resource|string $video
      * @return SendVideoBuilder
      */
-    public function setVideo($video)
+    public function setVideo($video): SendVideoBuilder
     {
         $this->video = $video;
         return $this;
@@ -135,7 +137,7 @@ class SendVideoBuilder
      * @param resource|string|null $thumb
      * @return SendVideoBuilder
      */
-    public function setThumb($thumb)
+    public function setThumb($thumb): SendVideoBuilder
     {
         $this->thumb = $thumb;
         return $this;
@@ -195,7 +197,7 @@ class SendVideoBuilder
      * @param ForceReply|InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|null $replyMarkup
      * @return SendVideoBuilder
      */
-    public function setReplyMarkup($replyMarkup)
+    public function setReplyMarkup($replyMarkup): SendVideoBuilder
     {
         $this->replyMarkup = $replyMarkup;
         return $this;

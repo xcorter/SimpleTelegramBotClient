@@ -200,8 +200,4 @@ class SendAnimation
     {
         return $this->replyMarkup;
     }
-
-
-
-
 }

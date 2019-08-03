@@ -15,4 +15,3 @@ $message = $sendPhotoBuilder->build();
 $sendMessageResponse = $telegramService->sendVideo($message);
 
 var_dump($sendMessageResponse);
-
