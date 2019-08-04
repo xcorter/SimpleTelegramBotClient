@@ -8,9 +8,9 @@ class InlineKeyboardMarkupBuilder
 {
     private $arrayOfArrayInlineKeyboardButton = [];
 
-    public function addInlineKeyboardButtonArray(ArrayKeyboardButtonBuilder $arrayKeyboardButtonBuilder): self
+    public function addInlineKeyboardButtonArray(array $arrayKeyboardButton): self
     {
-        $this->arrayOfArrayInlineKeyboardButton[] = $arrayKeyboardButtonBuilder->build();
+        $this->arrayOfArrayInlineKeyboardButton[] = $arrayKeyboardButton;
         return $this;
     }
 

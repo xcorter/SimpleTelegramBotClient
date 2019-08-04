@@ -1,0 +1,21 @@
+{
+  "ok":true,
+  "result":{
+    "message_id":240,
+    "from":{
+      "id":780995632,
+      "is_bot":true,
+      "first_name":"BotStory",
+      "username":"TellMeTheStoryBot"
+    },
+    "chat":{
+      "id":165068132,
+      "first_name":"Stepan",
+      "last_name":"Franchuk",
+      "username":"fstepa",
+      "type":"private"
+    },
+    "date":1564920826,
+    "text":"Hello World!"
+  }
+}

@@ -4,7 +4,10 @@ namespace SimpleTelegramBotClient\Dto\Keyboard;
 
 class ReplyKeyboardMarkup
 {
-    private $keyboard = [];
+    /**
+     * @var array
+     */
+    private $keyboard;
     /**
      * @var bool|null
      */

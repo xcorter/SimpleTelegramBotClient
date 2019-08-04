@@ -11,8 +11,15 @@ use JMS\Serializer\ArrayTransformerInterface;
 use JMS\Serializer\SerializerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use SimpleTelegramBotClient\Builder\Action\SendMessageBuilder;
+use SimpleTelegramBotClient\Builder\Keyboard\ArrayKeyboardButtonBuilder;
+use SimpleTelegramBotClient\Builder\Keyboard\InlineKeyboardButtonBuilder;
+use SimpleTelegramBotClient\Builder\Keyboard\InlineKeyboardMarkupBuilder;
+use SimpleTelegramBotClient\Builder\Keyboard\KeyboardButtonBuilder;
+use SimpleTelegramBotClient\Builder\Keyboard\ReplyKeyboardMarkupBuilder;
 use SimpleTelegramBotClient\Config;
 use SimpleTelegramBotClient\Dto\Response as ResponseDto;
+use SimpleTelegramBotClient\Dto\SendMessageResponse;
 use SimpleTelegramBotClient\TelegramService;
 
 class TelegramServiceTest extends TestCase
@@ -74,6 +81,65 @@ class TelegramServiceTest extends TestCase
 
         $actual = $this->telegramService->getUpdates();
         $expected = $this->serialzier->deserialize($content, ResponseDto::class, 'json');
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     *
+     */
+    public function testSendMessageWithKeyboard(): void
+    {
+        $content = $this->getResourceContent('send_message_keyboard.json');
+        $this->mockHandler->append(new Response(200, [], $content));
+
+        $chatId = '165068132';
+        $sendMessageBuilder = new SendMessageBuilder($chatId, 'Hello World!');
+        $replyKeyboardMarkupBuilder = new ReplyKeyboardMarkupBuilder();
+        $arrayKeyboardButtonBuilder = new ArrayKeyboardButtonBuilder();
+        $arrayKeyboardButtonBuilder
+            ->add((new KeyboardButtonBuilder('text'))->build())
+            ->add((new KeyboardButtonBuilder('text2'))->build())
+        ;
+        $replyKeyboardMarkupBuilder->addArrayOfKeyboardButton($arrayKeyboardButtonBuilder->build());
+
+        $sendMessageBuilder->setReplyMarkup($replyKeyboardMarkupBuilder->build());
+        $message = $sendMessageBuilder->build();
+
+        $actual = $this->telegramService->sendMessage($message);
+        $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testSendMessageInlineResult(): void
+    {
+        $content = $this->getResourceContent('send_message_inline_result.json');
+        $this->mockHandler->append(new Response(200, [], $content));
+
+        $chatId = '165068132';
+        $sendMessageBuilder = new SendMessageBuilder($chatId, 'Hello World!');
+        $inlineKeyboardMarkupBuilder = new InlineKeyboardMarkupBuilder();
+
+        $arrayKeyboardButtonBuilder = new ArrayKeyboardButtonBuilder();
+        $arrayKeyboardButtonBuilder
+            ->add((new InlineKeyboardButtonBuilder('text'))->setUrl('https://google.com')->build())
+            ->add((new InlineKeyboardButtonBuilder('text2'))->setUrl('https://google.com')->build())
+        ;
+
+        $arrayKeyboardButtonBuilder2 = new ArrayKeyboardButtonBuilder();
+        $arrayKeyboardButtonBuilder2->add((new InlineKeyboardButtonBuilder('long text'))->setUrl('https://google.com')->build());
+
+        $inlineKeyboardMarkupBuilder
+            ->addInlineKeyboardButtonArray($arrayKeyboardButtonBuilder->build())
+            ->addInlineKeyboardButtonArray($arrayKeyboardButtonBuilder2->build())
+        ;
+
+        $sendMessageBuilder->setReplyMarkup($inlineKeyboardMarkupBuilder->build());
+        $message = $sendMessageBuilder->build();
+
+        $actual = $this->telegramService->sendMessage($message);
+        $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
 
         $this->assertEquals($expected, $actual);
     }

@@ -1,0 +1,41 @@
+{
+  "ok":true,
+  "result":{
+    "message_id":238,
+    "from":{
+      "id":780995632,
+      "is_bot":true,
+      "first_name":"BotStory",
+      "username":"TellMeTheStoryBot"
+    },
+    "chat":{
+      "id":165068132,
+      "first_name":"Stepan",
+      "last_name":"Franchuk",
+      "username":"fstepa",
+      "type":"private"
+    },
+    "date":1564920110,
+    "text":"Hello World!",
+    "reply_markup":{
+      "inline_keyboard":[
+        [
+          {
+            "text":"text",
+            "url":"https://google.com/"
+          },
+          {
+            "text":"text2",
+            "url":"https://google.com/"
+          }
+        ],
+        [
+          {
+            "text":"long text",
+            "url":"https://google.com/"
+          }
+        ]
+      ]
+    }
+  }
+}

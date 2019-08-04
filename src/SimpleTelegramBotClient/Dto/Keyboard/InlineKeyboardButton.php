@@ -8,7 +8,7 @@ use SimpleTelegramBotClient\Dto\LoginUrl;
 
 /**
  * Class InlineKeyboardButton
- * @package SimpleTelegramBotClient\Dto
+ * @package SimpleTelegramBotClient\Dto\Keyboard
  * @link https://core.telegram.org/bots/api#inlinekeyboardbutton
  */
 class InlineKeyboardButton

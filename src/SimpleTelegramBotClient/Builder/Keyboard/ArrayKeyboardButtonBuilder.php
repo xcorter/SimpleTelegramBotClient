@@ -3,27 +3,27 @@
 namespace SimpleTelegramBotClient\Builder\Keyboard;
 
 use SimpleTelegramBotClient\Dto\Keyboard\InlineKeyboardButton;
+use SimpleTelegramBotClient\Dto\Keyboard\KeyboardButton;
 
 class ArrayKeyboardButtonBuilder
 {
     /**
-     * @var InlineKeyboardButton[] $buttons
+     * @var InlineKeyboardButton[]|KeyboardButton[] $buttons
      */
     private $buttons = [];
 
-    public function add(InlineKeyboardButton $inlineKeyboardButton): ArrayKeyboardButtonBuilder
+    /**
+     * @param InlineKeyboardButton|KeyboardButton $inlineKeyboardButton
+     * @return ArrayKeyboardButtonBuilder
+     */
+    public function add($inlineKeyboardButton): ArrayKeyboardButtonBuilder
     {
         $this->buttons[] = $inlineKeyboardButton;
         return $this;
     }
 
-    public function createInlineKeyboardButtonBuilder(string $text): InlineKeyboardButtonBuilder
-    {
-        return new InlineKeyboardButtonBuilder($text);
-    }
-
     /**
-     * @return InlineKeyboardButton[]
+     * @return InlineKeyboardButton[]|KeyboardButton[]
      */
     public function build(): array
     {

@@ -2,13 +2,14 @@
 
 namespace SimpleTelegramBotClient\Builder\Keyboard;
 
-use SimpleTelegramBotClient\Dto\Keyboard\ArrayKeyboardButton;
+use SimpleTelegramBotClient\Dto\Keyboard\InlineKeyboardButton;
+use SimpleTelegramBotClient\Dto\Keyboard\KeyboardButton;
 use SimpleTelegramBotClient\Dto\Keyboard\ReplyKeyboardMarkup;
 
 class ReplyKeyboardMarkupBuilder
 {
     /**
-     * @var ArrayKeyboardButton[]
+     * @var InlineKeyboardButton[]|KeyboardButton[]
      */
     private $keyboard = [];
     /**
@@ -25,7 +26,7 @@ class ReplyKeyboardMarkupBuilder
     private $selective;
 
     /**
-     * @param ArrayKeyboardButton $arrayKeyboardButton
+     * @param InlineKeyboardButton[]|KeyboardButton[] $arrayKeyboardButton
      * @return $this
      */
     public function addArrayOfKeyboardButton(array $arrayKeyboardButton): ReplyKeyboardMarkupBuilder

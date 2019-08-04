@@ -2,6 +2,8 @@
 
 namespace SimpleTelegramBotClient\Dto\Keyboard;
 
+use JMS\Serializer\Annotation\Type;
+
 /**
  * Class InlineKeyboardMarkup
  * @package SimpleTelegramBotClient\Dto
@@ -9,9 +11,9 @@ namespace SimpleTelegramBotClient\Dto\Keyboard;
  */
 class InlineKeyboardMarkup
 {
-
     /**
-     * @var ArrayKeyboardButton[]
+     * @var InlineKeyboardButton[][]
+     * @Type("array<array<SimpleTelegramBotClient\Dto\Keyboard\InlineKeyboardButton>>")
      */
     private $inlineKeyboard;
 
@@ -24,9 +26,8 @@ class InlineKeyboardMarkup
         $this->inlineKeyboard = $inlineKeyboard;
     }
 
-
     /**
-     * @return ArrayKeyboardButton[]
+     * @return InlineKeyboardButton[][]
      */
     public function getInlineKeyboard(): array
     {

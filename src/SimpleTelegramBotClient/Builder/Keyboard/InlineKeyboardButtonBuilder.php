@@ -57,58 +57,72 @@ class InlineKeyboardButtonBuilder
 
     /**
      * @param string|null $url
+     * @return InlineKeyboardButtonBuilder
      */
-    public function setUrl(?string $url): void
+    public function setUrl(?string $url): InlineKeyboardButtonBuilder
     {
         $this->url = $url;
+        return $this;
     }
 
     /**
      * @param LoginUrl|null $loginUrl
+     * @return InlineKeyboardButtonBuilder
      */
-    public function setLoginUrl(?LoginUrl $loginUrl): void
+    public function setLoginUrl(?LoginUrl $loginUrl): InlineKeyboardButtonBuilder
     {
         $this->loginUrl = $loginUrl;
+        return $this;
     }
 
     /**
      * @param string|null $callbackData
+     * @return InlineKeyboardButtonBuilder
      */
-    public function setCallbackData(?string $callbackData): void
+    public function setCallbackData(?string $callbackData): InlineKeyboardButtonBuilder
     {
         $this->callbackData = $callbackData;
+        return $this;
     }
 
     /**
      * @param string|null $switchInlineQuery
+     * @return InlineKeyboardButtonBuilder
      */
-    public function setSwitchInlineQuery(?string $switchInlineQuery): void
+    public function setSwitchInlineQuery(?string $switchInlineQuery): InlineKeyboardButtonBuilder
     {
         $this->switchInlineQuery = $switchInlineQuery;
+        return $this;
     }
 
     /**
      * @param string|null $switchInlineQueryCurrentChat
+     * @return InlineKeyboardButtonBuilder
      */
-    public function setSwitchInlineQueryCurrentChat(?string $switchInlineQueryCurrentChat): void
+    public function setSwitchInlineQueryCurrentChat(?string $switchInlineQueryCurrentChat): InlineKeyboardButtonBuilder
     {
         $this->switchInlineQueryCurrentChat = $switchInlineQueryCurrentChat;
+        return $this;
     }
 
     /**
      * @param CallbackGame|null $callbackGame
+     * @return InlineKeyboardButtonBuilder
      */
-    public function setCallbackGame(?CallbackGame $callbackGame): void
+    public function setCallbackGame(?CallbackGame $callbackGame): InlineKeyboardButtonBuilder
     {
         $this->callbackGame = $callbackGame;
+        return $this;
     }
 
     /**
      * @param bool|null $pay
+     * @return InlineKeyboardButtonBuilder
      */
-    public function setPay(?bool $pay): void
+    public function setPay(?bool $pay): InlineKeyboardButtonBuilder
     {
         $this->pay = $pay;
+        return $this;
     }
 
     public function build(): InlineKeyboardButton
