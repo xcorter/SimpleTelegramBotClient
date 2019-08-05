@@ -14,7 +14,7 @@ use SimpleTelegramBotClient\Dto\Keyboard\ReplyKeyboardRemove;
  * @package SimpleTelegramBotClient\Dto\Action
  * @link https://core.telegram.org/bots/api#sendphoto
  */
-class SendPhoto
+class SendPhoto implements ActionInterface
 {
     /**
      * @var string

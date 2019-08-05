@@ -15,7 +15,7 @@ use SimpleTelegramBotClient\Dto\Keyboard\ReplyKeyboardRemove;
  *
  * @link https://core.telegram.org/bots/api#sendaudio
  */
-class SendAudio
+class SendAudio implements ActionInterface
 {
     /**
      * @var string

@@ -15,7 +15,7 @@ use SimpleTelegramBotClient\Dto\Keyboard\ReplyKeyboardRemove;
  *
  * @link https://core.telegram.org/bots/api#senddocument
  */
-class SendDocument
+class SendDocument implements ActionInterface
 {
     /**
      * @var string

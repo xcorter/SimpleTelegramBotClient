@@ -8,7 +8,7 @@ include './init.php';
 $chatId = '165068132';
 
 // SET YOUR OWN
-$file = fopen('./chereshnya.jpeg', 'rb');
+$file = fopen('./resources/chereshnya.jpeg', 'rb');
 $sendPhotoBuilder = new SendPhotoBuilder($chatId, $file);
 $sendPhotoBuilder->setCaption('Caption');
 

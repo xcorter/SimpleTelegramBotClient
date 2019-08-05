@@ -9,7 +9,7 @@ use SimpleTelegramBotClient\Dto\ForceReply;
 use SimpleTelegramBotClient\Dto\Keyboard\ReplyKeyboardMarkup;
 use SimpleTelegramBotClient\Dto\Keyboard\ReplyKeyboardRemove;
 
-class SendMessage
+class SendMessage implements ActionInterface
 {
     /**
      * @var string

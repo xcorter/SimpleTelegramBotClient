@@ -10,7 +10,7 @@ use JMS\Serializer\Annotation\Type;
  *
  * @link https://core.telegram.org/bots/api#forwardmessage
  */
-class ForwardMessage
+class ForwardMessage implements ActionInterface
 {
     /**
      * @var string

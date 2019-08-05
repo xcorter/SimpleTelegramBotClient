@@ -1,6 +1,5 @@
 <?php
 
-
 namespace SimpleTelegramBotClient\Dto\Action;
 
 use JMS\Serializer\Annotation\Exclude;
@@ -16,7 +15,7 @@ use SimpleTelegramBotClient\Dto\Keyboard\ReplyKeyboardRemove;
  *
  * @link https://core.telegram.org/bots/api#sendanimation
  */
-class SendAnimation
+class SendAnimation implements ActionInterface
 {
 
     /**
