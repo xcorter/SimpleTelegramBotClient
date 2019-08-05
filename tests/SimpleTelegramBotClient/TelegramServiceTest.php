@@ -8,6 +8,7 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use JMS\Serializer\ArrayTransformerInterface;
+use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -63,9 +64,9 @@ class TelegramServiceTest extends TestCase
 
         AnnotationRegistry::registerLoader('class_exists');
 
-        $this->serialzier = \JMS\Serializer\SerializerBuilder::create()->build();
+        $this->serialzier = SerializerBuilder::create()->build();
         /** @var ArrayTransformerInterface $arrayTransformer */
-        $this->arrayTransformer = \JMS\Serializer\SerializerBuilder::create()->build();
+        $this->arrayTransformer = SerializerBuilder::create()->build();
 
         $this->telegramService = new TelegramService(
             $this->config,
@@ -86,9 +87,6 @@ class TelegramServiceTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     *
-     */
     public function testSendMessageWithKeyboard(): void
     {
         $content = $this->getResourceContent('send_message_keyboard.json');
