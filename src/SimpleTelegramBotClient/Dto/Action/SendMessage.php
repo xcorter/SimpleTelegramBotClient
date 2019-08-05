@@ -9,6 +9,12 @@ use SimpleTelegramBotClient\Dto\ForceReply;
 use SimpleTelegramBotClient\Dto\Keyboard\ReplyKeyboardMarkup;
 use SimpleTelegramBotClient\Dto\Keyboard\ReplyKeyboardRemove;
 
+/**
+ * Class SendMessage
+ * @package SimpleTelegramBotClient\Dto\Action
+ *
+ * @link https://core.telegram.org/bots/api#sendmessage
+ */
 class SendMessage implements ActionInterface
 {
     /**

@@ -9,6 +9,12 @@ use SimpleTelegramBotClient\Dto\Keyboard\InlineKeyboardMarkup;
 use SimpleTelegramBotClient\Dto\Keyboard\ReplyKeyboardMarkup;
 use SimpleTelegramBotClient\Dto\Keyboard\ReplyKeyboardRemove;
 
+/**
+ * Class SendLocation
+ * @package SimpleTelegramBotClient\Dto\Action
+ *
+ * @link https://core.telegram.org/bots/api#sendlocation
+ */
 class SendLocation implements ActionInterface
 {
     /**

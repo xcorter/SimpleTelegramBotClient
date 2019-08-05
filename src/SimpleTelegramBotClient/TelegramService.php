@@ -4,6 +4,7 @@ namespace SimpleTelegramBotClient;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+use SimpleTelegramBotClient\Dto\Action\EditMessageLiveLocation;
 use function GuzzleHttp\Psr7\stream_for;
 use JMS\Serializer\ArrayTransformerInterface;
 use JMS\Serializer\SerializerInterface;
@@ -33,6 +34,7 @@ use SimpleTelegramBotClient\Exception\BadMethodCallException;
  * @method SendMessageResponse sendVideo(SendVideo $sendVideo):
  * @method SendMessageResponse sendAnimation(SendAnimation $sendAnimation):
  * @method SendMessageResponse sendLocation(SendLocation $sendLocation):
+ * @method SendMessageResponse editMessageLiveLocation(EditMessageLiveLocation $editMessageLiveLocation):
  */
 class TelegramService
 {
@@ -130,14 +132,14 @@ class TelegramService
     public function __call(string $method, array $arguments)
     {
         if (!$arguments) {
-            throw new BadMethodCallException(' arguments not found');
+            throw new BadMethodCallException('arguments not found');
         }
         $action = reset($arguments);
         if (!$action instanceof ActionInterface) {
-            throw new BadMethodCallException(' action not found');
+            throw new BadMethodCallException("action $method not found");
         }
         if (!$this->checkMethod($method, $action)) {
-            throw new BadMethodCallException(' action not found');
+            throw new BadMethodCallException("action $method not found");
         }
         $url = $this->config->getUrl() . $method;
         $params = $this->arrayTransformer->toArray($action);
