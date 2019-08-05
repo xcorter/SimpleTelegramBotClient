@@ -135,6 +135,9 @@ class TelegramService
         if (!$action instanceof ActionInterface) {
             throw new BadMethodCallException(' action not found');
         }
+        if (!$this->checkMethod($method, $action)) {
+            throw new BadMethodCallException(' action not found');
+        }
         $url = $this->config->getUrl() . $method;
         $params = $this->arrayTransformer->toArray($action);
         if (method_exists($action, 'getReplyMarkup') && $action->getReplyMarkup()) {
@@ -159,5 +162,14 @@ class TelegramService
         $requestParams['multipart'] = $this->convertToNameContent($params);
         $response = $this->client->post($url, $requestParams)->getBody()->getContents();
         return $this->serializer->deserialize($response, SendMessageResponse::class, 'json');
+    }
+
+    private function checkMethod(string $method, ActionInterface $action): bool
+    {
+        $className = get_class($action);
+        $explodedClass = explode('\\', $className);
+        $className = end($explodedClass);
+        $className[0] = strtolower($className[0]);
+        return $className === $method;
     }
 }
