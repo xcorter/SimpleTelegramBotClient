@@ -32,6 +32,7 @@ use SimpleTelegramBotClient\Exception\BadMethodCallException;
  * @method SendMessageResponse sendDocument(SendDocument $sendDocument)
  * @method SendMessageResponse sendVideo(SendVideo $sendVideo):
  * @method SendMessageResponse sendAnimation(SendAnimation $sendAnimation):
+ * @method SendMessageResponse sendLocation(SendLocation $sendLocation):
  */
 class TelegramService
 {
