@@ -13,12 +13,12 @@ class Location
 {
     /**
      * @var float
-     * @Type("type")
+     * @Type("float")
      */
     private $longitude;
     /**
      * @var float
-     * @Type("type")
+     * @Type("float")
      */
     private $latitude;
 

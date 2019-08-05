@@ -11,6 +11,7 @@ use JMS\Serializer\ArrayTransformerInterface;
 use JMS\Serializer\SerializerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use SimpleTelegramBotClient\Builder\Action\SendLocationBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendMessageBuilder;
 use SimpleTelegramBotClient\Builder\Keyboard\ArrayKeyboardButtonBuilder;
 use SimpleTelegramBotClient\Builder\Keyboard\InlineKeyboardButtonBuilder;
@@ -141,6 +142,18 @@ class TelegramServiceTest extends TestCase
         $actual = $this->telegramService->sendMessage($message);
         $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
 
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testSendLocation(): void
+    {
+        $content = $this->getResourceContent('send_location.json');
+        $this->mockHandler->append(new Response(200, [], $content));
+        $chatId = '165068132';
+        $sendLocationBuilder = new SendLocationBuilder($chatId, 0.999997, 2.233401);
+        $message = $sendLocationBuilder->build();
+        $actual = $this->telegramService->sendLocation($message);
+        $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }
 

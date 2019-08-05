@@ -11,6 +11,7 @@ use SimpleTelegramBotClient\Dto\Action\ForwardMessage;
 use SimpleTelegramBotClient\Dto\Action\SendAnimation;
 use SimpleTelegramBotClient\Dto\Action\SendAudio;
 use SimpleTelegramBotClient\Dto\Action\SendDocument;
+use SimpleTelegramBotClient\Dto\Action\SendLocation;
 use SimpleTelegramBotClient\Dto\Action\SendMessage;
 use SimpleTelegramBotClient\Dto\Action\SendPhoto;
 use SimpleTelegramBotClient\Dto\Action\SendVideo;
@@ -204,6 +205,20 @@ class TelegramService
             $params['thumb'] = stream_for($thumb);
         }
         $params['animation'] = stream_for($sendAnimation->getAnimation());
+        $requestParams = $this->getParams();
+        $requestParams['multipart'] = $this->convertToNameContent($params);
+        $response = $this->client->post($url, $requestParams)->getBody()->getContents();
+        return $this->serializer->deserialize($response, SendMessageResponse::class, 'json');
+    }
+
+    public function sendLocation(SendLocation $sendLocation)
+    {
+        $url = $this->config->getUrl() . 'sendLocation';
+        $params = $this->arrayTransformer->toArray($sendLocation);
+        if ($sendLocation->getReplyMarkup()) {
+            $json = $this->serializer->serialize($sendLocation->getReplyMarkup(), 'json');
+            $params['reply_markup'] = $json;
+        }
         $requestParams = $this->getParams();
         $requestParams['multipart'] = $this->convertToNameContent($params);
         $response = $this->client->post($url, $requestParams)->getBody()->getContents();
