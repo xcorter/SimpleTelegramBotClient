@@ -14,6 +14,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use SimpleTelegramBotClient\Builder\Action\SendLocationBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendMessageBuilder;
+use SimpleTelegramBotClient\Builder\Action\SendVideoNoteBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendVoiceBuilder;
 use SimpleTelegramBotClient\Builder\Keyboard\ArrayKeyboardButtonBuilder;
 use SimpleTelegramBotClient\Builder\Keyboard\InlineKeyboardButtonBuilder;
@@ -152,6 +153,18 @@ class TelegramServiceTest extends TestCase
         $sendLocationBuilder = new SendLocationBuilder($chatId, 0.999997, 2.233401);
         $message = $sendLocationBuilder->build();
         $actual = $this->telegramService->sendLocation($message);
+        $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testSendVideoNote(): void
+    {
+        $content = $this->getResourceContent('send_video_note.json');
+        $this->mockHandler->append(new Response(200, [], $content));
+        $chatId = '165068132';
+        $sendVideoNoteBuilder = new SendVideoNoteBuilder($chatId, $this->getStubFileStream());
+        $message = $sendVideoNoteBuilder->build();
+        $actual = $this->telegramService->sendVideoNote($message);
         $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }

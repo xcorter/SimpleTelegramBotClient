@@ -1,0 +1,28 @@
+{
+  "ok": true,
+  "result": {
+    "message_id": 280,
+    "from": {
+      "id": 780995632,
+      "is_bot": true,
+      "first_name": "BotStory",
+      "username": "TellMeTheStoryBot"
+    },
+    "chat": {
+      "id": 165068132,
+      "first_name": "Stepan",
+      "last_name": "Franchuk",
+      "username": "fstepa",
+      "type": "private"
+    },
+    "date": 1565489854,
+    "video": {
+      "duration": 0,
+      "width": 240,
+      "height": 240,
+      "mime_type": "video/mp4",
+      "file_id": "BAADAgADtAIAAk78gUq7BhANg6k_xBYE",
+      "file_size": 29878668
+    }
+  }
+}
