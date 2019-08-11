@@ -4,8 +4,6 @@ namespace SimpleTelegramBotClient;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use SimpleTelegramBotClient\Builder\Action\SendMediaGroupBuilder;
-use SimpleTelegramBotClient\Builder\Action\SendVenueBuilder;
 use SimpleTelegramBotClient\Dto\Action\EditMessageLiveLocation;
 use SimpleTelegramBotClient\Dto\Action\SendMediaGroup;
 use SimpleTelegramBotClient\Dto\Action\SendVenue;
@@ -59,31 +57,24 @@ class TelegramService
      */
     private $client;
     /**
-     * @var SerializerInterface
+     * @var SerializerInterface|ArrayTransformerInterface
      */
     private $serializer;
-    /**
-     * @var ArrayTransformerInterface
-     */
-    private $arrayTransformer;
 
     /**
      * TelegramService constructor.
      * @param Config $config
      * @param ClientInterface $client
      * @param SerializerInterface $serializer
-     * @param ArrayTransformerInterface $arrayTransformer
      */
     public function __construct(
         Config $config,
         ClientInterface $client,
-        SerializerInterface $serializer,
-        ArrayTransformerInterface $arrayTransformer
+        SerializerInterface $serializer
     ) {
         $this->config = $config;
         $this->client = $client;
         $this->serializer = $serializer;
-        $this->arrayTransformer = $arrayTransformer;
     }
 
     public function getUpdates(): Response
@@ -154,7 +145,7 @@ class TelegramService
             throw new BadMethodCallException("action $method not found");
         }
         $url = $this->config->getUrl() . $method;
-        $params = $this->arrayTransformer->toArray($action);
+        $params = $this->serializer->toArray($action);
         if (method_exists($action, 'getReplyMarkup') && $action->getReplyMarkup()) {
             $json = $this->serializer->serialize($action->getReplyMarkup(), 'json');
             $params['reply_markup'] = $json;

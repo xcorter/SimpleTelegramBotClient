@@ -53,10 +53,6 @@ class TelegramServiceTest extends TestCase
      */
     private $serialzier;
     /**
-     * @var ArrayTransformerInterface
-     */
-    private $arrayTransformer;
-    /**
      * @var MockHandler
      */
     private $mockHandler;
@@ -73,14 +69,11 @@ class TelegramServiceTest extends TestCase
         AnnotationRegistry::registerLoader('class_exists');
 
         $this->serialzier = SerializerBuilder::create()->build();
-        /** @var ArrayTransformerInterface $arrayTransformer */
-        $this->arrayTransformer = SerializerBuilder::create()->build();
 
         $this->telegramService = new TelegramService(
             $this->config,
             $this->client,
-            $this->serialzier,
-            $this->arrayTransformer
+            $this->serialzier
         );
     }
 

@@ -1,7 +1,6 @@
 <?php
 
 use GuzzleHttp\Client;
-use JMS\Serializer\ArrayTransformerInterface;
 use SimpleTelegramBotClient\Config;
 use SimpleTelegramBotClient\TelegramService;
 
@@ -16,7 +15,5 @@ $config->setProxy('http://51.158.108.135:8811');
 Doctrine\Common\Annotations\AnnotationRegistry::registerLoader('class_exists');
 
 $serializer = \JMS\Serializer\SerializerBuilder::create()->build();
-/** @var ArrayTransformerInterface $arrayTransformer */
-$arrayTransformer = \JMS\Serializer\SerializerBuilder::create()->build();
 
-$telegramService = new TelegramService($config, new Client(), $serializer, $arrayTransformer);
+$telegramService = new TelegramService($config, new Client(), $serializer);
