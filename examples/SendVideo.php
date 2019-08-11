@@ -6,7 +6,7 @@ include './init.php';
 
 $chatId = '165068132';
 
-$video = fopen('./resources/Video.mp4', 'rb');
+$video = fopen('./resources/chereshnya.mp4', 'rb');
 $thumb = fopen('./resources/chereshnya.jpeg', 'rb');
 $sendVideoBuilder = new SendVideoBuilder($chatId, $video);
 $sendVideoBuilder->setThumb($thumb);

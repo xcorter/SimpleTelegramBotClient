@@ -6,7 +6,7 @@ include './init.php';
 
 $chatId = '165068132';
 
-$video = fopen('./resources/Video.mp4', 'rb');
+$video = fopen('./resources/chereshnya.mp4', 'rb');
 $sendVideoNoteBuilder = new SendVideoNoteBuilder($chatId, $video);
 
 $message = $sendVideoNoteBuilder->build();
