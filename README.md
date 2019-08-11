@@ -4,28 +4,37 @@
 
 ### Initialize
 
+Basic initialize with
+
+```php
+<?php
+use SimpleTelegramBotClient\Config;
+use SimpleTelegramBotClient\TelegramServiceFactory;
+
+require './vendor/autoload.php';
+
+$config = new Config('some-telegram-api-key');
+$telegramService = TelegramServiceFactory::create($config);
+```
+
+If you want more control use these:
+
 ```php
 <?php
 use SimpleTelegramBotClient\Config;
 use SimpleTelegramBotClient\TelegramService;
 use GuzzleHttp\Client;
 use JMS\Serializer\SerializerBuilder;
-use JMS\Serializer\ArrayTransformerInterface;
 
-require 'SimpleTelegramBotClient/vendor/autoload.php';
+require './vendor/autoload.php';
 
-$config = new Config('some-code');
-
-
+$config = new Config('some-telegram-api-key');
 Doctrine\Common\Annotations\AnnotationRegistry::registerLoader('class_exists');
-
 $serializer = SerializerBuilder::create()->build();
-/** @var ArrayTransformerInterface $arrayTransformer */
-$arrayTransformer = SerializerBuilder::create()->build();
 
-$telegramService = new TelegramService($config, new Client(), $serializer, $arrayTransformer);
-
+$telegramService = new TelegramService($config, new Client(), $serializer);
 ```
+
 
 ### Get Updates
 ```php
