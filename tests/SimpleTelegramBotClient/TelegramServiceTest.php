@@ -14,6 +14,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use SimpleTelegramBotClient\Builder\Action\SendLocationBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendMessageBuilder;
+use SimpleTelegramBotClient\Builder\Action\SendVoiceBuilder;
 use SimpleTelegramBotClient\Builder\Keyboard\ArrayKeyboardButtonBuilder;
 use SimpleTelegramBotClient\Builder\Keyboard\InlineKeyboardButtonBuilder;
 use SimpleTelegramBotClient\Builder\Keyboard\InlineKeyboardMarkupBuilder;
@@ -155,6 +156,19 @@ class TelegramServiceTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function testSendVoice(): void
+    {
+        $content = $this->getResourceContent('send_voice.json');
+        $this->mockHandler->append(new Response(200, [], $content));
+        $chatId = '165068132';
+
+        $sendVoiceBuilder = new SendVoiceBuilder($chatId, $this->getStubFileStream());
+        $message = $sendVoiceBuilder->build();
+        $actual = $this->telegramService->sendVoice($message);
+        $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
     /**
      * @param string $resourceName
      * @return string
@@ -162,5 +176,10 @@ class TelegramServiceTest extends TestCase
     private function getResourceContent(string $resourceName): string
     {
         return file_get_contents(self::RESOURCES . $resourceName);
+    }
+
+    private function getStubFileStream(): string
+    {
+        return self::RESOURCES . 'stub_file';
     }
 }

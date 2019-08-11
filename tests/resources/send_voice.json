@@ -1,0 +1,26 @@
+{
+  "ok": true,
+  "result": {
+    "message_id": 278,
+    "from": {
+      "id": 780995632,
+      "is_bot": true,
+      "first_name": "BotStory",
+      "username": "TellMeTheStoryBot"
+    },
+    "chat": {
+      "id": 165068132,
+      "first_name": "Stepan",
+      "last_name": "Franchuk",
+      "username": "fstepa",
+      "type": "private"
+    },
+    "date": 1565488607,
+    "voice": {
+      "duration": 7,
+      "mime_type": "audio/mpeg",
+      "file_id": "AwADAgADrQIAAk78gUrVCYCgQMHd9hYE",
+      "file_size": 37655
+    }
+  }
+}
