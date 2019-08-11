@@ -15,6 +15,7 @@ use PHPUnit\Framework\TestCase;
 use SimpleTelegramBotClient\Builder\Action\SendLocationBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendMediaGroupBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendMessageBuilder;
+use SimpleTelegramBotClient\Builder\Action\SendVenueBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendVideoNoteBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendVoiceBuilder;
 use SimpleTelegramBotClient\Builder\Action\StopMessageLiveLocationBuilder;
@@ -202,6 +203,17 @@ class TelegramServiceTest extends TestCase
         $message = $stopMessageLiveLocationBuilder->build();
         $actual = $this->telegramService->stopMessageLiveLocation($message);
 
+        $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function sendVenue(): void
+    {
+        $content = $this->appendToMockHandler('send_venue.json');
+
+        $sendVenueBuilder = new SendVenueBuilder(self::CHAT_ID, 1.12, 2.2334, 'Title', 'address');
+        $message = $sendVenueBuilder->build();
+        $actual = $this->telegramService->sendVenue($message);
         $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }

@@ -10,12 +10,12 @@ use SimpleTelegramBotClient\Dto\Keyboard\ReplyKeyboardMarkup;
 use SimpleTelegramBotClient\Dto\Keyboard\ReplyKeyboardRemove;
 
 /**
- * Class SendLocation
+ * Class SendVenue
  * @package SimpleTelegramBotClient\Dto\Action
  *
- * @link https://core.telegram.org/bots/api#sendlocation
+ * @link https://core.telegram.org/bots/api#sendvenue
  */
-class SendLocation implements ActionInterface
+class SendVenue implements ActionInterface
 {
     /**
      * @var string
@@ -33,10 +33,25 @@ class SendLocation implements ActionInterface
      */
     private $longitude;
     /**
-     * @var int|null
-     * @Type("int")
+     * @var string
+     * @Type("string")
      */
-    private $livePeriod;
+    private $title;
+    /**
+     * @var string
+     * @Type("string")
+     */
+    private $address;
+    /**
+     * @var string|null
+     * @Type("string")
+     */
+    private $foursquareId;
+    /**
+     * @var string|null
+     * @Type("string")
+     */
+    private $foursquareType;
     /**
      * @var bool|null
      * @Type("bool")
@@ -54,11 +69,14 @@ class SendLocation implements ActionInterface
     private $replyMarkup;
 
     /**
-     * SendLocation constructor.
+     * SendVenue constructor.
      * @param string $chatId
      * @param float $latitude
      * @param float $longitude
-     * @param int|null $livePeriod
+     * @param string $title
+     * @param string $address
+     * @param string|null $foursquareId
+     * @param string|null $foursquareType
      * @param bool|null $disableNotification
      * @param int|null $replyToMessageId
      * @param ForceReply|InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|null $replyMarkup
@@ -67,7 +85,10 @@ class SendLocation implements ActionInterface
         string $chatId,
         float $latitude,
         float $longitude,
-        ?int $livePeriod,
+        string $title,
+        string $address,
+        ?string $foursquareId,
+        ?string $foursquareType,
         ?bool $disableNotification,
         ?int $replyToMessageId,
         $replyMarkup
@@ -75,7 +96,10 @@ class SendLocation implements ActionInterface
         $this->chatId = $chatId;
         $this->latitude = $latitude;
         $this->longitude = $longitude;
-        $this->livePeriod = $livePeriod;
+        $this->title = $title;
+        $this->address = $address;
+        $this->foursquareId = $foursquareId;
+        $this->foursquareType = $foursquareType;
         $this->disableNotification = $disableNotification;
         $this->replyToMessageId = $replyToMessageId;
         $this->replyMarkup = $replyMarkup;
@@ -106,11 +130,35 @@ class SendLocation implements ActionInterface
     }
 
     /**
-     * @return int|null
+     * @return string
      */
-    public function getLivePeriod(): ?int
+    public function getTitle(): string
     {
-        return $this->livePeriod;
+        return $this->title;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddress(): string
+    {
+        return $this->address;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFoursquareId(): ?string
+    {
+        return $this->foursquareId;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFoursquareType(): ?string
+    {
+        return $this->foursquareType;
     }
 
     /**

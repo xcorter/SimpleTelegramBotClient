@@ -1,0 +1,32 @@
+{
+  "ok": true,
+  "result": {
+    "message_id": 296,
+    "from": {
+      "id": 780995632,
+      "is_bot": true,
+      "first_name": "BotStory",
+      "username": "TellMeTheStoryBot"
+    },
+    "chat": {
+      "id": 165068132,
+      "first_name": "Stepan",
+      "last_name": "Franchuk",
+      "username": "fstepa",
+      "type": "private"
+    },
+    "date": 1565533741,
+    "location": {
+      "latitude": 1.120005,
+      "longitude": 2.233403
+    },
+    "venue": {
+      "location": {
+        "latitude": 1.120005,
+        "longitude": 2.233403
+      },
+      "title": "Title",
+      "address": "address"
+    }
+  }
+}

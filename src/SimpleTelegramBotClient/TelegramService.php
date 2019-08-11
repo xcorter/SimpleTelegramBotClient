@@ -5,8 +5,10 @@ namespace SimpleTelegramBotClient;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use SimpleTelegramBotClient\Builder\Action\SendMediaGroupBuilder;
+use SimpleTelegramBotClient\Builder\Action\SendVenueBuilder;
 use SimpleTelegramBotClient\Dto\Action\EditMessageLiveLocation;
 use SimpleTelegramBotClient\Dto\Action\SendMediaGroup;
+use SimpleTelegramBotClient\Dto\Action\SendVenue;
 use SimpleTelegramBotClient\Dto\Action\SendVideoNote;
 use SimpleTelegramBotClient\Dto\Action\SendVoice;
 use SimpleTelegramBotClient\Dto\Action\StopMessageLiveLocation;
@@ -42,6 +44,7 @@ use SimpleTelegramBotClient\Exception\BadMethodCallException;
  * @method SendMessageResponse sendLocation(SendLocation $sendLocation)
  * @method SendMessageResponse editMessageLiveLocation(EditMessageLiveLocation $editMessageLiveLocation)
  * @method SendMessageResponse stopMessageLiveLocation(StopMessageLiveLocation $stopMessageLiveLocation)
+ * @method SendMessageResponse sendVenue(SendVenue $sendVenue)
  * @method SendMessageResponse sendVoice(SendVoice $sendVoice)
  * @method SendMessageResponse sendMediaGroup(SendMediaGroup $sendMediaGroup)
  */

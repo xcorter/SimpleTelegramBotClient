@@ -6,6 +6,12 @@ use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\Type;
 use SimpleTelegramBotClient\Dto\Keyboard\InlineKeyboardMarkup;
 
+/**
+ * Class StopMessageLiveLocation
+ * @package SimpleTelegramBotClient\Dto\Action
+ *
+ * @link https://core.telegram.org/bots/api#stopmessagelivelocation
+ */
 class StopMessageLiveLocation implements ActionInterface
 {
     /**

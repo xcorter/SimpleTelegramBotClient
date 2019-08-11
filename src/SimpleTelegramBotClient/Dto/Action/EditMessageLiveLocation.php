@@ -31,7 +31,7 @@ class EditMessageLiveLocation implements ActionInterface
     private $inlineMessageId;
     /**
      * @var float
-     * @Type("int")
+     * @Type("float")
      */
     private $latitude;
     /**
