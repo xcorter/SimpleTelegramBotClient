@@ -1,0 +1,56 @@
+{
+  "ok": true,
+  "result": [
+    {
+      "message_id": 289,
+      "from": {
+        "id": 780995632,
+        "is_bot": true,
+        "first_name": "BotStory",
+        "username": "TellMeTheStoryBot"
+      },
+      "chat": {
+        "id": 165068132,
+        "first_name": "Stepan",
+        "last_name": "Franchuk",
+        "username": "fstepa",
+        "type": "private"
+      },
+      "date": 1565531386,
+      "video": {
+        "duration": 0,
+        "width": 240,
+        "height": 240,
+        "mime_type": "video/mp4",
+        "file_id": "BAADAgADtAIAAk78gUq7BhANg6k_xBYE",
+        "file_size": 29878668
+      }
+    },
+    {
+      "message_id": 290,
+      "from": {
+        "id": 780995632,
+        "is_bot": true,
+        "first_name": "BotStory",
+        "username": "TellMeTheStoryBot"
+      },
+      "chat": {
+        "id": 165068132,
+        "first_name": "Stepan",
+        "last_name": "Franchuk",
+        "username": "fstepa",
+        "type": "private"
+      },
+      "date": 1565531386,
+      "media_group_id": "12524251091004274",
+      "photo": [
+        {
+          "file_id": "AgADAgADgasxG6vtgEoJZkOykvbLmc_Ntw8ABAEAAwIAA20AAzUwAgABFgQ",
+          "file_size": 5657,
+          "width": 276,
+          "height": 183
+        }
+      ]
+    }
+  ]
+}

@@ -13,6 +13,7 @@ use JMS\Serializer\SerializerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use SimpleTelegramBotClient\Builder\Action\SendLocationBuilder;
+use SimpleTelegramBotClient\Builder\Action\SendMediaGroupBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendMessageBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendVideoNoteBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendVoiceBuilder;
@@ -21,6 +22,8 @@ use SimpleTelegramBotClient\Builder\Keyboard\InlineKeyboardButtonBuilder;
 use SimpleTelegramBotClient\Builder\Keyboard\InlineKeyboardMarkupBuilder;
 use SimpleTelegramBotClient\Builder\Keyboard\KeyboardButtonBuilder;
 use SimpleTelegramBotClient\Builder\Keyboard\ReplyKeyboardMarkupBuilder;
+use SimpleTelegramBotClient\Builder\Type\InputMediaPhotoBuilder;
+use SimpleTelegramBotClient\Builder\Type\InputMediaVideoBuilder;
 use SimpleTelegramBotClient\Config;
 use SimpleTelegramBotClient\Dto\Response as ResponseDto;
 use SimpleTelegramBotClient\Dto\SendMessageResponse;
@@ -29,6 +32,7 @@ use SimpleTelegramBotClient\TelegramService;
 class TelegramServiceTest extends TestCase
 {
     private const RESOURCES = __DIR__ . '/../resources/';
+    private const CHAT_ID = '165068132';
 
     /**
      * @var TelegramService
@@ -80,8 +84,7 @@ class TelegramServiceTest extends TestCase
 
     public function testGetUpdates(): void
     {
-        $content = $this->getResourceContent('get_updates.json');
-        $this->mockHandler->append(new Response(200, [], $content));
+        $content = $this->appendToMockHandler('get_updates.json');
 
         $actual = $this->telegramService->getUpdates();
         $expected = $this->serialzier->deserialize($content, ResponseDto::class, 'json');
@@ -91,11 +94,9 @@ class TelegramServiceTest extends TestCase
 
     public function testSendMessageWithKeyboard(): void
     {
-        $content = $this->getResourceContent('send_message_keyboard.json');
-        $this->mockHandler->append(new Response(200, [], $content));
+        $content = $this->appendToMockHandler('send_message_keyboard.json');
 
-        $chatId = '165068132';
-        $sendMessageBuilder = new SendMessageBuilder($chatId, 'Hello World!');
+        $sendMessageBuilder = new SendMessageBuilder(self::CHAT_ID, 'Hello World!');
         $replyKeyboardMarkupBuilder = new ReplyKeyboardMarkupBuilder();
         $arrayKeyboardButtonBuilder = new ArrayKeyboardButtonBuilder();
         $arrayKeyboardButtonBuilder
@@ -115,11 +116,9 @@ class TelegramServiceTest extends TestCase
 
     public function testSendMessageInlineResult(): void
     {
-        $content = $this->getResourceContent('send_message_inline_result.json');
-        $this->mockHandler->append(new Response(200, [], $content));
+        $content = $this->appendToMockHandler('send_message_inline_result.json');
 
-        $chatId = '165068132';
-        $sendMessageBuilder = new SendMessageBuilder($chatId, 'Hello World!');
+        $sendMessageBuilder = new SendMessageBuilder(self::CHAT_ID, 'Hello World!');
         $inlineKeyboardMarkupBuilder = new InlineKeyboardMarkupBuilder();
 
         $arrayKeyboardButtonBuilder = new ArrayKeyboardButtonBuilder();
@@ -147,10 +146,8 @@ class TelegramServiceTest extends TestCase
 
     public function testSendLocation(): void
     {
-        $content = $this->getResourceContent('send_location.json');
-        $this->mockHandler->append(new Response(200, [], $content));
-        $chatId = '165068132';
-        $sendLocationBuilder = new SendLocationBuilder($chatId, 0.999997, 2.233401);
+        $content = $this->appendToMockHandler('send_location.json');
+        $sendLocationBuilder = new SendLocationBuilder(self::CHAT_ID, 0.999997, 2.233401);
         $message = $sendLocationBuilder->build();
         $actual = $this->telegramService->sendLocation($message);
         $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
@@ -159,10 +156,8 @@ class TelegramServiceTest extends TestCase
 
     public function testSendVideoNote(): void
     {
-        $content = $this->getResourceContent('send_video_note.json');
-        $this->mockHandler->append(new Response(200, [], $content));
-        $chatId = '165068132';
-        $sendVideoNoteBuilder = new SendVideoNoteBuilder($chatId, $this->getStubFileStream());
+        $content = $this->appendToMockHandler('send_video_note.json');
+        $sendVideoNoteBuilder = new SendVideoNoteBuilder(self::CHAT_ID, $this->getStubFileStream());
         $message = $sendVideoNoteBuilder->build();
         $actual = $this->telegramService->sendVideoNote($message);
         $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
@@ -171,13 +166,28 @@ class TelegramServiceTest extends TestCase
 
     public function testSendVoice(): void
     {
-        $content = $this->getResourceContent('send_voice.json');
-        $this->mockHandler->append(new Response(200, [], $content));
-        $chatId = '165068132';
+        $content = $this->appendToMockHandler('send_voice.json');
 
-        $sendVoiceBuilder = new SendVoiceBuilder($chatId, $this->getStubFileStream());
+        $sendVoiceBuilder = new SendVoiceBuilder(self::CHAT_ID, $this->getStubFileStream());
         $message = $sendVoiceBuilder->build();
         $actual = $this->telegramService->sendVoice($message);
+        $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testSendMediaGroup(): void
+    {
+        $content = $this->appendToMockHandler('send_media_group.json');
+        $sendMediaGroupBuilder = new SendMediaGroupBuilder(self::CHAT_ID);
+        $inputMediaVideoBuilder = new InputMediaVideoBuilder('BAADAgADtAIAAk78gUq7BhANg6k_xBYE');
+        $inputMediaPhotoBuilder = new InputMediaPhotoBuilder('AgADAgADgasxG6vtgEoJZkOykvbLmc_Ntw8ABAEAAwIAA20AAzUwAgABFgQ');
+        $sendMediaGroupBuilder
+            ->addMedia($inputMediaVideoBuilder->build())
+            ->addMedia($inputMediaPhotoBuilder->build())
+        ;
+
+        $message = $sendMediaGroupBuilder->build();
+        $actual = $this->telegramService->sendMediaGroup($message);
         $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }
@@ -194,5 +204,12 @@ class TelegramServiceTest extends TestCase
     private function getStubFileStream(): string
     {
         return self::RESOURCES . 'stub_file';
+    }
+
+    private function appendToMockHandler(string $resourceName): string
+    {
+        $content = $this->getResourceContent($resourceName);
+        $this->mockHandler->append(new Response(200, [], $content));
+        return $content;
     }
 }

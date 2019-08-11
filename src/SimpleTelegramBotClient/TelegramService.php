@@ -4,7 +4,9 @@ namespace SimpleTelegramBotClient;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+use SimpleTelegramBotClient\Builder\Action\SendMediaGroupBuilder;
 use SimpleTelegramBotClient\Dto\Action\EditMessageLiveLocation;
+use SimpleTelegramBotClient\Dto\Action\SendMediaGroup;
 use SimpleTelegramBotClient\Dto\Action\SendVideoNote;
 use SimpleTelegramBotClient\Dto\Action\SendVoice;
 use function GuzzleHttp\Psr7\stream_for;
@@ -39,6 +41,7 @@ use SimpleTelegramBotClient\Exception\BadMethodCallException;
  * @method SendMessageResponse sendLocation(SendLocation $sendLocation)
  * @method SendMessageResponse editMessageLiveLocation(EditMessageLiveLocation $editMessageLiveLocation)
  * @method SendMessageResponse sendVoice(SendVoice $sendVoice)
+ * @method SendMessageResponse sendMediaGroup(SendMediaGroup $sendMediaGroup)
  */
 class TelegramService
 {
@@ -168,6 +171,8 @@ class TelegramService
             $params['voice'] = stream_for($action->getVoice());
         } elseif ($action instanceof SendVideoNote) {
             $params['video_note'] = stream_for($action->getVideoNote());
+        } elseif ($action instanceof SendMediaGroup) {
+            $params['media'] = $this->serializer->serialize($action->getMedia(), 'json');
         }
         $requestParams = $this->getParams();
         $requestParams['multipart'] = $this->convertToNameContent($params);
