@@ -17,6 +17,7 @@ use SimpleTelegramBotClient\Builder\Action\SendMediaGroupBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendMessageBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendVideoNoteBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendVoiceBuilder;
+use SimpleTelegramBotClient\Builder\Action\StopMessageLiveLocationBuilder;
 use SimpleTelegramBotClient\Builder\Keyboard\ArrayKeyboardButtonBuilder;
 use SimpleTelegramBotClient\Builder\Keyboard\InlineKeyboardButtonBuilder;
 use SimpleTelegramBotClient\Builder\Keyboard\InlineKeyboardMarkupBuilder;
@@ -188,6 +189,19 @@ class TelegramServiceTest extends TestCase
 
         $message = $sendMediaGroupBuilder->build();
         $actual = $this->telegramService->sendMediaGroup($message);
+        $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testStopMessageLiveLocation(): void
+    {
+        $content = $this->appendToMockHandler('stop_message_live_location.json');
+
+        $stopMessageLiveLocationBuilder = new StopMessageLiveLocationBuilder();
+        $stopMessageLiveLocationBuilder->setMessageId(780995632)->setChatId(self::CHAT_ID);
+        $message = $stopMessageLiveLocationBuilder->build();
+        $actual = $this->telegramService->stopMessageLiveLocation($message);
+
         $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }

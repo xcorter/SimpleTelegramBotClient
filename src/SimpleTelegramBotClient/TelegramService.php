@@ -9,6 +9,7 @@ use SimpleTelegramBotClient\Dto\Action\EditMessageLiveLocation;
 use SimpleTelegramBotClient\Dto\Action\SendMediaGroup;
 use SimpleTelegramBotClient\Dto\Action\SendVideoNote;
 use SimpleTelegramBotClient\Dto\Action\SendVoice;
+use SimpleTelegramBotClient\Dto\Action\StopMessageLiveLocation;
 use function GuzzleHttp\Psr7\stream_for;
 use JMS\Serializer\ArrayTransformerInterface;
 use JMS\Serializer\SerializerInterface;
@@ -40,6 +41,7 @@ use SimpleTelegramBotClient\Exception\BadMethodCallException;
  * @method SendMessageResponse sendAnimation(SendAnimation $sendAnimation)
  * @method SendMessageResponse sendLocation(SendLocation $sendLocation)
  * @method SendMessageResponse editMessageLiveLocation(EditMessageLiveLocation $editMessageLiveLocation)
+ * @method SendMessageResponse stopMessageLiveLocation(StopMessageLiveLocation $stopMessageLiveLocation)
  * @method SendMessageResponse sendVoice(SendVoice $sendVoice)
  * @method SendMessageResponse sendMediaGroup(SendMediaGroup $sendMediaGroup)
  */

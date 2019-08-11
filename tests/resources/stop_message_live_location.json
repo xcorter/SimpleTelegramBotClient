@@ -1,0 +1,25 @@
+{
+  "ok": true,
+  "result": {
+    "message_id": 294,
+    "from": {
+      "id": 780995632,
+      "is_bot": true,
+      "first_name": "BotStory",
+      "username": "TellMeTheStoryBot"
+    },
+    "chat": {
+      "id": 165068132,
+      "first_name": "Stepan",
+      "last_name": "Franchuk",
+      "username": "fstepa",
+      "type": "private"
+    },
+    "date": 1565532613,
+    "edit_date": 1565532616,
+    "location": {
+      "latitude": 0.999997,
+      "longitude": 2.233401
+    }
+  }
+}
