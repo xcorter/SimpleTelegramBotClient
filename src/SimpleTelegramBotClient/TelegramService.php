@@ -5,6 +5,7 @@ namespace SimpleTelegramBotClient;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use SimpleTelegramBotClient\Dto\Action\EditMessageLiveLocation;
+use SimpleTelegramBotClient\Dto\Action\SendChatAction;
 use SimpleTelegramBotClient\Dto\Action\SendContact;
 use SimpleTelegramBotClient\Dto\Action\SendMediaGroup;
 use SimpleTelegramBotClient\Dto\Action\SendPoll;
@@ -12,6 +13,7 @@ use SimpleTelegramBotClient\Dto\Action\SendVenue;
 use SimpleTelegramBotClient\Dto\Action\SendVideoNote;
 use SimpleTelegramBotClient\Dto\Action\SendVoice;
 use SimpleTelegramBotClient\Dto\Action\StopMessageLiveLocation;
+use SimpleTelegramBotClient\Dto\SimpleResponse;
 use function GuzzleHttp\Psr7\stream_for;
 use JMS\Serializer\ArrayTransformerInterface;
 use JMS\Serializer\SerializerInterface;
@@ -44,6 +46,7 @@ use SimpleTelegramBotClient\Exception\BadMethodCallException;
  * @method SendMessageResponse sendLocation(SendLocation $sendLocation)
  * @method SendMessageResponse sendContact(SendContact $sendContact)
  * @method SendMessageResponse sendPoll(SendPoll $sendPoll)
+ * @method SimpleResponse sendChatAction(SendChatAction $sendChatAction)
  * @method SendMessageResponse editMessageLiveLocation(EditMessageLiveLocation $editMessageLiveLocation)
  * @method SendMessageResponse stopMessageLiveLocation(StopMessageLiveLocation $stopMessageLiveLocation)
  * @method SendMessageResponse sendVenue(SendVenue $sendVenue)
@@ -179,6 +182,9 @@ class TelegramService
         $requestParams = $this->getParams();
         $requestParams['multipart'] = $this->convertToNameContent($params);
         $response = $this->client->post($url, $requestParams)->getBody()->getContents();
+        if ($action instanceof SendChatAction) {
+            return $this->serializer->deserialize($response, SimpleResponse::class, 'json');
+        }
         return $this->serializer->deserialize($response, SendMessageResponse::class, 'json');
     }
 

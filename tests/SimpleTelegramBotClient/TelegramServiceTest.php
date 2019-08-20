@@ -7,11 +7,11 @@ use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
-use JMS\Serializer\ArrayTransformerInterface;
 use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use SimpleTelegramBotClient\Builder\Action\SendChatActionBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendContactBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendLocationBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendMediaGroupBuilder;
@@ -29,8 +29,10 @@ use SimpleTelegramBotClient\Builder\Keyboard\ReplyKeyboardMarkupBuilder;
 use SimpleTelegramBotClient\Builder\Type\InputMediaPhotoBuilder;
 use SimpleTelegramBotClient\Builder\Type\InputMediaVideoBuilder;
 use SimpleTelegramBotClient\Config;
+use SimpleTelegramBotClient\Constant\ChatAction;
 use SimpleTelegramBotClient\Dto\Response as ResponseDto;
 use SimpleTelegramBotClient\Dto\SendMessageResponse;
+use SimpleTelegramBotClient\Dto\SimpleResponse;
 use SimpleTelegramBotClient\TelegramService;
 
 class TelegramServiceTest extends TestCase
@@ -202,7 +204,7 @@ class TelegramServiceTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function sendVenue(): void
+    public function testSendVenue(): void
     {
         $content = $this->appendToMockHandler('send_venue.json');
 
@@ -213,7 +215,7 @@ class TelegramServiceTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function sendContact(): void
+    public function testSendContact(): void
     {
         $content = $this->appendToMockHandler('send_contact.json');
 
@@ -224,7 +226,7 @@ class TelegramServiceTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function sendPoll(): void
+    public function testSendPoll(): void
     {
         $content = $this->appendToMockHandler('send_poll.json');
 
@@ -233,6 +235,17 @@ class TelegramServiceTest extends TestCase
         $message = $sendPollBuilder->build();
         $actual = $this->telegramService->sendPoll($message);
         $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testSendChatAction(): void
+    {
+        $content = $this->appendToMockHandler('send_chat_action.json');
+
+        $sendChatActionBuilder = new SendChatActionBuilder(self::CHAT_ID, ChatAction::TYPING);
+        $message = $sendChatActionBuilder->build();
+        $actual = $this->telegramService->sendChatAction($message);
+        $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }
 
