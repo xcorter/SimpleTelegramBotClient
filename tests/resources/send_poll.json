@@ -1,0 +1,38 @@
+{
+  "ok": true,
+  "result": {
+    "message_id": 303,
+    "from": {
+      "id": 780995632,
+      "is_bot": true,
+      "first_name": "BotStory",
+      "username": "TellMeTheStoryBot"
+    },
+    "chat": {
+      "id": -399749550,
+      "title": "\u0442\u0435\u0441\u0442\u043e\u0432\u044b\u0439 \u0447\u0430\u0442",
+      "type": "group",
+      "all_members_are_administrators": true
+    },
+    "date": 1566315367,
+    "poll": {
+      "id": "5395736507380137986",
+      "question": "2+2=?",
+      "options": [
+        {
+          "text": "2",
+          "voter_count": 0
+        },
+        {
+          "text": "4",
+          "voter_count": 0
+        },
+        {
+          "text": "8",
+          "voter_count": 0
+        }
+      ],
+      "is_closed": false
+    }
+  }
+}

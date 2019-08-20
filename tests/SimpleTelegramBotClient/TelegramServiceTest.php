@@ -12,9 +12,11 @@ use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use SimpleTelegramBotClient\Builder\Action\SendContactBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendLocationBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendMediaGroupBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendMessageBuilder;
+use SimpleTelegramBotClient\Builder\Action\SendPollBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendVenueBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendVideoNoteBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendVoiceBuilder;
@@ -207,6 +209,29 @@ class TelegramServiceTest extends TestCase
         $sendVenueBuilder = new SendVenueBuilder(self::CHAT_ID, 1.12, 2.2334, 'Title', 'address');
         $message = $sendVenueBuilder->build();
         $actual = $this->telegramService->sendVenue($message);
+        $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function sendContact(): void
+    {
+        $content = $this->appendToMockHandler('send_contact.json');
+
+        $sendContactBuilder = new SendContactBuilder(self::CHAT_ID, '123123123', 'TestName');
+        $message = $sendContactBuilder->build();
+        $actual = $this->telegramService->sendContact($message);
+        $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function sendPoll(): void
+    {
+        $content = $this->appendToMockHandler('send_poll.json');
+
+        $sendPollBuilder = new SendPollBuilder(self::CHAT_ID, '2+2=?');
+        $sendPollBuilder->addOption('2')->addOption('4')->addOption('8');
+        $message = $sendPollBuilder->build();
+        $actual = $this->telegramService->sendPoll($message);
         $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }

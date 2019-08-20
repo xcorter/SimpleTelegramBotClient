@@ -1,0 +1,24 @@
+{
+  "ok": true,
+  "result": {
+    "message_id": 304,
+    "from": {
+      "id": 780995632,
+      "is_bot": true,
+      "first_name": "BotStory",
+      "username": "TellMeTheStoryBot"
+    },
+    "chat": {
+      "id": 165068132,
+      "first_name": "Stepan",
+      "last_name": "Franchuk",
+      "username": "fstepa",
+      "type": "private"
+    },
+    "date": 1566315483,
+    "contact": {
+      "phone_number": "123123123",
+      "first_name": "TestName"
+    }
+  }
+}
