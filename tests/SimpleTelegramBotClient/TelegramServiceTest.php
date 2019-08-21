@@ -11,6 +11,7 @@ use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use SimpleTelegramBotClient\Builder\Action\GetUserProfilePhotosBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendChatActionBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendContactBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendLocationBuilder;
@@ -30,6 +31,7 @@ use SimpleTelegramBotClient\Builder\Type\InputMediaPhotoBuilder;
 use SimpleTelegramBotClient\Builder\Type\InputMediaVideoBuilder;
 use SimpleTelegramBotClient\Config;
 use SimpleTelegramBotClient\Constant\ChatAction;
+use SimpleTelegramBotClient\Dto\GetUserProfilePhotosResponse;
 use SimpleTelegramBotClient\Dto\Response as ResponseDto;
 use SimpleTelegramBotClient\Dto\SendMessageResponse;
 use SimpleTelegramBotClient\Dto\SimpleResponse;
@@ -246,6 +248,17 @@ class TelegramServiceTest extends TestCase
         $message = $sendChatActionBuilder->build();
         $actual = $this->telegramService->sendChatAction($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testGetUserProfilePhotos(): void
+    {
+        $content = $this->appendToMockHandler('get_user_profile_photos.json');
+
+        $getUserProfilePhotosBuilder = new GetUserProfilePhotosBuilder(self::CHAT_ID);
+        $message = $getUserProfilePhotosBuilder->build();
+        $actual = $this->telegramService->getUserProfilePhotos($message);
+        $expected = $this->serialzier->deserialize($content, GetUserProfilePhotosResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }
 
