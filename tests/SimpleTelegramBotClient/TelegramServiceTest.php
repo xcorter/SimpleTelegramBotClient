@@ -24,6 +24,7 @@ use SimpleTelegramBotClient\Builder\Action\SendVenueBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendVideoNoteBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendVoiceBuilder;
 use SimpleTelegramBotClient\Builder\Action\StopMessageLiveLocationBuilder;
+use SimpleTelegramBotClient\Builder\Action\UnbanChatMemberBuilder;
 use SimpleTelegramBotClient\Builder\Keyboard\ArrayKeyboardButtonBuilder;
 use SimpleTelegramBotClient\Builder\Keyboard\InlineKeyboardButtonBuilder;
 use SimpleTelegramBotClient\Builder\Keyboard\InlineKeyboardMarkupBuilder;
@@ -283,6 +284,17 @@ class TelegramServiceTest extends TestCase
         $kickChatMemberBuilder = new KickChatMemberBuilder('id', 123);
         $message = $kickChatMemberBuilder->build();
         $actual = $this->telegramService->kickChatMember($message);
+        $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testUnbanChatMember(): void
+    {
+        $content = $this->appendToMockHandler('unban_chat_message.json');
+
+        $unbanChatMemberBuilder = new UnbanChatMemberBuilder('id', 123);
+        $message = $unbanChatMemberBuilder->build();
+        $actual = $this->telegramService->unbanChatMember($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }
