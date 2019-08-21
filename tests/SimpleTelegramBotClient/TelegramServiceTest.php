@@ -13,6 +13,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use SimpleTelegramBotClient\Builder\Action\GetFileBuilder;
 use SimpleTelegramBotClient\Builder\Action\GetUserProfilePhotosBuilder;
+use SimpleTelegramBotClient\Builder\Action\KickChatMemberBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendChatActionBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendContactBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendLocationBuilder;
@@ -272,6 +273,17 @@ class TelegramServiceTest extends TestCase
         $message = $getFileBuilder->build();
         $actual = $this->telegramService->getFile($message);
         $expected = $this->serialzier->deserialize($content, GetFileResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testKickChatMember(): void
+    {
+        $content = $this->appendToMockHandler('kick_chat_member.json');
+
+        $kickChatMemberBuilder = new KickChatMemberBuilder('id', 123);
+        $message = $kickChatMemberBuilder->build();
+        $actual = $this->telegramService->kickChatMember($message);
+        $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }
 

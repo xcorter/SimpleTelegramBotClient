@@ -7,6 +7,7 @@ use GuzzleHttp\ClientInterface;
 use SimpleTelegramBotClient\Dto\Action\EditMessageLiveLocation;
 use SimpleTelegramBotClient\Dto\Action\GetFile;
 use SimpleTelegramBotClient\Dto\Action\GetUserProfilePhotos;
+use SimpleTelegramBotClient\Dto\Action\KickChatMember;
 use SimpleTelegramBotClient\Dto\Action\SendChatAction;
 use SimpleTelegramBotClient\Dto\Action\SendContact;
 use SimpleTelegramBotClient\Dto\Action\SendMediaGroup;
@@ -58,6 +59,7 @@ use SimpleTelegramBotClient\Exception\BadMethodCallException;
  * @method SendMessageResponse sendMediaGroup(SendMediaGroup $sendMediaGroup)
  * @method GetUserProfilePhotosResponse getUserProfilePhotos(GetUserProfilePhotos $getUserProfilePhotos)
  * @method GetUserProfilePhotosResponse getFile(GetFile $getFile)
+ * @method SimpleResponse kickChatMember(KickChatMember $kickChatMember)
  */
 class TelegramService
 {
@@ -188,7 +190,10 @@ class TelegramService
         $requestParams = $this->getParams();
         $requestParams['multipart'] = $this->convertToNameContent($params);
         $response = $this->client->post($url, $requestParams)->getBody()->getContents();
-        if ($action instanceof SendChatAction) {
+        if (
+            $action instanceof SendChatAction
+            || $action instanceof KickChatMember
+        ) {
             return $this->serializer->deserialize($response, SimpleResponse::class, 'json');
         } elseif ($action instanceof GetUserProfilePhotos) {
             return $this->serializer->deserialize($response, GetUserProfilePhotosResponse::class, 'json');
