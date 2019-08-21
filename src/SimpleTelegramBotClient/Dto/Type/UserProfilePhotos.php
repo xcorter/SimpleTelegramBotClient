@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleTelegramBotClient\Dto;
+namespace SimpleTelegramBotClient\Dto\Type;
 
 use JMS\Serializer\Annotation\Type;
 
 /**
  * Class UserProfilePhotos
- * @package SimpleTelegramBotClient\Dto
+ * @package SimpleTelegramBotClient\Dto\Type
  *
  * @link https://core.telegram.org/bots/api#userprofilephotos
  */
@@ -19,7 +19,7 @@ class UserProfilePhotos
     private $totalCount;
     /**
      * @var array
-     * @Type("array<array<SimpleTelegramBotClient\Dto\PhotoSize>>")
+     * @Type("array<array<SimpleTelegramBotClient\Dto\Type\PhotoSize>>")
      */
     private $photos;
 

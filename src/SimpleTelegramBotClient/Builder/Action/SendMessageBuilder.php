@@ -4,7 +4,7 @@ namespace SimpleTelegramBotClient\Builder\Action;
 
 use SimpleTelegramBotClient\Constant\ParseMode;
 use SimpleTelegramBotClient\Dto\Action\SendMessage;
-use SimpleTelegramBotClient\Dto\ForceReply;
+use SimpleTelegramBotClient\Dto\Type\ForceReply;
 use SimpleTelegramBotClient\Dto\Keyboard\InlineKeyboardMarkup;
 use SimpleTelegramBotClient\Dto\Keyboard\ReplyKeyboardMarkup;
 use SimpleTelegramBotClient\Dto\Keyboard\ReplyKeyboardRemove;

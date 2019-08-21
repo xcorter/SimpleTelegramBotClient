@@ -1,13 +1,13 @@
 <?php
 
-namespace SimpleTelegramBotClient\Dto;
+namespace SimpleTelegramBotClient\Dto\Type;
 
 use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\Type;
 
 /**
  * Class InputMediaVideo
- * @package SimpleTelegramBotClient\Dto
+ * @package SimpleTelegramBotClient\Dto\Type
  *
  * @link https://core.telegram.org/bots/api#inputmediavideo
  */

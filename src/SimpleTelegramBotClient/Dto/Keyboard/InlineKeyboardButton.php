@@ -4,7 +4,7 @@ namespace SimpleTelegramBotClient\Dto\Keyboard;
 
 use JMS\Serializer\Annotation\Type;
 use SimpleTelegramBotClient\Dto\CallbackGame;
-use SimpleTelegramBotClient\Dto\LoginUrl;
+use SimpleTelegramBotClient\Dto\Type\LoginUrl;
 
 /**
  * Class InlineKeyboardButton

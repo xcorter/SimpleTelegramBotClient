@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleTelegramBotClient\Dto;
+namespace SimpleTelegramBotClient\Dto\Type;
 
 use JMS\Serializer\Annotation\Type;
 
 /**
  * Class Chat
- * @package SimpleTelegramBotClient\Dto
+ * @package SimpleTelegramBotClient\Dto\Type
  * @link https://core.telegram.org/bots/api#chat
  */
 class Chat
@@ -48,7 +48,7 @@ class Chat
     private $allMembersAreAdministrators;
     /**
      * @var ChatPhoto|null
-     * @Type("SimpleTelegramBotClient\Dto\ChatPhoto")
+     * @Type("SimpleTelegramBotClient\Dto\Type\ChatPhoto")
      */
     private $photo;
     /**
@@ -63,7 +63,7 @@ class Chat
     private $inviteLink;
     /**
      * @var Message|null
-     * @Type("SimpleTelegramBotClient\Dto\Message")
+     * @Type("SimpleTelegramBotClient\Dto\Type\Message")
      */
     private $pinnedMessage;
     /**

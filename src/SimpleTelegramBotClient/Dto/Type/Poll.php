@@ -1,6 +1,6 @@
 <?php
 
-namespace SimpleTelegramBotClient\Dto;
+namespace SimpleTelegramBotClient\Dto\Type;
 
 use JMS\Serializer\Annotation\Type;
 
@@ -23,7 +23,7 @@ class Poll
     private $question;
     /**
      * @var PollOption[]
-     * @Type("array<SimpleTelegramBotClient\Dto\PollOption>")
+     * @Type("array<SimpleTelegramBotClient\Dto\Type\PollOption>")
      */
     private $options;
     /**

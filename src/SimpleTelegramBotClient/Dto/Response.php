@@ -3,6 +3,7 @@
 namespace SimpleTelegramBotClient\Dto;
 
 use JMS\Serializer\Annotation\Type;
+use SimpleTelegramBotClient\Dto\Type\Update;
 
 class Response
 {
@@ -13,7 +14,7 @@ class Response
     private $ok;
     /**
      * @var array
-     * @Type("array<SimpleTelegramBotClient\Dto\Update>")
+     * @Type("array<SimpleTelegramBotClient\Dto\Type\Update>")
      */
     private $result;
 

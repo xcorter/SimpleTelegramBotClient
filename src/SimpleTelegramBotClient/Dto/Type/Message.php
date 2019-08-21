@@ -1,13 +1,13 @@
 <?php
 
-namespace SimpleTelegramBotClient\Dto;
+namespace SimpleTelegramBotClient\Dto\Type;
 
 use JMS\Serializer\Annotation\Type;
 use SimpleTelegramBotClient\Dto\Keyboard\InlineKeyboardMarkup;
 
 /**
  * Class Message
- * @package SimpleTelegramBotClient\Dto
+ * @package SimpleTelegramBotClient\Dto\Type
  * @link https://core.telegram.org/bots/api#message
  */
 class Message
@@ -19,7 +19,7 @@ class Message
     private $messageId;
     /**
      * @var User|null
-     * @Type("SimpleTelegramBotClient\Dto\User")
+     * @Type("SimpleTelegramBotClient\Dto\Type\User")
      */
     private $from;
     /**
@@ -29,17 +29,17 @@ class Message
     private $date;
     /**
      * @var Chat
-     * @Type("SimpleTelegramBotClient\Dto\Chat")
+     * @Type("SimpleTelegramBotClient\Dto\Type\Chat")
      */
     private $chat;
     /**
      * @var User|null
-     * @Type("SimpleTelegramBotClient\Dto\User")
+     * @Type("SimpleTelegramBotClient\Dto\Type\User")
      */
     private $forwardFrom;
     /**
      * @var Chat|null
-     * @Type("SimpleTelegramBotClient\Dto\Chat")
+     * @Type("SimpleTelegramBotClient\Dto\Type\Chat")
      */
     private $forwardFromChat;
     /**
@@ -64,7 +64,7 @@ class Message
     private $forwardDate;
     /**
      * @var Message|null
-     * @Type("SimpleTelegramBotClient\Dto\Message")
+     * @Type("SimpleTelegramBotClient\Dto\Type\Message")
      */
     private $replyToMessage;
     /**
@@ -89,57 +89,57 @@ class Message
     private $text;
     /**
      * @var MessageEntity[]|null
-     * @Type("array<SimpleTelegramBotClient\Dto\MessageEntity>")
+     * @Type("array<SimpleTelegramBotClient\Dto\Type\MessageEntity>")
      */
     private $entities;
     /**
      * @var MessageEntity[]|null
-     * @Type("array<SimpleTelegramBotClient\Dto\MessageEntity>")
+     * @Type("array<SimpleTelegramBotClient\Dto\Type\MessageEntity>")
      */
     private $captionEntities;
     /**
      * @var Audio|null
-     * @Type("SimpleTelegramBotClient\Dto\Audio")
+     * @Type("SimpleTelegramBotClient\Dto\Type\Audio")
      */
     private $audio;
     /**
      * @var Document|null
-     * @Type("SimpleTelegramBotClient\Dto\Document")
+     * @Type("SimpleTelegramBotClient\Dto\Type\Document")
      */
     private $document;
     /**
      * @var Animation|null
-     * @Type("SimpleTelegramBotClient\Dto\Animation")
+     * @Type("SimpleTelegramBotClient\Dto\Type\Animation")
      */
     private $animation;
     /**
      * @var Game|null
-     * @Type("SimpleTelegramBotClient\Dto\Game")
+     * @Type("SimpleTelegramBotClient\Dto\Type\Game")
      */
     private $game;
     /**
      * @var PhotoSize[]|null
-     * @Type("array<SimpleTelegramBotClient\Dto\PhotoSize>")
+     * @Type("array<SimpleTelegramBotClient\Dto\Type\PhotoSize>")
      */
     private $photo;
     /**
      * @var Sticker|null
-     * @Type("SimpleTelegramBotClient\Dto\Sticker")
+     * @Type("SimpleTelegramBotClient\Dto\Type\Sticker")
      */
     private $sticker;
     /**
      * @var Video|null
-     * @Type("SimpleTelegramBotClient\Dto\Video")
+     * @Type("SimpleTelegramBotClient\Dto\Type\Video")
      */
     private $video;
     /**
      * @var Voice|null
-     * @Type("SimpleTelegramBotClient\Dto\Voice")
+     * @Type("SimpleTelegramBotClient\Dto\Type\Voice")
      */
     private $voice;
     /**
      * @var VideoNote|null
-     * @Type("SimpleTelegramBotClient\Dto\VideoNote")
+     * @Type("SimpleTelegramBotClient\Dto\Type\VideoNote")
      */
     private $videoNote;
     /**
@@ -149,27 +149,27 @@ class Message
     private $caption;
     /**
      * @var Contact|null
-     * @Type("SimpleTelegramBotClient\Dto\Contact")
+     * @Type("SimpleTelegramBotClient\Dto\Type\Contact")
      */
     private $contact;
     /**
      * @var Location|null
-     * @Type("SimpleTelegramBotClient\Dto\Location")
+     * @Type("SimpleTelegramBotClient\Dto\Type\Location")
      */
     private $location;
     /**
      * @var Venue|null
-     * @Type("SimpleTelegramBotClient\Dto\Venue")
+     * @Type("SimpleTelegramBotClient\Dto\Type\Venue")
      */
     private $venue;
     /**
      * @var Poll|null
-     * @Type("SimpleTelegramBotClient\Dto\Poll")
+     * @Type("SimpleTelegramBotClient\Dto\Type\Poll")
      */
     private $poll;
     /**
      * @var User[]|null
-     * @Type("array<SimpleTelegramBotClient\Dto\User>")
+     * @Type("array<SimpleTelegramBotClient\Dto\Type\User>")
      */
     private $newChatMembers;
     /**
@@ -179,7 +179,7 @@ class Message
     private $newChatTitle;
     /**
      * @var PhotoSize[]|null
-     * @Type("array<SimpleTelegramBotClient\Dto\PhotoSize>")
+     * @Type("array<SimpleTelegramBotClient\Dto\Type\PhotoSize>")
      */
     private $newChatPhoto;
     /**
@@ -214,18 +214,18 @@ class Message
     private $migrateFromChatId;
     /**
      * @var Message|null
-     * @Type("SimpleTelegramBotClient\Dto\Message")
+     * @Type("SimpleTelegramBotClient\Dto\Type\Message")
      */
     private $pinnedMessage;
     /**
      * @var Invoice|null
-     * @Type("SimpleTelegramBotClient\Dto\Invoice")
+     * @Type("SimpleTelegramBotClient\Dto\Type\Invoice")
      */
     private $invoice;
     /**
      * TODO need to implement
      * @var SuccessfulPayment|null
-     * @Type("SimpleTelegramBotClient\Dto\SuccessfulPayment")
+     * @Type("SimpleTelegramBotClient\Dto\Type\SuccessfulPayment")
      */
     private $successfulPayment;
     /**
@@ -236,7 +236,7 @@ class Message
     /**
      * TODO need to implement
      * @var PassportData|null
-     * @Type("SimpleTelegramBotClient\Dto\PassportData")
+     * @Type("SimpleTelegramBotClient\Dto\Type\PassportData")
      */
     private $passportData;
     /**

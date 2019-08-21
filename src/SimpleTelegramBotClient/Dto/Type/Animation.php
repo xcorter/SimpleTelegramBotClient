@@ -1,15 +1,15 @@
 <?php
 
-namespace SimpleTelegramBotClient\Dto;
+namespace SimpleTelegramBotClient\Dto\Type;
 
 use JMS\Serializer\Annotation\Type;
 
 /**
- * Class VideoNote
+ * Class Animation
  * @package SimpleTelegramBotClient\Dto
- * @link https://core.telegram.org/bots/api#videonote
+ * @link https://core.telegram.org/bots/api#animation
  */
-class VideoNote
+class Animation
 {
     /**
      * @var string
@@ -20,7 +20,12 @@ class VideoNote
      * @var int
      * @Type("int")
      */
-    private $length;
+    private $width;
+    /**
+     * @var int
+     * @Type("int")
+     */
+    private $height;
     /**
      * @var int
      * @Type("int")
@@ -28,9 +33,19 @@ class VideoNote
     private $duration;
     /**
      * @var PhotoSize|null
-     * @Type("SimpleTelegramBotClient\Dto\PhotoSize")
+     * @Type("SimpleTelegramBotClient\Dto\Type\PhotoSize")
      */
     private $thumb;
+    /**
+     * @var string|null
+     * @Type("string")
+     */
+    private $fileName;
+    /**
+     * @var string|null
+     * @Type("string")
+     */
+    private $mimeType;
     /**
      * @var int|null
      * @Type("int")
@@ -48,9 +63,17 @@ class VideoNote
     /**
      * @return int
      */
-    public function getLength(): int
+    public function getWidth(): int
     {
-        return $this->length;
+        return $this->width;
+    }
+
+    /**
+     * @return int
+     */
+    public function getHeight(): int
+    {
+        return $this->height;
     }
 
     /**
@@ -67,6 +90,22 @@ class VideoNote
     public function getThumb(): ?PhotoSize
     {
         return $this->thumb;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFileName(): ?string
+    {
+        return $this->fileName;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getMimeType(): ?string
+    {
+        return $this->mimeType;
     }
 
     /**

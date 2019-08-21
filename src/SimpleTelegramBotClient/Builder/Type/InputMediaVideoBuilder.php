@@ -2,7 +2,7 @@
 
 namespace SimpleTelegramBotClient\Builder\Type;
 
-use SimpleTelegramBotClient\Dto\InputMediaVideo;
+use SimpleTelegramBotClient\Dto\Type\InputMediaVideo;
 
 class InputMediaVideoBuilder
 {

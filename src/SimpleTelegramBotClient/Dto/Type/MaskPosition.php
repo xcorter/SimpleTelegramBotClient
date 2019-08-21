@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleTelegramBotClient\Dto;
+namespace SimpleTelegramBotClient\Dto\Type;
 
 use JMS\Serializer\Annotation\Type;
 
 /**
  * Class MaskPosition
- * @package SimpleTelegramBotClient\Dto
+ * @package SimpleTelegramBotClient\Dto\Type
  * @link https://core.telegram.org/bots/api#maskposition
  */
 class MaskPosition

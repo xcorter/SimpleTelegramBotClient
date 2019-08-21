@@ -3,6 +3,7 @@
 namespace SimpleTelegramBotClient\Dto;
 
 use JMS\Serializer\Annotation\Type;
+use SimpleTelegramBotClient\Dto\Type\Message;
 
 class SendMessageResponse
 {
@@ -13,7 +14,7 @@ class SendMessageResponse
     private $ok;
     /**
      * @var Message
-     * @Type("SimpleTelegramBotClient\Dto\Message")
+     * @Type("SimpleTelegramBotClient\Dto\Type\Message")
      */
     private $result;
 

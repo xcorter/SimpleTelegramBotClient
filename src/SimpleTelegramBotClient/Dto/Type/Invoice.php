@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleTelegramBotClient\Dto;
+namespace SimpleTelegramBotClient\Dto\Type;
 
 use JMS\Serializer\Annotation\Type;
 
 /**
  * Class Invoice
- * @package SimpleTelegramBotClient\Dto
+ * @package SimpleTelegramBotClient\Dto\Type
  * @link https://core.telegram.org/bots/api#invoice
  */
 class Invoice

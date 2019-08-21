@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleTelegramBotClient\Dto;
+namespace SimpleTelegramBotClient\Dto\Type;
 
 use JMS\Serializer\Annotation\Type;
 
 /**
  * Class MessageEntity
- * @package SimpleTelegramBotClient\Dto
+ * @package SimpleTelegramBotClient\Dto\Type
  * @link https://core.telegram.org/bots/api#messageentity
  */
 class MessageEntity
@@ -33,7 +33,7 @@ class MessageEntity
     private $url;
     /**
      * @var User|null
-     * @Type("SimpleTelegramBotClient\Dto\User")
+     * @Type("SimpleTelegramBotClient\Dto\Type\User")
      */
     private $user;
 

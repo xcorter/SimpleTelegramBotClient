@@ -2,7 +2,7 @@
 namespace SimpleTelegramBotClient\Builder\Action;
 
 use SimpleTelegramBotClient\Dto\Action\SendDocument;
-use SimpleTelegramBotClient\Dto\ForceReply;
+use SimpleTelegramBotClient\Dto\Type\ForceReply;
 use SimpleTelegramBotClient\Dto\Keyboard\InlineKeyboardMarkup;
 use SimpleTelegramBotClient\Dto\Keyboard\ReplyKeyboardMarkup;
 use SimpleTelegramBotClient\Dto\Keyboard\ReplyKeyboardRemove;

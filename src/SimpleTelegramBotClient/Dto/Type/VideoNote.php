@@ -1,15 +1,15 @@
 <?php
 
-namespace SimpleTelegramBotClient\Dto;
+namespace SimpleTelegramBotClient\Dto\Type;
 
 use JMS\Serializer\Annotation\Type;
 
 /**
- * Class Voice
- * @package SimpleTelegramBotClient\Dto
- * @link https://core.telegram.org/bots/api#voice
+ * Class VideoNote
+ * @package SimpleTelegramBotClient\Dto\Type
+ * @link https://core.telegram.org/bots/api#videonote
  */
-class Voice
+class VideoNote
 {
     /**
      * @var string
@@ -20,12 +20,17 @@ class Voice
      * @var int
      * @Type("int")
      */
+    private $length;
+    /**
+     * @var int
+     * @Type("int")
+     */
     private $duration;
     /**
-     * @var string|null
-     * @Type("string")
+     * @var PhotoSize|null
+     * @Type("SimpleTelegramBotClient\Dto\Type\PhotoSize")
      */
-    private $mimeType;
+    private $thumb;
     /**
      * @var int|null
      * @Type("int")
@@ -43,17 +48,25 @@ class Voice
     /**
      * @return int
      */
+    public function getLength(): int
+    {
+        return $this->length;
+    }
+
+    /**
+     * @return int
+     */
     public function getDuration(): int
     {
         return $this->duration;
     }
 
     /**
-     * @return string|null
+     * @return PhotoSize|null
      */
-    public function getMimeType(): ?string
+    public function getThumb(): ?PhotoSize
     {
-        return $this->mimeType;
+        return $this->thumb;
     }
 
     /**

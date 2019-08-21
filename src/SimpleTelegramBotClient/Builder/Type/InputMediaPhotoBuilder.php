@@ -2,7 +2,7 @@
 
 namespace SimpleTelegramBotClient\Builder\Type;
 
-use SimpleTelegramBotClient\Dto\InputMediaPhoto;
+use SimpleTelegramBotClient\Dto\Type\InputMediaPhoto;
 
 class InputMediaPhotoBuilder
 {

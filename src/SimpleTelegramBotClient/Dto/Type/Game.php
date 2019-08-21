@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleTelegramBotClient\Dto;
+namespace SimpleTelegramBotClient\Dto\Type;
 
 use JMS\Serializer\Annotation\Type;
 
 /**
  * Class Game
- * @package SimpleTelegramBotClient\Dto
+ * @package SimpleTelegramBotClient\Dto\Type
  * @link https://core.telegram.org/bots/api#game
  */
 class Game
@@ -23,7 +23,7 @@ class Game
     private $description;
     /**
      * @var PhotoSize[]
-     * @Type("array<SimpleTelegramBotClient\Dto\PhotoSize>")
+     * @Type("array<SimpleTelegramBotClient\Dto\Type\PhotoSize>")
      */
     private $photo;
     /**
@@ -33,12 +33,12 @@ class Game
     private $text;
     /**
      * @var MessageEntity[]|null
-     * @Type("array<SimpleTelegramBotClient\Dto\MessageEntity>")
+     * @Type("array<SimpleTelegramBotClient\Dto\Type\MessageEntity>")
      */
     private $textEntities;
     /**
      * @var Animation|null
-     * @Type("SimpleTelegramBotClient\Dto\Animation")
+     * @Type("SimpleTelegramBotClient\Dto\Type\Animation")
      */
     private $animation;
 

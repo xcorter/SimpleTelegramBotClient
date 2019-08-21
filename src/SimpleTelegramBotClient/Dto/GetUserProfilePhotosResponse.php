@@ -3,6 +3,7 @@
 namespace SimpleTelegramBotClient\Dto;
 
 use JMS\Serializer\Annotation\Type;
+use SimpleTelegramBotClient\Dto\Type\UserProfilePhotos;
 
 class GetUserProfilePhotosResponse
 {
@@ -13,7 +14,7 @@ class GetUserProfilePhotosResponse
     private $ok;
     /**
      * @var UserProfilePhotos
-     * @Type("SimpleTelegramBotClient\Dto\UserProfilePhotos")
+     * @Type("SimpleTelegramBotClient\Dto\Type\UserProfilePhotos")
      */
     private $result;
 

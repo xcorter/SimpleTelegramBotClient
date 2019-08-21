@@ -1,15 +1,15 @@
 <?php
 
-namespace SimpleTelegramBotClient\Dto;
+namespace SimpleTelegramBotClient\Dto\Type;
 
 use JMS\Serializer\Annotation\Type;
 
 /**
- * Class Audio
- * @package SimpleTelegramBotClient\Dto
- * @link https://core.telegram.org/bots/api#audio
+ * Class Video
+ * @package SimpleTelegramBotClient\Dto\Type
+ * @link https://core.telegram.org/bots/api#video
  */
-class Audio
+class Video
 {
     /**
      * @var string
@@ -20,17 +20,17 @@ class Audio
      * @var int
      * @Type("int")
      */
-    private $duration;
+    private $width;
     /**
-     * @var string|null
-     * @Type("string")
+     * @var int
+     * @Type("int")
      */
-    private $performer;
+    private $height;
     /**
-     * @var string|null
-     * @Type("string")
+     * @var PhotoSize|null
+     * @Type("SimpleTelegramBotClient\Dto\Type\PhotoSize")
      */
-    private $title;
+    private $thumb;
     /**
      * @var string|null
      * @Type("string")
@@ -41,11 +41,6 @@ class Audio
      * @Type("int")
      */
     private $fileSize;
-    /**
-     * @var PhotoSize|null
-     * @Type("SimpleTelegramBotClient\Dto\PhotoSize")
-     */
-    private $thumb;
 
     /**
      * @return string
@@ -58,25 +53,25 @@ class Audio
     /**
      * @return int
      */
-    public function getDuration(): int
+    public function getWidth(): int
     {
-        return $this->duration;
+        return $this->width;
     }
 
     /**
-     * @return string|null
+     * @return int
      */
-    public function getPerformer(): ?string
+    public function getHeight(): int
     {
-        return $this->performer;
+        return $this->height;
     }
 
     /**
-     * @return string|null
+     * @return PhotoSize|null
      */
-    public function getTitle(): ?string
+    public function getThumb(): ?PhotoSize
     {
-        return $this->title;
+        return $this->thumb;
     }
 
     /**
@@ -93,13 +88,5 @@ class Audio
     public function getFileSize(): ?int
     {
         return $this->fileSize;
-    }
-
-    /**
-     * @return PhotoSize|null
-     */
-    public function getThumb(): ?PhotoSize
-    {
-        return $this->thumb;
     }
 }

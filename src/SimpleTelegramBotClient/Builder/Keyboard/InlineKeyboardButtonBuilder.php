@@ -4,7 +4,7 @@ namespace SimpleTelegramBotClient\Builder\Keyboard;
 
 use SimpleTelegramBotClient\Dto\CallbackGame;
 use SimpleTelegramBotClient\Dto\Keyboard\InlineKeyboardButton;
-use SimpleTelegramBotClient\Dto\LoginUrl;
+use SimpleTelegramBotClient\Dto\Type\LoginUrl;
 
 /**
  * Class InlineKeyboardButtonBuilder

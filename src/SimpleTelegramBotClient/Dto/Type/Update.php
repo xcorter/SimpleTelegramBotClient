@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleTelegramBotClient\Dto;
+namespace SimpleTelegramBotClient\Dto\Type;
 
 use JMS\Serializer\Annotation\Type;
 
 /**
  * Class Update
- * @package SimpleTelegramBotClient\Dto
+ * @package SimpleTelegramBotClient\Dto\Type
  *
  * @link https://core.telegram.org/bots/api#update
  */
@@ -20,25 +20,25 @@ class Update
 
     /**
      * @var Message|null
-     * @Type("SimpleTelegramBotClient\Dto\Message")
+     * @Type("SimpleTelegramBotClient\Dto\Type\Message")
      */
     private $message;
 
     /**
      * @var Message|null
-     * @Type("SimpleTelegramBotClient\Dto\Message")
+     * @Type("SimpleTelegramBotClient\Dto\Type\Message")
      */
     private $editedMessage;
 
     /**
      * @var Message|null
-     * @Type("SimpleTelegramBotClient\Dto\Message")
+     * @Type("SimpleTelegramBotClient\Dto\Type\Message")
      */
     private $channelPost;
 
     /**
      * @var Message|null
-     * @Type("SimpleTelegramBotClient\Dto\Message")
+     * @Type("SimpleTelegramBotClient\Dto\Type\Message")
      */
     private $editedChannelPost;
 //    /**
@@ -63,7 +63,7 @@ class Update
 //    private $preCheckoutQuery;
     /**
      * @var Poll|null
-     * @Type("SimpleTelegramBotClient\Dto\Poll")
+     * @Type("SimpleTelegramBotClient\Dto\Type\Poll")
      */
     private $poll;
 

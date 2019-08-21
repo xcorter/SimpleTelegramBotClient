@@ -3,6 +3,7 @@
 namespace SimpleTelegramBotClient\Dto;
 
 use JMS\Serializer\Annotation\Type;
+use SimpleTelegramBotClient\Dto\Type\User;
 
 class GetFileResponse
 {
@@ -13,7 +14,7 @@ class GetFileResponse
     private $ok;
     /**
      * @var User
-     * @Type("SimpleTelegramBotClient\Dto\File")
+     * @Type("SimpleTelegramBotClient\Dto\Type\File")
      */
     private $result;
 

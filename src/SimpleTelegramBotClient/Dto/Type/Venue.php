@@ -1,19 +1,19 @@
 <?php
 
-namespace SimpleTelegramBotClient\Dto;
+namespace SimpleTelegramBotClient\Dto\Type;
 
 use JMS\Serializer\Annotation\Type;
 
 /**
  * Class Venue
- * @package SimpleTelegramBotClient\Dto
+ * @package SimpleTelegramBotClient\Dto\Type
  * @link https://core.telegram.org/bots/api#message
  */
 class Venue
 {
     /**
      * @var Location
-     * @Type("SimpleTelegramBotClient\Dto\Location")
+     * @Type("SimpleTelegramBotClient\Dto\Type\Location")
      */
     private $location;
     /**

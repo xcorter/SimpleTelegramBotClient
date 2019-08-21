@@ -1,15 +1,15 @@
 <?php
 
-namespace SimpleTelegramBotClient\Dto;
+namespace SimpleTelegramBotClient\Dto\Type;
 
 use JMS\Serializer\Annotation\Type;
 
 /**
- * Class Animation
- * @package SimpleTelegramBotClient\Dto
- * @link https://core.telegram.org/bots/api#animation
+ * Class Document
+ * @package SimpleTelegramBotClient\Dto\Type
+ * @link https://core.telegram.org/bots/api#document
  */
-class Animation
+class Document
 {
     /**
      * @var string
@@ -17,23 +17,8 @@ class Animation
      */
     private $fileId;
     /**
-     * @var int
-     * @Type("int")
-     */
-    private $width;
-    /**
-     * @var int
-     * @Type("int")
-     */
-    private $height;
-    /**
-     * @var int
-     * @Type("int")
-     */
-    private $duration;
-    /**
      * @var PhotoSize|null
-     * @Type("SimpleTelegramBotClient\Dto\PhotoSize")
+     * @Type("SimpleTelegramBotClient\Dto\Type\PhotoSize")
      */
     private $thumb;
     /**
@@ -47,8 +32,8 @@ class Animation
      */
     private $mimeType;
     /**
-     * @var int|null
-     * @Type("int")
+     * @var string|null
+     * @Type("string")
      */
     private $fileSize;
 
@@ -58,30 +43,6 @@ class Animation
     public function getFileId(): string
     {
         return $this->fileId;
-    }
-
-    /**
-     * @return int
-     */
-    public function getWidth(): int
-    {
-        return $this->width;
-    }
-
-    /**
-     * @return int
-     */
-    public function getHeight(): int
-    {
-        return $this->height;
-    }
-
-    /**
-     * @return int
-     */
-    public function getDuration(): int
-    {
-        return $this->duration;
     }
 
     /**
@@ -109,9 +70,9 @@ class Animation
     }
 
     /**
-     * @return int|null
+     * @return string|null
      */
-    public function getFileSize(): ?int
+    public function getFileSize(): ?string
     {
         return $this->fileSize;
     }

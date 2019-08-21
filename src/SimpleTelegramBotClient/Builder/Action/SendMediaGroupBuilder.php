@@ -3,8 +3,8 @@
 namespace SimpleTelegramBotClient\Builder\Action;
 
 use SimpleTelegramBotClient\Dto\Action\SendMediaGroup;
-use SimpleTelegramBotClient\Dto\InputMediaPhoto;
-use SimpleTelegramBotClient\Dto\InputMediaVideo;
+use SimpleTelegramBotClient\Dto\Type\InputMediaPhoto;
+use SimpleTelegramBotClient\Dto\Type\InputMediaVideo;
 
 class SendMediaGroupBuilder
 {

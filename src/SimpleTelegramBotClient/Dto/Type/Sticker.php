@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleTelegramBotClient\Dto;
+namespace SimpleTelegramBotClient\Dto\Type;
 
 use JMS\Serializer\Annotation\Type;
 
 /**
  * Class Sticker
- * @package SimpleTelegramBotClient\Dto
+ * @package SimpleTelegramBotClient\Dto\Type
  * @link https://core.telegram.org/bots/api#sticker
  */
 class Sticker
@@ -28,7 +28,7 @@ class Sticker
     private $height;
     /**
      * @var PhotoSize|null
-     * @Type("SimpleTelegramBotClient\Dto\PhotoSize")
+     * @Type("SimpleTelegramBotClient\Dto\Type\PhotoSize")
      */
     private $thumb;
     /**
@@ -43,7 +43,7 @@ class Sticker
     private $setName;
     /**
      * @var MaskPosition|null
-     * @Type("SimpleTelegramBotClient\Dto\MaskPosition")
+     * @Type("SimpleTelegramBotClient\Dto\Type\MaskPosition")
      */
     private $maskPosition;
     /**
