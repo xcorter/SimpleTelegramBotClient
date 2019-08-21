@@ -14,6 +14,7 @@ use PHPUnit\Framework\TestCase;
 use SimpleTelegramBotClient\Builder\Action\GetFileBuilder;
 use SimpleTelegramBotClient\Builder\Action\GetUserProfilePhotosBuilder;
 use SimpleTelegramBotClient\Builder\Action\KickChatMemberBuilder;
+use SimpleTelegramBotClient\Builder\Action\RestrictChatMemberBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendChatActionBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendContactBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendLocationBuilder;
@@ -30,6 +31,7 @@ use SimpleTelegramBotClient\Builder\Keyboard\InlineKeyboardButtonBuilder;
 use SimpleTelegramBotClient\Builder\Keyboard\InlineKeyboardMarkupBuilder;
 use SimpleTelegramBotClient\Builder\Keyboard\KeyboardButtonBuilder;
 use SimpleTelegramBotClient\Builder\Keyboard\ReplyKeyboardMarkupBuilder;
+use SimpleTelegramBotClient\Builder\Type\ChatPermissionsBuilder;
 use SimpleTelegramBotClient\Builder\Type\InputMediaPhotoBuilder;
 use SimpleTelegramBotClient\Builder\Type\InputMediaVideoBuilder;
 use SimpleTelegramBotClient\Config;
@@ -295,6 +297,21 @@ class TelegramServiceTest extends TestCase
         $unbanChatMemberBuilder = new UnbanChatMemberBuilder('id', 123);
         $message = $unbanChatMemberBuilder->build();
         $actual = $this->telegramService->unbanChatMember($message);
+        $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testRestrictChatMember(): void
+    {
+        $content = $this->appendToMockHandler('restrict_chat_member.json');
+
+        $chatPermissionsBuilder = new ChatPermissionsBuilder();
+        $chatPermissionsBuilder->allowAll();
+        $chatPermissions = $chatPermissionsBuilder->build();
+
+        $restrictChatMemberBuilder = new RestrictChatMemberBuilder('chatId', 123, $chatPermissions);
+        $message = $restrictChatMemberBuilder->build();
+        $actual = $this->telegramService->restrictChatMember($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }

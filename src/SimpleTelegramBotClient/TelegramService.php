@@ -8,6 +8,7 @@ use SimpleTelegramBotClient\Dto\Action\EditMessageLiveLocation;
 use SimpleTelegramBotClient\Dto\Action\GetFile;
 use SimpleTelegramBotClient\Dto\Action\GetUserProfilePhotos;
 use SimpleTelegramBotClient\Dto\Action\KickChatMember;
+use SimpleTelegramBotClient\Dto\Action\RestrictChatMember;
 use SimpleTelegramBotClient\Dto\Action\SendChatAction;
 use SimpleTelegramBotClient\Dto\Action\SendContact;
 use SimpleTelegramBotClient\Dto\Action\SendMediaGroup;
@@ -62,6 +63,7 @@ use SimpleTelegramBotClient\Exception\BadMethodCallException;
  * @method GetUserProfilePhotosResponse getFile(GetFile $getFile)
  * @method SimpleResponse kickChatMember(KickChatMember $kickChatMember)
  * @method SimpleResponse unbanChatMember(UnbanChatMember $unbanChatMember)
+ * @method SimpleResponse restrictChatMember(RestrictChatMember $restrictChatMember)
  */
 class TelegramService
 {
@@ -188,6 +190,8 @@ class TelegramService
             $params['media'] = $this->serializer->serialize($action->getMedia(), 'json');
         } elseif ($action instanceof SendPoll) {
             $params['options'] = json_encode($action->getOptions());
+        } elseif ($action instanceof RestrictChatMember) {
+            $params['permissions'] = $this->serializer->serialize($action->getPermissions(), 'json');
         }
         $requestParams = $this->getParams();
         $requestParams['multipart'] = $this->convertToNameContent($params);
@@ -196,6 +200,7 @@ class TelegramService
             $action instanceof SendChatAction
             || $action instanceof KickChatMember
             || $action instanceof UnbanChatMember
+            || $action instanceof RestrictChatMember
         ) {
             return $this->serializer->deserialize($response, SimpleResponse::class, 'json');
         } elseif ($action instanceof GetUserProfilePhotos) {
