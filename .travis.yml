@@ -5,6 +5,7 @@ install:
   - composer install
 script:
   - vendor/bin/phpstan analyse ./src
+  - vendor/bin/php-cs-fixer fix ./src --dry-run
   - vendor/bin/phpunit -c phpunit.xml.dist --coverage-clover=coverage.xml
 
 after_success:
