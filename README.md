@@ -1,5 +1,8 @@
 # SimpleTelegramBotClient
 
+[![Build Status](https://travis-ci.org/xcorter/SimpleTelegramBotClient.svg?branch=master)](https://travis-ci.org/xcorter/SimpleTelegramBotClient)
+[![codecov](https://codecov.io/gh/xcorter/SimpleTelegramBotClient/branch/master/graph/badge.svg)](https://codecov.io/gh/xcorter/SimpleTelegramBotClient/)
+
 ## Usages:
 
 ### Initialize
