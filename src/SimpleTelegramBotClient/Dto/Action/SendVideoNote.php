@@ -4,7 +4,7 @@ namespace SimpleTelegramBotClient\Dto\Action;
 
 use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\Type;
-use SimpleTelegramBotClient\Dto\ForceReply;
+use SimpleTelegramBotClient\Dto\Type\ForceReply;
 use SimpleTelegramBotClient\Dto\Keyboard\InlineKeyboardMarkup;
 use SimpleTelegramBotClient\Dto\Keyboard\ReplyKeyboardMarkup;
 use SimpleTelegramBotClient\Dto\Keyboard\ReplyKeyboardRemove;

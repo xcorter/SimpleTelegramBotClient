@@ -3,7 +3,7 @@
 namespace SimpleTelegramBotClient\Dto\Keyboard;
 
 use JMS\Serializer\Annotation\Type;
-use SimpleTelegramBotClient\Dto\CallbackGame;
+use SimpleTelegramBotClient\Dto\Type\CallbackGame;
 use SimpleTelegramBotClient\Dto\Type\LoginUrl;
 
 /**

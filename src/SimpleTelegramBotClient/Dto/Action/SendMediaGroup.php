@@ -4,8 +4,8 @@ namespace SimpleTelegramBotClient\Dto\Action;
 
 use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\Type;
-use SimpleTelegramBotClient\Dto\InputMediaPhoto;
-use SimpleTelegramBotClient\Dto\InputMediaVideo;
+use SimpleTelegramBotClient\Dto\Type\InputMediaPhoto;
+use SimpleTelegramBotClient\Dto\Type\InputMediaVideo;
 
 /**
  * Class SendMediaGroup
