@@ -1,8 +1,16 @@
 language: php
 php:
-  - '7.1'
-  - '7.2'
   - '7.3'
 install:
   - composer install
-script: vendor/bin/phpunit -c phpunit.xml.dist
+script: vendor/bin/phpunit -c phpunit.xml.dist --coverage-clover=coverage.xml
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+branches:
+  only:
+    - master
+
+env:
+  - CODECOV_TOKEN="18f0c655-59ac-4bdd-bbf2-f8e2aecb80f6"
