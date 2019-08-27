@@ -4,6 +4,7 @@ namespace SimpleTelegramBotClient;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+use SimpleTelegramBotClient\Builder\Action\SetChatPermissionsBuilder;
 use SimpleTelegramBotClient\Dto\Action\EditMessageLiveLocation;
 use SimpleTelegramBotClient\Dto\Action\GetFile;
 use SimpleTelegramBotClient\Dto\Action\GetUserProfilePhotos;
@@ -17,6 +18,7 @@ use SimpleTelegramBotClient\Dto\Action\SendPoll;
 use SimpleTelegramBotClient\Dto\Action\SendVenue;
 use SimpleTelegramBotClient\Dto\Action\SendVideoNote;
 use SimpleTelegramBotClient\Dto\Action\SendVoice;
+use SimpleTelegramBotClient\Dto\Action\SetChatPermissions;
 use SimpleTelegramBotClient\Dto\Action\StopMessageLiveLocation;
 use SimpleTelegramBotClient\Dto\Action\UnbanChatMember;
 use SimpleTelegramBotClient\Dto\GetFileResponse;
@@ -66,6 +68,7 @@ use SimpleTelegramBotClient\Exception\BadMethodCallException;
  * @method SimpleResponse unbanChatMember(UnbanChatMember $unbanChatMember)
  * @method SimpleResponse restrictChatMember(RestrictChatMember $restrictChatMember)
  * @method SimpleResponse promoteChatMember(PromoteChatMember $promoteChatMember)
+ * @method SimpleResponse setChatPermissions(SetChatPermissions $setChatPermissions)
  */
 class TelegramService
 {
@@ -192,7 +195,10 @@ class TelegramService
             $params['media'] = $this->serializer->serialize($action->getMedia(), 'json');
         } elseif ($action instanceof SendPoll) {
             $params['options'] = json_encode($action->getOptions());
-        } elseif ($action instanceof RestrictChatMember) {
+        } elseif (
+            $action instanceof RestrictChatMember
+            || $action instanceof SetChatPermissions
+        ) {
             $params['permissions'] = $this->serializer->serialize($action->getPermissions(), 'json');
         }
         $requestParams = $this->getParams();
@@ -204,6 +210,7 @@ class TelegramService
             || $action instanceof UnbanChatMember
             || $action instanceof RestrictChatMember
             || $action instanceof PromoteChatMember
+            || $action instanceof SetChatPermissions
         ) {
             return $this->serializer->deserialize($response, SimpleResponse::class, 'json');
         } elseif ($action instanceof GetUserProfilePhotos) {

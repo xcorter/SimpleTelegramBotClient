@@ -4,6 +4,12 @@ namespace SimpleTelegramBotClient\Dto\Action;
 
 use JMS\Serializer\Annotation\Type;
 
+/**
+ * Class PromoteChatMember
+ * @package SimpleTelegramBotClient\Dto\Action
+ *
+ * @link https://core.telegram.org/bots/api#promotechatmember
+ */
 class PromoteChatMember implements ActionInterface
 {
     /**

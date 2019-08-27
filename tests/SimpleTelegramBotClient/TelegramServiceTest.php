@@ -25,6 +25,7 @@ use SimpleTelegramBotClient\Builder\Action\SendPollBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendVenueBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendVideoNoteBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendVoiceBuilder;
+use SimpleTelegramBotClient\Builder\Action\SetChatPermissionsBuilder;
 use SimpleTelegramBotClient\Builder\Action\StopMessageLiveLocationBuilder;
 use SimpleTelegramBotClient\Builder\Action\UnbanChatMemberBuilder;
 use SimpleTelegramBotClient\Builder\Keyboard\ArrayKeyboardButtonBuilder;
@@ -326,6 +327,21 @@ class TelegramServiceTest extends TestCase
         $promoteChatMember = $promoteChatMemberBuilder->build();
 
         $actual = $this->telegramService->promoteChatMember($promoteChatMember);
+        $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testSetChatPermissions(): void
+    {
+        $content = $this->appendToMockHandler('set_chat_permissions.json');
+
+        $chatPermissionsBuilder = new ChatPermissionsBuilder();
+        $chatPermissionsBuilder->allowAll();
+        $chatPermissions = $chatPermissionsBuilder->build();
+
+        $setChatPermissionsBuilder = new SetChatPermissionsBuilder('chatId', $chatPermissions);
+        $message = $setChatPermissionsBuilder->build();
+        $actual = $this->telegramService->setChatPermissions($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }
