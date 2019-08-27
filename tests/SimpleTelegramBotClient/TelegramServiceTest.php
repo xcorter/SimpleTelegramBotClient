@@ -14,6 +14,7 @@ use PHPUnit\Framework\TestCase;
 use SimpleTelegramBotClient\Builder\Action\GetFileBuilder;
 use SimpleTelegramBotClient\Builder\Action\GetUserProfilePhotosBuilder;
 use SimpleTelegramBotClient\Builder\Action\KickChatMemberBuilder;
+use SimpleTelegramBotClient\Builder\Action\PromoteChatMemberBuilder;
 use SimpleTelegramBotClient\Builder\Action\RestrictChatMemberBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendChatActionBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendContactBuilder;
@@ -312,6 +313,19 @@ class TelegramServiceTest extends TestCase
         $restrictChatMemberBuilder = new RestrictChatMemberBuilder('chatId', 123, $chatPermissions);
         $message = $restrictChatMemberBuilder->build();
         $actual = $this->telegramService->restrictChatMember($message);
+        $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testPromoteChatMember(): void
+    {
+        $content = $this->appendToMockHandler('promote_chat_member.json');
+
+        $promoteChatMemberBuilder = new PromoteChatMemberBuilder('chatId', 123);
+        $promoteChatMemberBuilder->setCanChangeInfo(true);
+        $promoteChatMember = $promoteChatMemberBuilder->build();
+
+        $actual = $this->telegramService->promoteChatMember($promoteChatMember);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }
