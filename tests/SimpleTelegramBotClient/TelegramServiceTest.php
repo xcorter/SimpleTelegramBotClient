@@ -11,6 +11,7 @@ use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use SimpleTelegramBotClient\Builder\Action\ExportChatInviteLinkBuilder;
 use SimpleTelegramBotClient\Builder\Action\GetFileBuilder;
 use SimpleTelegramBotClient\Builder\Action\GetUserProfilePhotosBuilder;
 use SimpleTelegramBotClient\Builder\Action\KickChatMemberBuilder;
@@ -38,6 +39,7 @@ use SimpleTelegramBotClient\Builder\Type\InputMediaPhotoBuilder;
 use SimpleTelegramBotClient\Builder\Type\InputMediaVideoBuilder;
 use SimpleTelegramBotClient\Config;
 use SimpleTelegramBotClient\Constant\ChatAction;
+use SimpleTelegramBotClient\Dto\ChatInviteLinkResponse;
 use SimpleTelegramBotClient\Dto\GetFileResponse;
 use SimpleTelegramBotClient\Dto\GetUserProfilePhotosResponse;
 use SimpleTelegramBotClient\Dto\Response as ResponseDto;
@@ -343,6 +345,17 @@ class TelegramServiceTest extends TestCase
         $message = $setChatPermissionsBuilder->build();
         $actual = $this->telegramService->setChatPermissions($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testExportChatInviteLink(): void
+    {
+        $content = $this->appendToMockHandler('export_chat_invite_link.json');
+
+        $builder = new ExportChatInviteLinkBuilder('123');
+        $message = $builder->build();
+        $actual = $this->telegramService->exportChatInviteLink($message);
+        $expected = $this->serialzier->deserialize($content, ChatInviteLinkResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }
 

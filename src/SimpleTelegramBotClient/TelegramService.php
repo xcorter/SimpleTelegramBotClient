@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use SimpleTelegramBotClient\Builder\Action\SetChatPermissionsBuilder;
 use SimpleTelegramBotClient\Dto\Action\EditMessageLiveLocation;
+use SimpleTelegramBotClient\Dto\Action\ExportChatInviteLink;
 use SimpleTelegramBotClient\Dto\Action\GetFile;
 use SimpleTelegramBotClient\Dto\Action\GetUserProfilePhotos;
 use SimpleTelegramBotClient\Dto\Action\KickChatMember;
@@ -21,6 +22,7 @@ use SimpleTelegramBotClient\Dto\Action\SendVoice;
 use SimpleTelegramBotClient\Dto\Action\SetChatPermissions;
 use SimpleTelegramBotClient\Dto\Action\StopMessageLiveLocation;
 use SimpleTelegramBotClient\Dto\Action\UnbanChatMember;
+use SimpleTelegramBotClient\Dto\ChatInviteLinkResponse;
 use SimpleTelegramBotClient\Dto\GetFileResponse;
 use SimpleTelegramBotClient\Dto\GetUserProfilePhotosResponse;
 use SimpleTelegramBotClient\Dto\SimpleResponse;
@@ -69,6 +71,7 @@ use SimpleTelegramBotClient\Exception\BadMethodCallException;
  * @method SimpleResponse restrictChatMember(RestrictChatMember $restrictChatMember)
  * @method SimpleResponse promoteChatMember(PromoteChatMember $promoteChatMember)
  * @method SimpleResponse setChatPermissions(SetChatPermissions $setChatPermissions)
+ * @method ChatInviteLinkResponse exportChatInviteLink(ExportChatInviteLink $exportChatInviteLink)
  */
 class TelegramService
 {
@@ -217,6 +220,8 @@ class TelegramService
             return $this->serializer->deserialize($response, GetUserProfilePhotosResponse::class, 'json');
         } elseif ($action instanceof GetFile) {
             return $this->serializer->deserialize($response, GetFileResponse::class, 'json');
+        } elseif ($action instanceof ExportChatInviteLink) {
+            return $this->serializer->deserialize($response, ChatInviteLinkResponse::class, 'json');
         }
         return $this->serializer->deserialize($response, SendMessageResponse::class, 'json');
     }
