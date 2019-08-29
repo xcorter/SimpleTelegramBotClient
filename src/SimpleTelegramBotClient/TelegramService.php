@@ -26,6 +26,7 @@ use SimpleTelegramBotClient\Dto\Action\SetChatPhoto;
 use SimpleTelegramBotClient\Dto\Action\SetChatTitle;
 use SimpleTelegramBotClient\Dto\Action\StopMessageLiveLocation;
 use SimpleTelegramBotClient\Dto\Action\UnbanChatMember;
+use SimpleTelegramBotClient\Dto\Action\UnpinChatMessage;
 use SimpleTelegramBotClient\Dto\ChatInviteLinkResponse;
 use SimpleTelegramBotClient\Dto\GetFileResponse;
 use SimpleTelegramBotClient\Dto\GetUserProfilePhotosResponse;
@@ -79,6 +80,7 @@ use SimpleTelegramBotClient\Exception\BadMethodCallException;
  * @method SimpleResponse deleteChatPhoto(DeleteChatPhoto $deleteChatPhoto)
  * @method SimpleResponse setChatDescription(SetChatDescription $setChatDescription)
  * @method SimpleResponse pinChatMessage(PinChatMessage $pinChatMessage)
+ * @method SimpleResponse unpinChatMessage(UnpinChatMessage $unpinChatMessage)
  * @method SetChatTitle setChatTitle(SetChatTitle $setChatTitle)
  * @method ChatInviteLinkResponse exportChatInviteLink(ExportChatInviteLink $exportChatInviteLink)
  */
@@ -230,6 +232,7 @@ class TelegramService
             || $action instanceof SetChatTitle
             || $action instanceof PinChatMessage
             || $action instanceof SetChatDescription
+            || $action instanceof UnpinChatMessage
         ) {
             return $this->serializer->deserialize($response, SimpleResponse::class, 'json');
         } elseif ($action instanceof GetUserProfilePhotos) {

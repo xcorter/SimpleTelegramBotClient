@@ -44,6 +44,7 @@ use SimpleTelegramBotClient\Builder\Type\InputMediaPhotoBuilder;
 use SimpleTelegramBotClient\Builder\Type\InputMediaVideoBuilder;
 use SimpleTelegramBotClient\Config;
 use SimpleTelegramBotClient\Constant\ChatAction;
+use SimpleTelegramBotClient\Dto\Action\UnpinChatMessage;
 use SimpleTelegramBotClient\Dto\ChatInviteLinkResponse;
 use SimpleTelegramBotClient\Dto\GetFileResponse;
 use SimpleTelegramBotClient\Dto\GetUserProfilePhotosResponse;
@@ -412,6 +413,15 @@ class TelegramServiceTest extends TestCase
         $builder->setDisableNotification(true);
         $message = $builder->build();
         $actual = $this->telegramService->pinChatMessage($message);
+        $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testUnpinChatMessage(): void
+    {
+        $content = $this->appendToMockHandler('simple_response.json');
+        $message = new UnpinChatMessage('123');
+        $actual = $this->telegramService->unpinChatMessage($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }
