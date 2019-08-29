@@ -7,7 +7,7 @@ include './init.php';
 $chatId = '165068132';
 
 $chatPhoto = fopen('./resources/chereshnya.jpeg', 'rb');
-$setChatPhotoBuilder = new SetChatPhotoBuilder($chatId, $chatPhoto);
-$message = $setChatPhotoBuilder->build();
+$builder = new SetChatPhotoBuilder($chatId, $chatPhoto);
+$message = $builder->build();
 $response = $telegramService->setChatPhoto($message);
 var_dump($response);

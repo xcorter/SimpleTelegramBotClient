@@ -27,6 +27,7 @@ use SimpleTelegramBotClient\Builder\Action\SendPollBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendVenueBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendVideoNoteBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendVoiceBuilder;
+use SimpleTelegramBotClient\Builder\Action\SetChatDescriptionBuilder;
 use SimpleTelegramBotClient\Builder\Action\SetChatPermissionsBuilder;
 use SimpleTelegramBotClient\Builder\Action\SetChatPhotoBuilder;
 use SimpleTelegramBotClient\Builder\Action\SetChatTitleBuilder;
@@ -382,12 +383,23 @@ class TelegramServiceTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function onSetChatTitle(): void
+    public function testSetChatTitle(): void
     {
         $content = $this->appendToMockHandler('simple_response.json');
         $builder = new SetChatTitleBuilder('123', 'title');
         $message = $builder->build();
         $actual = $this->telegramService->setChatTitle($message);
+        $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testSetChatDescription(): void
+    {
+        $content = $this->appendToMockHandler('simple_response.json');
+        $builder = new SetChatDescriptionBuilder('123');
+        $builder->setDescription('23432');
+        $message = $builder->build();
+        $actual = $this->telegramService->setChatDescription($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }
