@@ -5,6 +5,12 @@ namespace SimpleTelegramBotClient\Dto\Action;
 use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\Type;
 
+/**
+ * Class SetChatPhoto
+ * @package SimpleTelegramBotClient\Dto\Action
+ *
+ * @link https://core.telegram.org/bots/api#setchatphoto
+ */
 class SetChatPhoto implements ActionInterface
 {
     /**

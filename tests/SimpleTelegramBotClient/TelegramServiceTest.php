@@ -11,6 +11,7 @@ use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use SimpleTelegramBotClient\Builder\Action\DeleteChatPhotoBuilder;
 use SimpleTelegramBotClient\Builder\Action\ExportChatInviteLinkBuilder;
 use SimpleTelegramBotClient\Builder\Action\GetFileBuilder;
 use SimpleTelegramBotClient\Builder\Action\GetUserProfilePhotosBuilder;
@@ -366,6 +367,16 @@ class TelegramServiceTest extends TestCase
         $builder = new SetChatPhotoBuilder('123', '123');
         $message = $builder->build();
         $actual = $this->telegramService->setChatPhoto($message);
+        $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testDeleteChatPhoto(): void
+    {
+        $content = $this->appendToMockHandler('delete_chat_photo.json');
+        $builder = new DeleteChatPhotoBuilder('123');
+        $message = $builder->build();
+        $actual = $this->telegramService->deleteChatPhoto($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }
