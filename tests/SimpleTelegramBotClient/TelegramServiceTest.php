@@ -16,6 +16,7 @@ use SimpleTelegramBotClient\Builder\Action\ExportChatInviteLinkBuilder;
 use SimpleTelegramBotClient\Builder\Action\GetFileBuilder;
 use SimpleTelegramBotClient\Builder\Action\GetUserProfilePhotosBuilder;
 use SimpleTelegramBotClient\Builder\Action\KickChatMemberBuilder;
+use SimpleTelegramBotClient\Builder\Action\PinChatMessageBuilder;
 use SimpleTelegramBotClient\Builder\Action\PromoteChatMemberBuilder;
 use SimpleTelegramBotClient\Builder\Action\RestrictChatMemberBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendChatActionBuilder;
@@ -400,6 +401,17 @@ class TelegramServiceTest extends TestCase
         $builder->setDescription('23432');
         $message = $builder->build();
         $actual = $this->telegramService->setChatDescription($message);
+        $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testPinChatMessage(): void
+    {
+        $content = $this->appendToMockHandler('simple_response.json');
+        $builder = new PinChatMessageBuilder('123', 123);
+        $builder->setDisableNotification(true);
+        $message = $builder->build();
+        $actual = $this->telegramService->pinChatMessage($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }
