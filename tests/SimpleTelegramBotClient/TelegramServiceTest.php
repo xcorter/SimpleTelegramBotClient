@@ -27,6 +27,7 @@ use SimpleTelegramBotClient\Builder\Action\SendVenueBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendVideoNoteBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendVoiceBuilder;
 use SimpleTelegramBotClient\Builder\Action\SetChatPermissionsBuilder;
+use SimpleTelegramBotClient\Builder\Action\SetChatPhotoBuilder;
 use SimpleTelegramBotClient\Builder\Action\StopMessageLiveLocationBuilder;
 use SimpleTelegramBotClient\Builder\Action\UnbanChatMemberBuilder;
 use SimpleTelegramBotClient\Builder\Keyboard\ArrayKeyboardButtonBuilder;
@@ -356,6 +357,16 @@ class TelegramServiceTest extends TestCase
         $message = $builder->build();
         $actual = $this->telegramService->exportChatInviteLink($message);
         $expected = $this->serialzier->deserialize($content, ChatInviteLinkResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testSetChatPhoto(): void
+    {
+        $content = $this->appendToMockHandler('set_chat_photo.json');
+        $builder = new SetChatPhotoBuilder('123', '123');
+        $message = $builder->build();
+        $actual = $this->telegramService->setChatPhoto($message);
+        $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }
 
