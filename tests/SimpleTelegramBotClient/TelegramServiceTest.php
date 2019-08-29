@@ -44,6 +44,7 @@ use SimpleTelegramBotClient\Builder\Type\InputMediaPhotoBuilder;
 use SimpleTelegramBotClient\Builder\Type\InputMediaVideoBuilder;
 use SimpleTelegramBotClient\Config;
 use SimpleTelegramBotClient\Constant\ChatAction;
+use SimpleTelegramBotClient\Dto\Action\LeaveChat;
 use SimpleTelegramBotClient\Dto\Action\UnpinChatMessage;
 use SimpleTelegramBotClient\Dto\ChatInviteLinkResponse;
 use SimpleTelegramBotClient\Dto\GetFileResponse;
@@ -422,6 +423,15 @@ class TelegramServiceTest extends TestCase
         $content = $this->appendToMockHandler('simple_response.json');
         $message = new UnpinChatMessage('123');
         $actual = $this->telegramService->unpinChatMessage($message);
+        $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testLeaveChat(): void
+    {
+        $content = $this->appendToMockHandler('simple_response.json');
+        $message = new LeaveChat('123');
+        $actual = $this->telegramService->leaveChat($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }
