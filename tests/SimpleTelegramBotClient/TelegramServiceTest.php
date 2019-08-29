@@ -29,6 +29,7 @@ use SimpleTelegramBotClient\Builder\Action\SendVideoNoteBuilder;
 use SimpleTelegramBotClient\Builder\Action\SendVoiceBuilder;
 use SimpleTelegramBotClient\Builder\Action\SetChatPermissionsBuilder;
 use SimpleTelegramBotClient\Builder\Action\SetChatPhotoBuilder;
+use SimpleTelegramBotClient\Builder\Action\SetChatTitleBuilder;
 use SimpleTelegramBotClient\Builder\Action\StopMessageLiveLocationBuilder;
 use SimpleTelegramBotClient\Builder\Action\UnbanChatMemberBuilder;
 use SimpleTelegramBotClient\Builder\Keyboard\ArrayKeyboardButtonBuilder;
@@ -254,7 +255,7 @@ class TelegramServiceTest extends TestCase
 
     public function testSendChatAction(): void
     {
-        $content = $this->appendToMockHandler('send_chat_action.json');
+        $content = $this->appendToMockHandler('simple_response.json');
 
         $sendChatActionBuilder = new SendChatActionBuilder(self::CHAT_ID, ChatAction::TYPING);
         $message = $sendChatActionBuilder->build();
@@ -287,7 +288,7 @@ class TelegramServiceTest extends TestCase
 
     public function testKickChatMember(): void
     {
-        $content = $this->appendToMockHandler('kick_chat_member.json');
+        $content = $this->appendToMockHandler('simple_response.json');
 
         $kickChatMemberBuilder = new KickChatMemberBuilder('id', 123);
         $message = $kickChatMemberBuilder->build();
@@ -298,7 +299,7 @@ class TelegramServiceTest extends TestCase
 
     public function testUnbanChatMember(): void
     {
-        $content = $this->appendToMockHandler('unban_chat_message.json');
+        $content = $this->appendToMockHandler('simple_response.json');
 
         $unbanChatMemberBuilder = new UnbanChatMemberBuilder('id', 123);
         $message = $unbanChatMemberBuilder->build();
@@ -309,7 +310,7 @@ class TelegramServiceTest extends TestCase
 
     public function testRestrictChatMember(): void
     {
-        $content = $this->appendToMockHandler('restrict_chat_member.json');
+        $content = $this->appendToMockHandler('simple_response.json');
 
         $chatPermissionsBuilder = new ChatPermissionsBuilder();
         $chatPermissionsBuilder->allowAll();
@@ -324,7 +325,7 @@ class TelegramServiceTest extends TestCase
 
     public function testPromoteChatMember(): void
     {
-        $content = $this->appendToMockHandler('promote_chat_member.json');
+        $content = $this->appendToMockHandler('simple_response.json');
 
         $promoteChatMemberBuilder = new PromoteChatMemberBuilder('chatId', 123);
         $promoteChatMemberBuilder->setCanChangeInfo(true);
@@ -337,7 +338,7 @@ class TelegramServiceTest extends TestCase
 
     public function testSetChatPermissions(): void
     {
-        $content = $this->appendToMockHandler('set_chat_permissions.json');
+        $content = $this->appendToMockHandler('simple_response.json');
 
         $chatPermissionsBuilder = new ChatPermissionsBuilder();
         $chatPermissionsBuilder->allowAll();
@@ -363,7 +364,7 @@ class TelegramServiceTest extends TestCase
 
     public function testSetChatPhoto(): void
     {
-        $content = $this->appendToMockHandler('set_chat_photo.json');
+        $content = $this->appendToMockHandler('simple_response.json');
         $builder = new SetChatPhotoBuilder('123', '123');
         $message = $builder->build();
         $actual = $this->telegramService->setChatPhoto($message);
@@ -373,10 +374,20 @@ class TelegramServiceTest extends TestCase
 
     public function testDeleteChatPhoto(): void
     {
-        $content = $this->appendToMockHandler('delete_chat_photo.json');
+        $content = $this->appendToMockHandler('simple_response.json');
         $builder = new DeleteChatPhotoBuilder('123');
         $message = $builder->build();
         $actual = $this->telegramService->deleteChatPhoto($message);
+        $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function onSetChatTitle(): void
+    {
+        $content = $this->appendToMockHandler('simple_response.json');
+        $builder = new SetChatTitleBuilder('123', 'title');
+        $message = $builder->build();
+        $actual = $this->telegramService->setChatTitle($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }
