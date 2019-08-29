@@ -1,0 +1,25 @@
+{
+  "ok": true,
+  "result": {
+    "id": -1001003073997,
+    "title": "\u0414\u0432\u0430\u0447",
+    "username": "twochannel",
+    "type": "supergroup",
+    "description": "descr",
+    "sticker_set_name": "twochannelsticker",
+    "permissions": {
+      "can_send_messages": true,
+      "can_send_media_messages": true,
+      "can_send_polls": true,
+      "can_send_other_messages": true,
+      "can_add_web_page_previews": true,
+      "can_change_info": false,
+      "can_invite_users": false,
+      "can_pin_messages": false
+    },
+    "photo": {
+      "small_file_id": "AQADBAATXfQhGwAEAgADMz6R7xb___-ij_HLc_Yejkv_AwABFgQ",
+      "big_file_id": "AQADBAATXfQhGwAEAwADMz6R7xb___-ij_HLc_Yejk3_AwABFgQ"
+    }
+  }
+}
