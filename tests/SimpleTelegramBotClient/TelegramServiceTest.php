@@ -45,9 +45,11 @@ use SimpleTelegramBotClient\Builder\Type\InputMediaVideoBuilder;
 use SimpleTelegramBotClient\Config;
 use SimpleTelegramBotClient\Constant\ChatAction;
 use SimpleTelegramBotClient\Dto\Action\GetChat;
+use SimpleTelegramBotClient\Dto\Action\GetChatAdministrators;
 use SimpleTelegramBotClient\Dto\Action\LeaveChat;
 use SimpleTelegramBotClient\Dto\Action\UnpinChatMessage;
 use SimpleTelegramBotClient\Dto\ChatInviteLinkResponse;
+use SimpleTelegramBotClient\Dto\GetChatAdministratorsResponse;
 use SimpleTelegramBotClient\Dto\GetChatResponse;
 use SimpleTelegramBotClient\Dto\GetFileResponse;
 use SimpleTelegramBotClient\Dto\GetUserProfilePhotosResponse;
@@ -444,6 +446,15 @@ class TelegramServiceTest extends TestCase
         $message = new GetChat('@qwe');
         $actual = $this->telegramService->getChat($message);
         $expected = $this->serialzier->deserialize($content, GetChatResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testGetChatAdministrators(): void
+    {
+        $content = $this->appendToMockHandler('get_chat_administrators.json');
+        $message = new GetChatAdministrators('@qwe');
+        $actual = $this->telegramService->getChatAdministrators($message);
+        $expected = $this->serialzier->deserialize($content, GetChatAdministratorsResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }
 

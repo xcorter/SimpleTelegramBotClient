@@ -10,7 +10,7 @@ $telegramKey = file_get_contents(__DIR__ . '/.telegramkey');
 $telegramKey = trim($telegramKey);
 
 $config = new Config($telegramKey);
-//$config->setProxy('http://51.158.108.135:8811');
+$config->setProxy('http://51.158.108.135:8811');
 
 Doctrine\Common\Annotations\AnnotationRegistry::registerLoader('class_exists');
 

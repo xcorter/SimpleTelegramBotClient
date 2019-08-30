@@ -8,6 +8,7 @@ use SimpleTelegramBotClient\Dto\Action\DeleteChatPhoto;
 use SimpleTelegramBotClient\Dto\Action\EditMessageLiveLocation;
 use SimpleTelegramBotClient\Dto\Action\ExportChatInviteLink;
 use SimpleTelegramBotClient\Dto\Action\GetChat;
+use SimpleTelegramBotClient\Dto\Action\GetChatAdministrators;
 use SimpleTelegramBotClient\Dto\Action\GetFile;
 use SimpleTelegramBotClient\Dto\Action\GetUserProfilePhotos;
 use SimpleTelegramBotClient\Dto\Action\KickChatMember;
@@ -30,6 +31,7 @@ use SimpleTelegramBotClient\Dto\Action\StopMessageLiveLocation;
 use SimpleTelegramBotClient\Dto\Action\UnbanChatMember;
 use SimpleTelegramBotClient\Dto\Action\UnpinChatMessage;
 use SimpleTelegramBotClient\Dto\ChatInviteLinkResponse;
+use SimpleTelegramBotClient\Dto\GetChatAdministratorsResponse;
 use SimpleTelegramBotClient\Dto\GetChatResponse;
 use SimpleTelegramBotClient\Dto\GetFileResponse;
 use SimpleTelegramBotClient\Dto\GetUserProfilePhotosResponse;
@@ -85,6 +87,7 @@ use SimpleTelegramBotClient\Exception\BadMethodCallException;
  * @method SimpleResponse pinChatMessage(PinChatMessage $pinChatMessage)
  * @method SimpleResponse unpinChatMessage(UnpinChatMessage $unpinChatMessage)
  * @method SimpleResponse leaveChat(LeaveChat $leaveChat)
+ * @method SimpleResponse getChatAdministrators(GetChatAdministrators $getChatAdministrators)
  * @method GetChatResponse getChat(GetChat $getChat)
  * @method SetChatTitle setChatTitle(SetChatTitle $setChatTitle)
  * @method ChatInviteLinkResponse exportChatInviteLink(ExportChatInviteLink $exportChatInviteLink)
@@ -247,6 +250,8 @@ class TelegramService
             return $this->serializer->deserialize($response, GetChatResponse::class, 'json');
         } elseif ($action instanceof GetFile) {
             return $this->serializer->deserialize($response, GetFileResponse::class, 'json');
+        } elseif ($action instanceof GetChatAdministrators) {
+            return $this->serializer->deserialize($response, GetChatAdministratorsResponse::class, 'json');
         } elseif ($action instanceof ExportChatInviteLink) {
             return $this->serializer->deserialize($response, ChatInviteLinkResponse::class, 'json');
         }
