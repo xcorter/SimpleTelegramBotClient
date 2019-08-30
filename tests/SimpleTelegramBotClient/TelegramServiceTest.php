@@ -11,6 +11,7 @@ use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use SimpleTelegramBotClient\Builder\Action\AnswerCallbackQueryBuilder;
 use SimpleTelegramBotClient\Builder\Action\DeleteChatPhotoBuilder;
 use SimpleTelegramBotClient\Builder\Action\ExportChatInviteLinkBuilder;
 use SimpleTelegramBotClient\Builder\Action\GetFileBuilder;
@@ -44,6 +45,7 @@ use SimpleTelegramBotClient\Builder\Type\InputMediaPhotoBuilder;
 use SimpleTelegramBotClient\Builder\Type\InputMediaVideoBuilder;
 use SimpleTelegramBotClient\Config;
 use SimpleTelegramBotClient\Constant\ChatAction;
+use SimpleTelegramBotClient\Dto\Action\AnswerCallbackQuery;
 use SimpleTelegramBotClient\Dto\Action\DeleteChatStickerSet;
 use SimpleTelegramBotClient\Dto\Action\GetChat;
 use SimpleTelegramBotClient\Dto\Action\GetChatAdministrators;
@@ -485,6 +487,17 @@ class TelegramServiceTest extends TestCase
         $content = $this->appendToMockHandler('simple_response.json');
         $message = new DeleteChatStickerSet('@qwe');
         $actual = $this->telegramService->deleteChatStickerSet($message);
+        $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testAnswerCallbackQuery(): void
+    {
+        $content = $this->appendToMockHandler('simple_response.json');
+        $builder = new AnswerCallbackQueryBuilder('id');
+        $builder->setUrl('url')->setCacheTime(123)->setShowAlert(true);
+        $message = $builder->build();
+        $actual = $this->telegramService->answerCallbackQuery($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }
