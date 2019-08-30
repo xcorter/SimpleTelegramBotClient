@@ -5,6 +5,7 @@ namespace SimpleTelegramBotClient;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use SimpleTelegramBotClient\Dto\Action\DeleteChatPhoto;
+use SimpleTelegramBotClient\Dto\Action\DeleteChatStickerSet;
 use SimpleTelegramBotClient\Dto\Action\EditMessageLiveLocation;
 use SimpleTelegramBotClient\Dto\Action\ExportChatInviteLink;
 use SimpleTelegramBotClient\Dto\Action\GetChat;
@@ -91,6 +92,7 @@ use SimpleTelegramBotClient\Exception\BadMethodCallException;
  * @method SimpleResponse unpinChatMessage(UnpinChatMessage $unpinChatMessage)
  * @method SimpleResponse leaveChat(LeaveChat $leaveChat)
  * @method SimpleResponse setChatStickerSet(SetChatStickerSet $setChatStickerSet)
+ * @method SimpleResponse deleteChatStickerSet(DeleteChatStickerSet $deleteChatStickerSet)
  * @method GetChatAdministratorsResponse getChatAdministrators(GetChatAdministrators $getChatAdministrators)
  * @method IntResultResponse getChatMembersCount(GetChatMembersCount $getChatMembersCount)
  * @method GetChatResponse getChat(GetChat $getChat)
@@ -248,6 +250,7 @@ class TelegramService
             || $action instanceof UnpinChatMessage
             || $action instanceof LeaveChat
             || $action instanceof SetChatStickerSet
+            || $action instanceof DeleteChatStickerSet
         ) {
             return $this->serializer->deserialize($response, SimpleResponse::class, 'json');
         } elseif ($action instanceof GetUserProfilePhotos) {

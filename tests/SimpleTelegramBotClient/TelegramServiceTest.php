@@ -44,6 +44,7 @@ use SimpleTelegramBotClient\Builder\Type\InputMediaPhotoBuilder;
 use SimpleTelegramBotClient\Builder\Type\InputMediaVideoBuilder;
 use SimpleTelegramBotClient\Config;
 use SimpleTelegramBotClient\Constant\ChatAction;
+use SimpleTelegramBotClient\Dto\Action\DeleteChatStickerSet;
 use SimpleTelegramBotClient\Dto\Action\GetChat;
 use SimpleTelegramBotClient\Dto\Action\GetChatAdministrators;
 use SimpleTelegramBotClient\Dto\Action\GetChatMembersCount;
@@ -475,6 +476,15 @@ class TelegramServiceTest extends TestCase
         $content = $this->appendToMockHandler('simple_response.json');
         $message = new SetChatStickerSet('@qwe', 'stickers');
         $actual = $this->telegramService->setChatStickerSet($message);
+        $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testDeleteChatStickerSet(): void
+    {
+        $content = $this->appendToMockHandler('simple_response.json');
+        $message = new DeleteChatStickerSet('@qwe');
+        $actual = $this->telegramService->deleteChatStickerSet($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }
