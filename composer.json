@@ -21,11 +21,11 @@
     "autoload": {
         "psr-4": {
             "SimpleTelegramBotClient\\": "src/SimpleTelegramBotClient"
-        },
-        "autoload-dev": {
-            "psr-4": {
-                "SimpleTelegramBotClient\\Tests\\": "tests/SimpleTelegramBotClient"
-            }
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SimpleTelegramBotClient\\Tests\\": "tests/SimpleTelegramBotClient"
         }
     }
 }
