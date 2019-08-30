@@ -5,6 +5,10 @@
 
 ## Usages:
 
+### Installation
+
+`composer require franchuk/simple-telegram-client`
+
 ### Initialize
 
 Basic initialize with
