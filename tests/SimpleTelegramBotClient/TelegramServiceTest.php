@@ -48,6 +48,7 @@ use SimpleTelegramBotClient\Dto\Action\GetChat;
 use SimpleTelegramBotClient\Dto\Action\GetChatAdministrators;
 use SimpleTelegramBotClient\Dto\Action\GetChatMembersCount;
 use SimpleTelegramBotClient\Dto\Action\LeaveChat;
+use SimpleTelegramBotClient\Dto\Action\SetChatStickerSet;
 use SimpleTelegramBotClient\Dto\Action\UnpinChatMessage;
 use SimpleTelegramBotClient\Dto\Response\ChatInviteLinkResponse;
 use SimpleTelegramBotClient\Dto\Response\GetChatAdministratorsResponse;
@@ -466,6 +467,15 @@ class TelegramServiceTest extends TestCase
         $message = new GetChatMembersCount('@qwe');
         $actual = $this->telegramService->getChatMembersCount($message);
         $expected = $this->serialzier->deserialize($content, IntResultResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testSetChatStickerSet(): void
+    {
+        $content = $this->appendToMockHandler('simple_response.json');
+        $message = new SetChatStickerSet('@qwe', 'stickers');
+        $actual = $this->telegramService->setChatStickerSet($message);
+        $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }
 
