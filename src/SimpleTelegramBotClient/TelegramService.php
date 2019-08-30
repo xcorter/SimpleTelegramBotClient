@@ -4,6 +4,7 @@ namespace SimpleTelegramBotClient;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\ClientException as GuzzleClientException;
 use SimpleTelegramBotClient\Dto\Action\AnswerCallbackQuery;
 use SimpleTelegramBotClient\Dto\Action\DeleteChatPhoto;
 use SimpleTelegramBotClient\Dto\Action\DeleteChatStickerSet;
@@ -34,6 +35,7 @@ use SimpleTelegramBotClient\Dto\Action\SetChatTitle;
 use SimpleTelegramBotClient\Dto\Action\StopMessageLiveLocation;
 use SimpleTelegramBotClient\Dto\Action\UnbanChatMember;
 use SimpleTelegramBotClient\Dto\Action\UnpinChatMessage;
+use SimpleTelegramBotClient\Dto\Response\Error;
 use SimpleTelegramBotClient\Dto\Response\ChatInviteLinkResponse;
 use SimpleTelegramBotClient\Dto\Response\GetChatAdministratorsResponse;
 use SimpleTelegramBotClient\Dto\Response\GetChatResponse;
@@ -41,6 +43,7 @@ use SimpleTelegramBotClient\Dto\Response\GetFileResponse;
 use SimpleTelegramBotClient\Dto\Response\GetUserProfilePhotosResponse;
 use SimpleTelegramBotClient\Dto\Response\Response;
 use SimpleTelegramBotClient\Dto\Response\SimpleResponse;
+use SimpleTelegramBotClient\Exception\ClientException;
 use function GuzzleHttp\Psr7\stream_for;
 use JMS\Serializer\ArrayTransformerInterface;
 use JMS\Serializer\SerializerInterface;
@@ -186,6 +189,7 @@ class TelegramService
      * @param array $arguments
      * @return mixed
      * @throws BadMethodCallException
+     * @throws ClientException
      */
     public function __call(string $method, array $arguments)
     {
@@ -236,7 +240,17 @@ class TelegramService
         }
         $requestParams = $this->getParams();
         $requestParams['multipart'] = $this->convertToNameContent($params);
-        $response = $this->client->post($url, $requestParams)->getBody()->getContents();
+        try {
+            $response = $this->client->post($url, $requestParams)->getBody()->getContents();
+        } catch (GuzzleClientException $exception) {
+            $response = null;
+            if ($exception->getResponse()) {
+                $content = $exception->getResponse()->getBody()->getContents();
+                $response = $this->serializer->deserialize($content, Error::class, 'json');
+            }
+            throw new ClientException($response, $exception->getMessage(), $exception->getCode(), $exception);
+        }
+
         if (
             $action instanceof SendChatAction
             || $action instanceof KickChatMember

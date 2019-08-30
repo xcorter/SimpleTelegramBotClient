@@ -11,6 +11,7 @@ use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\RequestInterface;
 use SimpleTelegramBotClient\Builder\Action\AnswerCallbackQueryBuilder;
 use SimpleTelegramBotClient\Builder\Action\DeleteChatPhotoBuilder;
 use SimpleTelegramBotClient\Builder\Action\ExportChatInviteLinkBuilder;
@@ -45,7 +46,6 @@ use SimpleTelegramBotClient\Builder\Type\InputMediaPhotoBuilder;
 use SimpleTelegramBotClient\Builder\Type\InputMediaVideoBuilder;
 use SimpleTelegramBotClient\Config;
 use SimpleTelegramBotClient\Constant\ChatAction;
-use SimpleTelegramBotClient\Dto\Action\AnswerCallbackQuery;
 use SimpleTelegramBotClient\Dto\Action\DeleteChatStickerSet;
 use SimpleTelegramBotClient\Dto\Action\GetChat;
 use SimpleTelegramBotClient\Dto\Action\GetChatAdministrators;
@@ -54,6 +54,7 @@ use SimpleTelegramBotClient\Dto\Action\LeaveChat;
 use SimpleTelegramBotClient\Dto\Action\SetChatStickerSet;
 use SimpleTelegramBotClient\Dto\Action\UnpinChatMessage;
 use SimpleTelegramBotClient\Dto\Response\ChatInviteLinkResponse;
+use SimpleTelegramBotClient\Dto\Response\Error;
 use SimpleTelegramBotClient\Dto\Response\GetChatAdministratorsResponse;
 use SimpleTelegramBotClient\Dto\Response\GetChatResponse;
 use SimpleTelegramBotClient\Dto\Response\GetFileResponse;
@@ -62,6 +63,7 @@ use SimpleTelegramBotClient\Dto\Response\IntResultResponse;
 use SimpleTelegramBotClient\Dto\Response\Response as ResponseDto;
 use SimpleTelegramBotClient\Dto\Response\SendMessageResponse;
 use SimpleTelegramBotClient\Dto\Response\SimpleResponse;
+use SimpleTelegramBotClient\Exception\ClientException;
 use SimpleTelegramBotClient\TelegramService;
 
 class TelegramServiceTest extends TestCase
@@ -502,6 +504,20 @@ class TelegramServiceTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function testErrorResponse(): void
+    {
+        $content = $this->appendToMockHandler('error.json', 400);
+        $message = new DeleteChatStickerSet('@qwe');
+        $actual = null;
+        try {
+            $actual = $this->telegramService->deleteChatStickerSet($message);
+        } catch (ClientException $exception) {
+            $actual = $exception->getResponse();
+        }
+        $expected = $this->serialzier->deserialize($content, Error::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
     /**
      * @param string $resourceName
      * @return string
@@ -516,10 +532,20 @@ class TelegramServiceTest extends TestCase
         return self::RESOURCES . 'stub_file';
     }
 
-    private function appendToMockHandler(string $resourceName): string
+    private function appendToMockHandler(string $resourceName, $status = 200): string
     {
         $content = $this->getResourceContent($resourceName);
-        $this->mockHandler->append(new Response(200, [], $content));
+
+        if ($status === 200) {
+            $response = new Response($status, [], $content);
+        } else {
+            $response = new \GuzzleHttp\Exception\ClientException(
+                $content,
+                $this->createMock(RequestInterface::class),
+                new Response($status, [], $content)
+            );
+        }
+        $this->mockHandler->append($response);
         return $content;
     }
 }
