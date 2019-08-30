@@ -1,11 +1,10 @@
 <?php
 
-namespace SimpleTelegramBotClient\Dto;
+namespace SimpleTelegramBotClient\Dto\Response;
 
 use JMS\Serializer\Annotation\Type;
-use SimpleTelegramBotClient\Dto\Type\File;
 
-class GetFileResponse
+class ChatInviteLinkResponse
 {
     /**
      * @var bool
@@ -13,8 +12,8 @@ class GetFileResponse
      */
     private $ok;
     /**
-     * @var File
-     * @Type("SimpleTelegramBotClient\Dto\Type\File")
+     * @var string
+     * @Type("string")
      */
     private $result;
 
@@ -27,9 +26,9 @@ class GetFileResponse
     }
 
     /**
-     * @return File
+     * @return string
      */
-    public function getResult(): File
+    public function getResult(): string
     {
         return $this->result;
     }

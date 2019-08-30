@@ -46,16 +46,18 @@ use SimpleTelegramBotClient\Config;
 use SimpleTelegramBotClient\Constant\ChatAction;
 use SimpleTelegramBotClient\Dto\Action\GetChat;
 use SimpleTelegramBotClient\Dto\Action\GetChatAdministrators;
+use SimpleTelegramBotClient\Dto\Action\GetChatMembersCount;
 use SimpleTelegramBotClient\Dto\Action\LeaveChat;
 use SimpleTelegramBotClient\Dto\Action\UnpinChatMessage;
-use SimpleTelegramBotClient\Dto\ChatInviteLinkResponse;
-use SimpleTelegramBotClient\Dto\GetChatAdministratorsResponse;
-use SimpleTelegramBotClient\Dto\GetChatResponse;
-use SimpleTelegramBotClient\Dto\GetFileResponse;
-use SimpleTelegramBotClient\Dto\GetUserProfilePhotosResponse;
-use SimpleTelegramBotClient\Dto\Response as ResponseDto;
-use SimpleTelegramBotClient\Dto\SendMessageResponse;
-use SimpleTelegramBotClient\Dto\SimpleResponse;
+use SimpleTelegramBotClient\Dto\Response\ChatInviteLinkResponse;
+use SimpleTelegramBotClient\Dto\Response\GetChatAdministratorsResponse;
+use SimpleTelegramBotClient\Dto\Response\GetChatResponse;
+use SimpleTelegramBotClient\Dto\Response\GetFileResponse;
+use SimpleTelegramBotClient\Dto\Response\GetUserProfilePhotosResponse;
+use SimpleTelegramBotClient\Dto\Response\IntResultResponse;
+use SimpleTelegramBotClient\Dto\Response\Response as ResponseDto;
+use SimpleTelegramBotClient\Dto\Response\SendMessageResponse;
+use SimpleTelegramBotClient\Dto\Response\SimpleResponse;
 use SimpleTelegramBotClient\TelegramService;
 
 class TelegramServiceTest extends TestCase
@@ -455,6 +457,15 @@ class TelegramServiceTest extends TestCase
         $message = new GetChatAdministrators('@qwe');
         $actual = $this->telegramService->getChatAdministrators($message);
         $expected = $this->serialzier->deserialize($content, GetChatAdministratorsResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testGetChatMembersCount(): void
+    {
+        $content = $this->appendToMockHandler('int_response.json');
+        $message = new GetChatMembersCount('@qwe');
+        $actual = $this->telegramService->getChatMembersCount($message);
+        $expected = $this->serialzier->deserialize($content, IntResultResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace SimpleTelegramBotClient\Dto;
+namespace SimpleTelegramBotClient\Dto\Response;
 
 use JMS\Serializer\Annotation\Type;
-use SimpleTelegramBotClient\Dto\Type\Update;
+use SimpleTelegramBotClient\Dto\Type\Chat;
 
-class Response
+class GetChatResponse
 {
     /**
      * @var bool
@@ -13,8 +13,8 @@ class Response
      */
     private $ok;
     /**
-     * @var array
-     * @Type("array<SimpleTelegramBotClient\Dto\Type\Update>")
+     * @var Chat
+     * @Type("SimpleTelegramBotClient\Dto\Type\Chat")
      */
     private $result;
 
@@ -27,9 +27,9 @@ class Response
     }
 
     /**
-     * @return Update[]
+     * @return Chat
      */
-    public function getResult(): array
+    public function getResult(): Chat
     {
         return $this->result;
     }

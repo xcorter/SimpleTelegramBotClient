@@ -9,6 +9,7 @@ use SimpleTelegramBotClient\Dto\Action\EditMessageLiveLocation;
 use SimpleTelegramBotClient\Dto\Action\ExportChatInviteLink;
 use SimpleTelegramBotClient\Dto\Action\GetChat;
 use SimpleTelegramBotClient\Dto\Action\GetChatAdministrators;
+use SimpleTelegramBotClient\Dto\Action\GetChatMembersCount;
 use SimpleTelegramBotClient\Dto\Action\GetFile;
 use SimpleTelegramBotClient\Dto\Action\GetUserProfilePhotos;
 use SimpleTelegramBotClient\Dto\Action\KickChatMember;
@@ -30,12 +31,13 @@ use SimpleTelegramBotClient\Dto\Action\SetChatTitle;
 use SimpleTelegramBotClient\Dto\Action\StopMessageLiveLocation;
 use SimpleTelegramBotClient\Dto\Action\UnbanChatMember;
 use SimpleTelegramBotClient\Dto\Action\UnpinChatMessage;
-use SimpleTelegramBotClient\Dto\ChatInviteLinkResponse;
-use SimpleTelegramBotClient\Dto\GetChatAdministratorsResponse;
-use SimpleTelegramBotClient\Dto\GetChatResponse;
-use SimpleTelegramBotClient\Dto\GetFileResponse;
-use SimpleTelegramBotClient\Dto\GetUserProfilePhotosResponse;
-use SimpleTelegramBotClient\Dto\SimpleResponse;
+use SimpleTelegramBotClient\Dto\Response\ChatInviteLinkResponse;
+use SimpleTelegramBotClient\Dto\Response\GetChatAdministratorsResponse;
+use SimpleTelegramBotClient\Dto\Response\GetChatResponse;
+use SimpleTelegramBotClient\Dto\Response\GetFileResponse;
+use SimpleTelegramBotClient\Dto\Response\GetUserProfilePhotosResponse;
+use SimpleTelegramBotClient\Dto\Response\Response;
+use SimpleTelegramBotClient\Dto\Response\SimpleResponse;
 use function GuzzleHttp\Psr7\stream_for;
 use JMS\Serializer\ArrayTransformerInterface;
 use JMS\Serializer\SerializerInterface;
@@ -48,9 +50,9 @@ use SimpleTelegramBotClient\Dto\Action\SendLocation;
 use SimpleTelegramBotClient\Dto\Action\SendMessage;
 use SimpleTelegramBotClient\Dto\Action\SendPhoto;
 use SimpleTelegramBotClient\Dto\Action\SendVideo;
-use SimpleTelegramBotClient\Dto\GetMeResponse;
-use SimpleTelegramBotClient\Dto\Response;
-use SimpleTelegramBotClient\Dto\SendMessageResponse;
+use SimpleTelegramBotClient\Dto\Response\GetMeResponse;
+use SimpleTelegramBotClient\Dto\Response\IntResultResponse;
+use SimpleTelegramBotClient\Dto\Response\SendMessageResponse;
 use SimpleTelegramBotClient\Exception\BadMethodCallException;
 
 /**
@@ -87,7 +89,8 @@ use SimpleTelegramBotClient\Exception\BadMethodCallException;
  * @method SimpleResponse pinChatMessage(PinChatMessage $pinChatMessage)
  * @method SimpleResponse unpinChatMessage(UnpinChatMessage $unpinChatMessage)
  * @method SimpleResponse leaveChat(LeaveChat $leaveChat)
- * @method SimpleResponse getChatAdministrators(GetChatAdministrators $getChatAdministrators)
+ * @method GetChatAdministratorsResponse getChatAdministrators(GetChatAdministrators $getChatAdministrators)
+ * @method IntResultResponse getChatMembersCount(GetChatMembersCount $getChatMembersCount)
  * @method GetChatResponse getChat(GetChat $getChat)
  * @method SetChatTitle setChatTitle(SetChatTitle $setChatTitle)
  * @method ChatInviteLinkResponse exportChatInviteLink(ExportChatInviteLink $exportChatInviteLink)
@@ -252,6 +255,8 @@ class TelegramService
             return $this->serializer->deserialize($response, GetFileResponse::class, 'json');
         } elseif ($action instanceof GetChatAdministrators) {
             return $this->serializer->deserialize($response, GetChatAdministratorsResponse::class, 'json');
+        } elseif ($action instanceof GetChatMembersCount) {
+            return $this->serializer->deserialize($response, IntResultResponse::class, 'json');
         } elseif ($action instanceof ExportChatInviteLink) {
             return $this->serializer->deserialize($response, ChatInviteLinkResponse::class, 'json');
         }

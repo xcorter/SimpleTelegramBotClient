@@ -1,10 +1,11 @@
 <?php
 
-namespace SimpleTelegramBotClient\Dto;
+namespace SimpleTelegramBotClient\Dto\Response;
 
 use JMS\Serializer\Annotation\Type;
+use SimpleTelegramBotClient\Dto\Type\UserProfilePhotos;
 
-class ChatInviteLinkResponse
+class GetUserProfilePhotosResponse
 {
     /**
      * @var bool
@@ -12,8 +13,8 @@ class ChatInviteLinkResponse
      */
     private $ok;
     /**
-     * @var string
-     * @Type("string")
+     * @var UserProfilePhotos
+     * @Type("SimpleTelegramBotClient\Dto\Type\UserProfilePhotos")
      */
     private $result;
 
@@ -26,9 +27,9 @@ class ChatInviteLinkResponse
     }
 
     /**
-     * @return string
+     * @return UserProfilePhotos
      */
-    public function getResult(): string
+    public function getResult(): UserProfilePhotos
     {
         return $this->result;
     }
