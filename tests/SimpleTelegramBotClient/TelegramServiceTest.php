@@ -54,6 +54,7 @@ use SimpleTelegramBotClient\Dto\Action\GetChatMembersCount;
 use SimpleTelegramBotClient\Dto\Action\LeaveChat;
 use SimpleTelegramBotClient\Dto\Action\SetChatStickerSet;
 use SimpleTelegramBotClient\Dto\Action\UnpinChatMessage;
+use SimpleTelegramBotClient\Dto\Action\Webhook\DeleteWebhook;
 use SimpleTelegramBotClient\Dto\Response\ChatInviteLinkResponse;
 use SimpleTelegramBotClient\Dto\Response\Error;
 use SimpleTelegramBotClient\Dto\Response\GetChatAdministratorsResponse;
@@ -517,6 +518,15 @@ class TelegramServiceTest extends TestCase
         ;
         $message = $builder->build();
         $actual = $this->telegramService->setWebhook($message);
+        $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testDeleteWebhook(): void
+    {
+        $content = $this->appendToMockHandler('simple_response.json');
+        $message = new DeleteWebhook();
+        $actual = $this->telegramService->deleteWebhook($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }

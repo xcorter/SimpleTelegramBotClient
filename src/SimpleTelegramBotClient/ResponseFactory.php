@@ -25,6 +25,7 @@ use SimpleTelegramBotClient\Dto\Action\SetChatStickerSet;
 use SimpleTelegramBotClient\Dto\Action\SetChatTitle;
 use SimpleTelegramBotClient\Dto\Action\UnbanChatMember;
 use SimpleTelegramBotClient\Dto\Action\UnpinChatMessage;
+use SimpleTelegramBotClient\Dto\Action\Webhook\DeleteWebhook;
 use SimpleTelegramBotClient\Dto\Action\Webhook\SetWebhook;
 use SimpleTelegramBotClient\Dto\Response\ChatInviteLinkResponse;
 use SimpleTelegramBotClient\Dto\Response\GetChatAdministratorsResponse;
@@ -58,6 +59,7 @@ class ResponseFactory
             || $action instanceof DeleteChatStickerSet
             || $action instanceof AnswerCallbackQuery
             || $action instanceof SetWebhook
+            || $action instanceof DeleteWebhook
         ) {
             return SimpleResponse::class;
         }

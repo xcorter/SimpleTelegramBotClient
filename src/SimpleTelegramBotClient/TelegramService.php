@@ -36,6 +36,7 @@ use SimpleTelegramBotClient\Dto\Action\SetChatTitle;
 use SimpleTelegramBotClient\Dto\Action\StopMessageLiveLocation;
 use SimpleTelegramBotClient\Dto\Action\UnbanChatMember;
 use SimpleTelegramBotClient\Dto\Action\UnpinChatMessage;
+use SimpleTelegramBotClient\Dto\Action\Webhook\DeleteWebhook;
 use SimpleTelegramBotClient\Dto\Action\Webhook\SetWebhook;
 use SimpleTelegramBotClient\Dto\Response\Error;
 use SimpleTelegramBotClient\Dto\Response\ChatInviteLinkResponse;
@@ -100,6 +101,7 @@ use SimpleTelegramBotClient\Exception\BadMethodCallException;
  * @method SimpleResponse deleteChatStickerSet(DeleteChatStickerSet $deleteChatStickerSet)
  * @method SimpleResponse answerCallbackQuery(AnswerCallbackQuery $answerCallbackQuery)
  * @method SimpleResponse setWebhook(SetWebhook $setWebhook)
+ * @method SimpleResponse deleteWebhook(DeleteWebhook $deleteWebhook)
  * @method GetChatAdministratorsResponse getChatAdministrators(GetChatAdministrators $getChatAdministrators)
  * @method IntResultResponse getChatMembersCount(GetChatMembersCount $getChatMembersCount)
  * @method GetChatResponse getChat(GetChat $getChat)
