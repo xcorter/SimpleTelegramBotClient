@@ -2,12 +2,15 @@
 
 [![Build Status](https://travis-ci.org/xcorter/SimpleTelegramBotClient.svg?branch=master)](https://travis-ci.org/xcorter/SimpleTelegramBotClient)
 [![codecov](https://codecov.io/gh/xcorter/SimpleTelegramBotClient/branch/master/graph/badge.svg)](https://codecov.io/gh/xcorter/SimpleTelegramBotClient/)
+![Packagist Version](https://img.shields.io/packagist/v/franchuk/simple-telegram-client)
 
 ## Usages:
 
 ### Installation
 
 `composer require franchuk/simple-telegram-client`
+
+Require php 7.3
 
 ### Initialize
 
@@ -73,7 +76,3 @@ use SimpleTelegramBotClient\Config;
 $config = new Config('some key');
 $config->setProxy('socks4://ip:port');
 ```
-
-requirements:
-- guzzle
-- jms-serializer

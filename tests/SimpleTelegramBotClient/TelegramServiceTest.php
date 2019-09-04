@@ -36,6 +36,7 @@ use SimpleTelegramBotClient\Builder\Action\SetChatPhotoBuilder;
 use SimpleTelegramBotClient\Builder\Action\SetChatTitleBuilder;
 use SimpleTelegramBotClient\Builder\Action\StopMessageLiveLocationBuilder;
 use SimpleTelegramBotClient\Builder\Action\UnbanChatMemberBuilder;
+use SimpleTelegramBotClient\Builder\Action\Webhook\SetWebhookBuilder;
 use SimpleTelegramBotClient\Builder\Keyboard\ArrayKeyboardButtonBuilder;
 use SimpleTelegramBotClient\Builder\Keyboard\InlineKeyboardButtonBuilder;
 use SimpleTelegramBotClient\Builder\Keyboard\InlineKeyboardMarkupBuilder;
@@ -500,6 +501,22 @@ class TelegramServiceTest extends TestCase
         $builder->setUrl('url')->setCacheTime(123)->setShowAlert(true);
         $message = $builder->build();
         $actual = $this->telegramService->answerCallbackQuery($message);
+        $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testSetWebhook(): void
+    {
+        $content = $this->appendToMockHandler('simple_response.json');
+        $builder = new SetWebhookBuilder('url');
+        $builder
+            ->setMaxConnections(100)
+            ->setCertificate($this->getStubFileStream())
+            ->addAllowedUpdate(SetWebhookBuilder::TYPE_EDITED_CHANNEL_POST)
+            ->addAllowedUpdate(SetWebhookBuilder::TYPE_CHANNEL_POST)
+        ;
+        $message = $builder->build();
+        $actual = $this->telegramService->setWebhook($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }

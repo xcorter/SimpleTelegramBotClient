@@ -5,6 +5,7 @@ namespace SimpleTelegramBotClient;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException as GuzzleClientException;
+use SimpleTelegramBotClient\Builder\Action\Webhook\SetWebhookBuilder;
 use SimpleTelegramBotClient\Dto\Action\AnswerCallbackQuery;
 use SimpleTelegramBotClient\Dto\Action\DeleteChatPhoto;
 use SimpleTelegramBotClient\Dto\Action\DeleteChatStickerSet;
@@ -35,11 +36,11 @@ use SimpleTelegramBotClient\Dto\Action\SetChatTitle;
 use SimpleTelegramBotClient\Dto\Action\StopMessageLiveLocation;
 use SimpleTelegramBotClient\Dto\Action\UnbanChatMember;
 use SimpleTelegramBotClient\Dto\Action\UnpinChatMessage;
+use SimpleTelegramBotClient\Dto\Action\Webhook\SetWebhook;
 use SimpleTelegramBotClient\Dto\Response\Error;
 use SimpleTelegramBotClient\Dto\Response\ChatInviteLinkResponse;
 use SimpleTelegramBotClient\Dto\Response\GetChatAdministratorsResponse;
 use SimpleTelegramBotClient\Dto\Response\GetChatResponse;
-use SimpleTelegramBotClient\Dto\Response\GetFileResponse;
 use SimpleTelegramBotClient\Dto\Response\GetUserProfilePhotosResponse;
 use SimpleTelegramBotClient\Dto\Response\Response;
 use SimpleTelegramBotClient\Dto\Response\SimpleResponse;
@@ -98,6 +99,7 @@ use SimpleTelegramBotClient\Exception\BadMethodCallException;
  * @method SimpleResponse setChatStickerSet(SetChatStickerSet $setChatStickerSet)
  * @method SimpleResponse deleteChatStickerSet(DeleteChatStickerSet $deleteChatStickerSet)
  * @method SimpleResponse answerCallbackQuery(AnswerCallbackQuery $answerCallbackQuery)
+ * @method SimpleResponse setWebhook(SetWebhook $setWebhook)
  * @method GetChatAdministratorsResponse getChatAdministrators(GetChatAdministrators $getChatAdministrators)
  * @method IntResultResponse getChatMembersCount(GetChatMembersCount $getChatMembersCount)
  * @method GetChatResponse getChat(GetChat $getChat)
@@ -118,6 +120,10 @@ class TelegramService
      * @var SerializerInterface|ArrayTransformerInterface
      */
     private $serializer;
+    /**
+     * @var ResponseFactory
+     */
+    private $responseFactory;
 
     /**
      * TelegramService constructor.
@@ -133,6 +139,7 @@ class TelegramService
         $this->config = $config;
         $this->client = $client;
         $this->serializer = $serializer;
+        $this->responseFactory = new ResponseFactory();
     }
 
     public function getUpdates(): Response
@@ -160,28 +167,6 @@ class TelegramService
         }
         $result = $response->getBody()->getContents();
         return $this->serializer->deserialize($result, $type, 'json');
-    }
-
-    private function convertToNameContent(array $associativeArray): array
-    {
-        $result = [];
-        foreach ($associativeArray as $key => $value) {
-            $result[] = [
-                'name' => $key,
-                'contents' => $value,
-            ];
-        }
-        return $result;
-    }
-
-    private function getParams(): array
-    {
-        if ($this->config->getProxy()) {
-            return [
-                'proxy' => $this->config->getProxy()
-            ];
-        }
-        return [];
     }
 
     /**
@@ -230,8 +215,12 @@ class TelegramService
             $params['media'] = $this->serializer->serialize($action->getMedia(), 'json');
         } elseif ($action instanceof SetChatPhoto) {
             $params['photo'] = stream_for($action->getPhoto());
+        } elseif ($action instanceof SetWebhook) {
+            $params['allowed_updates'] = json_encode($action->getAllowedUpdates());
         } elseif ($action instanceof SendPoll) {
             $params['options'] = json_encode($action->getOptions());
+        } elseif ($action instanceof SetWebhook) {
+            $params['certificate'] = stream_for($action->getCertificate());
         } elseif (
             $action instanceof RestrictChatMember
             || $action instanceof SetChatPermissions
@@ -251,39 +240,30 @@ class TelegramService
             throw new ClientException($response, $exception->getMessage(), $exception->getCode(), $exception);
         }
 
-        if (
-            $action instanceof SendChatAction
-            || $action instanceof KickChatMember
-            || $action instanceof UnbanChatMember
-            || $action instanceof RestrictChatMember
-            || $action instanceof PromoteChatMember
-            || $action instanceof SetChatPermissions
-            || $action instanceof SetChatPhoto
-            || $action instanceof DeleteChatPhoto
-            || $action instanceof SetChatTitle
-            || $action instanceof PinChatMessage
-            || $action instanceof SetChatDescription
-            || $action instanceof UnpinChatMessage
-            || $action instanceof LeaveChat
-            || $action instanceof SetChatStickerSet
-            || $action instanceof DeleteChatStickerSet
-            || $action instanceof AnswerCallbackQuery
-        ) {
-            return $this->serializer->deserialize($response, SimpleResponse::class, 'json');
-        } elseif ($action instanceof GetUserProfilePhotos) {
-            return $this->serializer->deserialize($response, GetUserProfilePhotosResponse::class, 'json');
-        } elseif ($action instanceof GetChat) {
-            return $this->serializer->deserialize($response, GetChatResponse::class, 'json');
-        } elseif ($action instanceof GetFile) {
-            return $this->serializer->deserialize($response, GetFileResponse::class, 'json');
-        } elseif ($action instanceof GetChatAdministrators) {
-            return $this->serializer->deserialize($response, GetChatAdministratorsResponse::class, 'json');
-        } elseif ($action instanceof GetChatMembersCount) {
-            return $this->serializer->deserialize($response, IntResultResponse::class, 'json');
-        } elseif ($action instanceof ExportChatInviteLink) {
-            return $this->serializer->deserialize($response, ChatInviteLinkResponse::class, 'json');
+        $responseClass = $this->responseFactory->getResponseClass($action);
+        return $this->serializer->deserialize($response, $responseClass, 'json');
+    }
+
+    private function convertToNameContent(array $associativeArray): array
+    {
+        $result = [];
+        foreach ($associativeArray as $key => $value) {
+            $result[] = [
+                'name' => $key,
+                'contents' => $value,
+            ];
         }
-        return $this->serializer->deserialize($response, SendMessageResponse::class, 'json');
+        return $result;
+    }
+
+    private function getParams(): array
+    {
+        if ($this->config->getProxy()) {
+            return [
+                'proxy' => $this->config->getProxy()
+            ];
+        }
+        return [];
     }
 
     private function checkMethod(string $method, ActionInterface $action): bool
