@@ -55,12 +55,14 @@ use SimpleTelegramBotClient\Dto\Action\LeaveChat;
 use SimpleTelegramBotClient\Dto\Action\SetChatStickerSet;
 use SimpleTelegramBotClient\Dto\Action\UnpinChatMessage;
 use SimpleTelegramBotClient\Dto\Action\Webhook\DeleteWebhook;
+use SimpleTelegramBotClient\Dto\Action\Webhook\GetWebhookInfo;
 use SimpleTelegramBotClient\Dto\Response\ChatInviteLinkResponse;
 use SimpleTelegramBotClient\Dto\Response\Error;
 use SimpleTelegramBotClient\Dto\Response\GetChatAdministratorsResponse;
 use SimpleTelegramBotClient\Dto\Response\GetChatResponse;
 use SimpleTelegramBotClient\Dto\Response\GetFileResponse;
 use SimpleTelegramBotClient\Dto\Response\GetUserProfilePhotosResponse;
+use SimpleTelegramBotClient\Dto\Response\GetWebhookInfoResponse;
 use SimpleTelegramBotClient\Dto\Response\IntResultResponse;
 use SimpleTelegramBotClient\Dto\Response\Response as ResponseDto;
 use SimpleTelegramBotClient\Dto\Response\SendMessageResponse;
@@ -528,6 +530,15 @@ class TelegramServiceTest extends TestCase
         $message = new DeleteWebhook();
         $actual = $this->telegramService->deleteWebhook($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testGetWebhookInfo(): void
+    {
+        $content = $this->appendToMockHandler('get_webhook_info.json');
+        $message = new GetWebhookInfo();
+        $actual = $this->telegramService->getWebhookInfo($message);
+        $expected = $this->serialzier->deserialize($content, GetWebhookInfoResponse::class, 'json');
         $this->assertEquals($expected, $actual);
     }
 

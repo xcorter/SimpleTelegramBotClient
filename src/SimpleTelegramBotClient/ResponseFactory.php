@@ -26,12 +26,14 @@ use SimpleTelegramBotClient\Dto\Action\SetChatTitle;
 use SimpleTelegramBotClient\Dto\Action\UnbanChatMember;
 use SimpleTelegramBotClient\Dto\Action\UnpinChatMessage;
 use SimpleTelegramBotClient\Dto\Action\Webhook\DeleteWebhook;
+use SimpleTelegramBotClient\Dto\Action\Webhook\GetWebhookInfo;
 use SimpleTelegramBotClient\Dto\Action\Webhook\SetWebhook;
 use SimpleTelegramBotClient\Dto\Response\ChatInviteLinkResponse;
 use SimpleTelegramBotClient\Dto\Response\GetChatAdministratorsResponse;
 use SimpleTelegramBotClient\Dto\Response\GetChatResponse;
 use SimpleTelegramBotClient\Dto\Response\GetFileResponse;
 use SimpleTelegramBotClient\Dto\Response\GetUserProfilePhotosResponse;
+use SimpleTelegramBotClient\Dto\Response\GetWebhookInfoResponse;
 use SimpleTelegramBotClient\Dto\Response\IntResultResponse;
 use SimpleTelegramBotClient\Dto\Response\SendMessageResponse;
 use SimpleTelegramBotClient\Dto\Response\SimpleResponse;
@@ -86,6 +88,10 @@ class ResponseFactory
 
         if ($action instanceof ExportChatInviteLink) {
             return ChatInviteLinkResponse::class;
+        }
+
+        if ($action instanceof GetWebhookInfo) {
+            return GetWebhookInfoResponse::class;
         }
         return SendMessageResponse::class;
     }

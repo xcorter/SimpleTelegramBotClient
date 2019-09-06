@@ -16,6 +16,9 @@ class TelegramServiceFactory
     {
         AnnotationRegistry::registerLoader('class_exists');
         $serializer = SerializerBuilder::create()->build();
-        return new TelegramService($config, new Client(), $serializer);
+        $clientConfig = [
+            'timeout' => 30
+        ];
+        return new TelegramService($config, new Client($clientConfig), $serializer);
     }
 }
