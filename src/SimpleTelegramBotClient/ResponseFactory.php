@@ -11,6 +11,7 @@ use SimpleTelegramBotClient\Dto\Response\GetUserProfilePhotosResponse;
 use SimpleTelegramBotClient\Dto\Response\GetWebhookInfoResponse;
 use SimpleTelegramBotClient\Dto\Response\IntResultResponse;
 use SimpleTelegramBotClient\Dto\Response\Response;
+use SimpleTelegramBotClient\Dto\Response\SendMediaGroupResponse;
 use SimpleTelegramBotClient\Dto\Response\SendMessageResponse;
 use SimpleTelegramBotClient\Dto\Response\SimpleResponse;
 
@@ -77,6 +78,10 @@ class ResponseFactory
 
         if ($action === 'getUpdates') {
             return Response::class;
+        }
+
+        if ($action === 'sendMediaGroup') {
+            return SendMediaGroupResponse::class;
         }
 
         return SendMessageResponse::class;

@@ -64,6 +64,7 @@ use SimpleTelegramBotClient\Dto\Response\GetUserProfilePhotosResponse;
 use SimpleTelegramBotClient\Dto\Response\GetWebhookInfoResponse;
 use SimpleTelegramBotClient\Dto\Response\IntResultResponse;
 use SimpleTelegramBotClient\Dto\Response\Response as ResponseDto;
+use SimpleTelegramBotClient\Dto\Response\SendMediaGroupResponse;
 use SimpleTelegramBotClient\Dto\Response\SendMessageResponse;
 use SimpleTelegramBotClient\Dto\Response\SimpleResponse;
 use SimpleTelegramBotClient\Exception\ClientException;
@@ -122,7 +123,7 @@ class TelegramServiceTest extends TestCase
         $actual = $this->telegramService->getUpdates();
         $expected = $this->serialzier->deserialize($content, ResponseDto::class, 'json');
 
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testSendMessageWithKeyboard(): void
@@ -144,7 +145,7 @@ class TelegramServiceTest extends TestCase
         $actual = $this->telegramService->sendMessage($message);
         $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
 
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testSendMessageInlineResult(): void
@@ -174,7 +175,7 @@ class TelegramServiceTest extends TestCase
         $actual = $this->telegramService->sendMessage($message);
         $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
 
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testSendLocation(): void
@@ -184,7 +185,7 @@ class TelegramServiceTest extends TestCase
         $message = $sendLocationBuilder->build();
         $actual = $this->telegramService->sendLocation($message);
         $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testSendVideoNote(): void
@@ -194,7 +195,7 @@ class TelegramServiceTest extends TestCase
         $message = $sendVideoNoteBuilder->build();
         $actual = $this->telegramService->sendVideoNote($message);
         $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testSendVoice(): void
@@ -205,7 +206,7 @@ class TelegramServiceTest extends TestCase
         $message = $sendVoiceBuilder->build();
         $actual = $this->telegramService->sendVoice($message);
         $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testSendMediaGroup(): void
@@ -221,8 +222,8 @@ class TelegramServiceTest extends TestCase
 
         $message = $sendMediaGroupBuilder->build();
         $actual = $this->telegramService->sendMediaGroup($message);
-        $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $expected = $this->serialzier->deserialize($content, SendMediaGroupResponse::class, 'json');
+        $this->assert($expected, $actual);
     }
 
     public function testStopMessageLiveLocation(): void
@@ -235,7 +236,7 @@ class TelegramServiceTest extends TestCase
         $actual = $this->telegramService->stopMessageLiveLocation($message);
 
         $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testSendVenue(): void
@@ -246,7 +247,7 @@ class TelegramServiceTest extends TestCase
         $message = $sendVenueBuilder->build();
         $actual = $this->telegramService->sendVenue($message);
         $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testSendContact(): void
@@ -257,7 +258,7 @@ class TelegramServiceTest extends TestCase
         $message = $sendContactBuilder->build();
         $actual = $this->telegramService->sendContact($message);
         $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testSendPoll(): void
@@ -269,7 +270,7 @@ class TelegramServiceTest extends TestCase
         $message = $sendPollBuilder->build();
         $actual = $this->telegramService->sendPoll($message);
         $expected = $this->serialzier->deserialize($content, SendMessageResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testSendChatAction(): void
@@ -280,7 +281,7 @@ class TelegramServiceTest extends TestCase
         $message = $sendChatActionBuilder->build();
         $actual = $this->telegramService->sendChatAction($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testGetUserProfilePhotos(): void
@@ -291,7 +292,7 @@ class TelegramServiceTest extends TestCase
         $message = $getUserProfilePhotosBuilder->build();
         $actual = $this->telegramService->getUserProfilePhotos($message);
         $expected = $this->serialzier->deserialize($content, GetUserProfilePhotosResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testGetFile(): void
@@ -302,7 +303,7 @@ class TelegramServiceTest extends TestCase
         $message = $getFileBuilder->build();
         $actual = $this->telegramService->getFile($message);
         $expected = $this->serialzier->deserialize($content, GetFileResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testKickChatMember(): void
@@ -313,7 +314,7 @@ class TelegramServiceTest extends TestCase
         $message = $kickChatMemberBuilder->build();
         $actual = $this->telegramService->kickChatMember($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testUnbanChatMember(): void
@@ -324,7 +325,7 @@ class TelegramServiceTest extends TestCase
         $message = $unbanChatMemberBuilder->build();
         $actual = $this->telegramService->unbanChatMember($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testRestrictChatMember(): void
@@ -339,7 +340,7 @@ class TelegramServiceTest extends TestCase
         $message = $restrictChatMemberBuilder->build();
         $actual = $this->telegramService->restrictChatMember($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testPromoteChatMember(): void
@@ -352,7 +353,7 @@ class TelegramServiceTest extends TestCase
 
         $actual = $this->telegramService->promoteChatMember($promoteChatMember);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testSetChatPermissions(): void
@@ -367,7 +368,7 @@ class TelegramServiceTest extends TestCase
         $message = $setChatPermissionsBuilder->build();
         $actual = $this->telegramService->setChatPermissions($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testExportChatInviteLink(): void
@@ -378,7 +379,7 @@ class TelegramServiceTest extends TestCase
         $message = $builder->build();
         $actual = $this->telegramService->exportChatInviteLink($message);
         $expected = $this->serialzier->deserialize($content, ChatInviteLinkResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testSetChatPhoto(): void
@@ -388,7 +389,7 @@ class TelegramServiceTest extends TestCase
         $message = $builder->build();
         $actual = $this->telegramService->setChatPhoto($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testDeleteChatPhoto(): void
@@ -398,7 +399,7 @@ class TelegramServiceTest extends TestCase
         $message = $builder->build();
         $actual = $this->telegramService->deleteChatPhoto($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testSetChatTitle(): void
@@ -408,7 +409,7 @@ class TelegramServiceTest extends TestCase
         $message = $builder->build();
         $actual = $this->telegramService->setChatTitle($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testSetChatDescription(): void
@@ -419,7 +420,7 @@ class TelegramServiceTest extends TestCase
         $message = $builder->build();
         $actual = $this->telegramService->setChatDescription($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testPinChatMessage(): void
@@ -430,7 +431,7 @@ class TelegramServiceTest extends TestCase
         $message = $builder->build();
         $actual = $this->telegramService->pinChatMessage($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testUnpinChatMessage(): void
@@ -439,7 +440,7 @@ class TelegramServiceTest extends TestCase
         $message = new UnpinChatMessage('123');
         $actual = $this->telegramService->unpinChatMessage($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testLeaveChat(): void
@@ -448,7 +449,7 @@ class TelegramServiceTest extends TestCase
         $message = new LeaveChat('@qwe');
         $actual = $this->telegramService->leaveChat($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testGetChat(): void
@@ -457,7 +458,7 @@ class TelegramServiceTest extends TestCase
         $message = new GetChat('@qwe');
         $actual = $this->telegramService->getChat($message);
         $expected = $this->serialzier->deserialize($content, GetChatResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testGetChatAdministrators(): void
@@ -466,7 +467,7 @@ class TelegramServiceTest extends TestCase
         $message = new GetChatAdministrators('@qwe');
         $actual = $this->telegramService->getChatAdministrators($message);
         $expected = $this->serialzier->deserialize($content, GetChatAdministratorsResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testGetChatMembersCount(): void
@@ -475,7 +476,7 @@ class TelegramServiceTest extends TestCase
         $message = new GetChatMembersCount('@qwe');
         $actual = $this->telegramService->getChatMembersCount($message);
         $expected = $this->serialzier->deserialize($content, IntResultResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testSetChatStickerSet(): void
@@ -484,7 +485,7 @@ class TelegramServiceTest extends TestCase
         $message = new SetChatStickerSet('@qwe', 'stickers');
         $actual = $this->telegramService->setChatStickerSet($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testDeleteChatStickerSet(): void
@@ -493,7 +494,7 @@ class TelegramServiceTest extends TestCase
         $message = new DeleteChatStickerSet('@qwe');
         $actual = $this->telegramService->deleteChatStickerSet($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testAnswerCallbackQuery(): void
@@ -504,7 +505,7 @@ class TelegramServiceTest extends TestCase
         $message = $builder->build();
         $actual = $this->telegramService->answerCallbackQuery($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testSetWebhook(): void
@@ -520,7 +521,7 @@ class TelegramServiceTest extends TestCase
         $message = $builder->build();
         $actual = $this->telegramService->setWebhook($message);
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testDeleteWebhook(): void
@@ -528,7 +529,7 @@ class TelegramServiceTest extends TestCase
         $content = $this->appendToMockHandler('simple_response.json');
         $actual = $this->telegramService->deleteWebhook();
         $expected = $this->serialzier->deserialize($content, SimpleResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testGetWebhookInfo(): void
@@ -536,7 +537,7 @@ class TelegramServiceTest extends TestCase
         $content = $this->appendToMockHandler('get_webhook_info.json');
         $actual = $this->telegramService->getWebhookInfo();
         $expected = $this->serialzier->deserialize($content, GetWebhookInfoResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testGetMe(): void
@@ -544,7 +545,7 @@ class TelegramServiceTest extends TestCase
         $content = $this->appendToMockHandler('get_me.json');
         $actual = $this->telegramService->getMe();
         $expected = $this->serialzier->deserialize($content, GetMeResponse::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     public function testErrorResponse(): void
@@ -558,7 +559,7 @@ class TelegramServiceTest extends TestCase
             $actual = $exception->getResponse();
         }
         $expected = $this->serialzier->deserialize($content, Error::class, 'json');
-        $this->assertEquals($expected, $actual);
+        $this->assert($expected, $actual);
     }
 
     /**
@@ -590,5 +591,46 @@ class TelegramServiceTest extends TestCase
         }
         $this->mockHandler->append($response);
         return $content;
+    }
+
+    private function assert($expected, $actual): void
+    {
+        if (is_object($expected)) {
+            $expectedType = get_class($expected);
+            $actualType = get_class($actual);
+            $this->assertTrue($expectedType === $actualType);
+            $methods = get_class_methods($expected);
+            foreach ($methods as $method) {
+                if ($method[0] === '_') {
+                    continue;
+                }
+                $expectedResult = $expected->$method();
+                $actualResult = $expected->$method();
+                if (
+                    is_array($expectedResult)
+                    || (is_object($expectedResult) && $this->isClientObject($expectedResult))
+                ) {
+                    $this->assert($expectedResult, $actualResult);
+                } else {
+                    $this->assertEquals($expectedResult, $actualResult);
+                }
+            }
+        } elseif (is_array($expected)) {
+            foreach ($expected as $k => $value) {
+                $this->assert($value, $actual[$k]);
+            }
+        } else {
+            $this->assertEquals($expected, $actual);
+        }
+    }
+
+    private function isClientObject($object): bool
+    {
+        $type = get_class($object);
+        $path = explode('\\', $type);
+        if ($path) {
+            return $path[0] === 'SimpleTelegramBotClient';
+        }
+        return false;
     }
 }

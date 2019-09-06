@@ -3,9 +3,9 @@
 namespace SimpleTelegramBotClient\Dto\Response;
 
 use JMS\Serializer\Annotation\Type;
-use SimpleTelegramBotClient\Dto\Type\WebhookInfo;
+use SimpleTelegramBotClient\Dto\Type\Message;
 
-class GetWebhookInfoResponse
+class SendMediaGroupResponse
 {
     /**
      * @var bool
@@ -13,8 +13,8 @@ class GetWebhookInfoResponse
      */
     private $ok;
     /**
-     * @var WebhookInfo
-     * @Type("SimpleTelegramBotClient\Dto\Type\WebhookInfo")
+     * @var Message[]
+     * @Type("array<SimpleTelegramBotClient\Dto\Type\Message>")
      */
     private $result;
 
@@ -27,9 +27,9 @@ class GetWebhookInfoResponse
     }
 
     /**
-     * @return WebhookInfo
+     * @return Message[]
      */
-    public function getResult(): WebhookInfo
+    public function getResult(): array
     {
         return $this->result;
     }

@@ -43,6 +43,7 @@ use SimpleTelegramBotClient\Dto\Response\GetChatResponse;
 use SimpleTelegramBotClient\Dto\Response\GetUserProfilePhotosResponse;
 use SimpleTelegramBotClient\Dto\Response\GetWebhookInfoResponse;
 use SimpleTelegramBotClient\Dto\Response\Response;
+use SimpleTelegramBotClient\Dto\Response\SendMediaGroupResponse;
 use SimpleTelegramBotClient\Dto\Response\SimpleResponse;
 use SimpleTelegramBotClient\Exception\ClientException;
 use function GuzzleHttp\Psr7\stream_for;
@@ -83,7 +84,7 @@ use SimpleTelegramBotClient\Exception\BadMethodCallException;
  * @method SendMessageResponse stopMessageLiveLocation(StopMessageLiveLocation $stopMessageLiveLocation)
  * @method SendMessageResponse sendVenue(SendVenue $sendVenue)
  * @method SendMessageResponse sendVoice(SendVoice $sendVoice)
- * @method SendMessageResponse sendMediaGroup(SendMediaGroup $sendMediaGroup)
+ * @method SendMediaGroupResponse sendMediaGroup(SendMediaGroup $sendMediaGroup)
  * @method GetUserProfilePhotosResponse getUserProfilePhotos(GetUserProfilePhotos $getUserProfilePhotos)
  * @method GetUserProfilePhotosResponse getFile(GetFile $getFile)
  * @method SimpleResponse kickChatMember(KickChatMember $kickChatMember)
