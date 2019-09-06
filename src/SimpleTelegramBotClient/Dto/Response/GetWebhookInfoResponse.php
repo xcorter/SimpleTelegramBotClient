@@ -33,5 +33,4 @@ class GetWebhookInfoResponse
     {
         return $this->result;
     }
-
 }

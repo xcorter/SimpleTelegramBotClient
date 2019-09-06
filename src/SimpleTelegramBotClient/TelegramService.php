@@ -35,8 +35,6 @@ use SimpleTelegramBotClient\Dto\Action\SetChatTitle;
 use SimpleTelegramBotClient\Dto\Action\StopMessageLiveLocation;
 use SimpleTelegramBotClient\Dto\Action\UnbanChatMember;
 use SimpleTelegramBotClient\Dto\Action\UnpinChatMessage;
-use SimpleTelegramBotClient\Dto\Action\Webhook\DeleteWebhook;
-use SimpleTelegramBotClient\Dto\Action\Webhook\GetWebhookInfo;
 use SimpleTelegramBotClient\Dto\Action\Webhook\SetWebhook;
 use SimpleTelegramBotClient\Dto\Response\Error;
 use SimpleTelegramBotClient\Dto\Response\ChatInviteLinkResponse;
@@ -68,6 +66,7 @@ use SimpleTelegramBotClient\Exception\BadMethodCallException;
  * Class TelegramService
  * @package SimpleTelegramBotClient
  *
+ * @method GetMeResponse getMe()
  * @method SendMessageResponse sendAudio(SendAudio $sendAudio)
  * @method SendMessageResponse sendPhoto(SendPhoto $sendPhoto)
  * @method SendMessageResponse forwardMessage(ForwardMessage $forwardMessage)
@@ -102,13 +101,14 @@ use SimpleTelegramBotClient\Exception\BadMethodCallException;
  * @method SimpleResponse deleteChatStickerSet(DeleteChatStickerSet $deleteChatStickerSet)
  * @method SimpleResponse answerCallbackQuery(AnswerCallbackQuery $answerCallbackQuery)
  * @method SimpleResponse setWebhook(SetWebhook $setWebhook)
- * @method SimpleResponse deleteWebhook(DeleteWebhook $deleteWebhook)
+ * @method SimpleResponse deleteWebhook()
  * @method GetChatAdministratorsResponse getChatAdministrators(GetChatAdministrators $getChatAdministrators)
  * @method IntResultResponse getChatMembersCount(GetChatMembersCount $getChatMembersCount)
  * @method GetChatResponse getChat(GetChat $getChat)
  * @method SetChatTitle setChatTitle(SetChatTitle $setChatTitle)
  * @method ChatInviteLinkResponse exportChatInviteLink(ExportChatInviteLink $exportChatInviteLink)
- * @method GetWebhookInfoResponse getWebhookInfo(GetWebhookInfo $getWebhookInfo)
+ * @method GetWebhookInfoResponse getWebhookInfo()
+ * @method Response getUpdates()
  */
 class TelegramService
 {
@@ -146,33 +146,6 @@ class TelegramService
         $this->responseFactory = new ResponseFactory();
     }
 
-    public function getUpdates(): Response
-    {
-        $url = $this->config->getUrl() . 'getUpdates';
-        return $this->sendRequest($url, Response::class);
-    }
-
-    public function getMe(): GetMeResponse
-    {
-        $url = $this->config->getUrl() . 'getMe';
-        return $this->sendRequest($url, GetMeResponse::class);
-    }
-
-    private function sendRequest(string $url, string $type, array $params = [], string $method = 'GET')
-    {
-        $requestParams = $this->getParams();
-        if ($params) {
-            $requestParams['form_params'] = $params;
-        }
-        if ($method === 'POST') {
-            $response = $this->client->post($url, $requestParams);
-        } else {
-            $response = $this->client->get($url, $requestParams);
-        }
-        $result = $response->getBody()->getContents();
-        return $this->serializer->deserialize($result, $type, 'json');
-    }
-
     /**
      * @param string $method
      * @param array $arguments
@@ -182,18 +155,18 @@ class TelegramService
      */
     public function __call(string $method, array $arguments)
     {
-        if (!$arguments) {
-            throw new BadMethodCallException('arguments not found');
+        $action = null;
+        if ($arguments) {
+            $action = reset($arguments);
         }
-        $action = reset($arguments);
-        if (!$action instanceof ActionInterface) {
+        if ($action !== null && !$action instanceof ActionInterface) {
             throw new BadMethodCallException("action $method not found");
         }
         if (!$this->checkMethod($method, $action)) {
             throw new BadMethodCallException("action $method not found");
         }
         $url = $this->config->getUrl() . $method;
-        $params = $this->serializer->toArray($action);
+        $params = $action ? $this->serializer->toArray($action) : [];
         if (method_exists($action, 'getReplyMarkup') && $action->getReplyMarkup()) {
             $json = $this->serializer->serialize($action->getReplyMarkup(), 'json');
             $params['reply_markup'] = $json;
@@ -246,7 +219,7 @@ class TelegramService
             throw new ClientException($response, $exception->getMessage(), $exception->getCode(), $exception);
         }
 
-        $responseClass = $this->responseFactory->getResponseClass($action);
+        $responseClass = $this->responseFactory->getResponseClass($method);
         return $this->serializer->deserialize($response, $responseClass, 'json');
     }
 
@@ -272,8 +245,12 @@ class TelegramService
         return [];
     }
 
-    private function checkMethod(string $method, ActionInterface $action): bool
+    private function checkMethod(string $method, ?ActionInterface $action): bool
     {
+        if ($action === null) {
+            $nullableMethods = ['deleteWebhook', 'getWebhookInfo', 'getMe', 'getUpdates'];
+            return in_array($method, $nullableMethods, true);
+        }
         $className = get_class($action);
         $explodedClass = explode('\\', $className);
         $className = end($explodedClass);
