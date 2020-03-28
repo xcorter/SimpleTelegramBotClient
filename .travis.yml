@@ -1,1 +1,17 @@
-language: phpphp:  - '7.3'  - '7.4'install:  - composer installscript:  - vendor/bin/phpstan analyse ./src  - vendor/bin/php-cs-fixer fix ./src --dry-run  - vendor/bin/phpunit -c phpunit.xml.dist --coverage-clover=coverage.xmlafter_success:  - bash <(curl -s https://codecov.io/bash)branches:  only:    - master
+language: php
+php:
+  - '7.3'
+  - '7.4'
+install:
+  - composer install
+script:
+  - vendor/bin/phpstan analyse ./src
+  - vendor/bin/php-cs-fixer fix ./src --dry-run
+  - vendor/bin/phpunit -c phpunit.xml.dist --coverage-clover=coverage.xml
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+branches:
+  only:
+    - master
