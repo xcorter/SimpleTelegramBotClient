@@ -10,7 +10,7 @@
 
 `composer require franchuk/simple-telegram-client`
 
-Require php 7.3
+Require php >= 7.3
 
 ### Initialize
 
