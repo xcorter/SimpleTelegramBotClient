@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/xcorter/SimpleTelegramBotClient.svg?branch=master)](https://travis-ci.org/xcorter/SimpleTelegramBotClient)
 [![codecov](https://codecov.io/gh/xcorter/SimpleTelegramBotClient/branch/master/graph/badge.svg)](https://codecov.io/gh/xcorter/SimpleTelegramBotClient/)
-![Packagist Version](https://img.shields.io/packagist/v/franchuk/simple-telegram-client)
+[![Packagist Version](https://img.shields.io/packagist/v/franchuk/simple-telegram-client)](https://packagist.org/packages/franchuk/simple-telegram-client)
 
 ## Usages:
 
