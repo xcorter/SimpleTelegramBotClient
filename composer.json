@@ -7,7 +7,7 @@
             "email": "franchuk@vl.ru"
         }
     ],
-    "version": "0.1.2",
+    "version": "0.1.4",
     "require": {
         "guzzlehttp/guzzle": "~6.0",
         "jms/serializer": "^3.1",
