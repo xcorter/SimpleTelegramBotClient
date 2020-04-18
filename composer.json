@@ -1,5 +1,6 @@
 {
     "name": "franchuk/simple-telegram-client",
+    "license": "MIT",
     "authors": [
         {
             "name": "franchuk",
